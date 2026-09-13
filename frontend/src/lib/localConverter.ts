@@ -1,4 +1,5 @@
 import { PDFDocument, PageSizes } from 'pdf-lib';
+import { enhanceDocumentImage, FilterOptions, DEFAULT_FILTER_OPTIONS } from './documentFilter';
 
 export interface LayoutSettings {
   pageSize: string;
@@ -6,6 +7,9 @@ export interface LayoutSettings {
   margins: string;
   dpi: number;
   transparencyMode?: string;
+  documentScannerMode?: boolean;
+  filterOptions?: FilterOptions;
+  perImageOptions?: Record<string, FilterOptions>;
 }
 
 const PAGE_DIMENSIONS: Record<string, [number, number]> = {
@@ -56,8 +60,18 @@ export async function generateLocalPdf(
     }
 
     let bytes: Uint8Array;
+    let isEnhancedJpeg = false;
 
-    if (file.type === 'image/png' && settings.transparencyMode === 'keep_transparent') {
+    const specificOptions = settings.perImageOptions?.[file.name];
+    const shouldEnhance = Boolean(specificOptions || settings.documentScannerMode);
+
+    if (shouldEnhance) {
+      const filterOpts = specificOptions || settings.filterOptions || DEFAULT_FILTER_OPTIONS;
+      const enhancedBlob = await enhanceDocumentImage(htmlImage, filterOpts);
+      const arrayBuffer = await enhancedBlob.arrayBuffer();
+      bytes = new Uint8Array(arrayBuffer);
+      isEnhancedJpeg = true;
+    } else if (file.type === 'image/png' && settings.transparencyMode === 'keep_transparent') {
       // Direct passthrough for keeping transparency to avoid canvas pre-multiplied alpha issues
       const buffer = await file.arrayBuffer();
       bytes = new Uint8Array(buffer);
@@ -96,7 +110,7 @@ export async function generateLocalPdf(
     }
 
     let image;
-    if (file.type === 'image/jpeg') {
+    if (isEnhancedJpeg || file.type === 'image/jpeg') {
       image = await pdfDoc.embedJpg(bytes);
     } else if (file.type === 'image/png') {
       image = await pdfDoc.embedPng(bytes);
@@ -109,19 +123,25 @@ export async function generateLocalPdf(
     
     let [pageWidth, pageHeight] = PAGE_DIMENSIONS[settings.pageSize] || PageSizes.A4;
     
-    if (settings.pageSize === 'FIT_TO_IMAGE' || settings.pageSize === 'CUSTOM') {
-      // In a real app we'd fit to image, but for MVP we fallback to A4 size if FIT_TO_IMAGE
+    if (settings.pageSize === 'FIT_TO_IMAGE') {
+      pageWidth = image.width;
+      pageHeight = image.height;
+    } else if (settings.pageSize === 'CUSTOM') {
       pageWidth = PageSizes.A4[0];
       pageHeight = PageSizes.A4[1];
     }
 
-    if (settings.orientation === 'LANDSCAPE') {
-      [pageWidth, pageHeight] = [pageHeight, pageWidth]; // Swap
-    } else if (settings.orientation === 'AUTO') {
-      if (image.width > image.height) {
+    if (settings.pageSize !== 'FIT_TO_IMAGE') {
+      if (settings.orientation === 'LANDSCAPE') {
         [pageWidth, pageHeight] = [Math.max(pageWidth, pageHeight), Math.min(pageWidth, pageHeight)];
-      } else {
+      } else if (settings.orientation === 'PORTRAIT') {
         [pageWidth, pageHeight] = [Math.min(pageWidth, pageHeight), Math.max(pageWidth, pageHeight)];
+      } else if (settings.orientation === 'AUTO') {
+        if (image.width > image.height) {
+          [pageWidth, pageHeight] = [Math.max(pageWidth, pageHeight), Math.min(pageWidth, pageHeight)];
+        } else {
+          [pageWidth, pageHeight] = [Math.min(pageWidth, pageHeight), Math.max(pageWidth, pageHeight)];
+        }
       }
     }
 

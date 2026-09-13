@@ -33,7 +33,7 @@ services:
       retries: 5
 
   minio:
-    image: minio/minio
+    image: quay.io/minio/minio:latest
     container_name: jpg2pdf-minio
     restart: unless-stopped
     environment:
@@ -52,7 +52,7 @@ services:
       retries: 5
 
   minio-init:
-    image: minio/mc
+    image: quay.io/minio/mc:latest
     container_name: jpg2pdf-minio-init
     depends_on:
       minio:
