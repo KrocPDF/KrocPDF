@@ -1,4 +1,4 @@
-# Environments
+﻿# Environments
 .env
 .env.local
 .env.development.local
@@ -60,4 +60,7 @@ logs/
 scratch/
 
 
-.planning/
+.planning/*.tmp
+
+
+*.tmp
