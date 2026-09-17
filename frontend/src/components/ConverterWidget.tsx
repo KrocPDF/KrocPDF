@@ -7,6 +7,7 @@ import { uploadFileToS3 } from '@/lib/uploader';
 import {
   generateLocalPdf,
   mergePdfsLocally,
+  compressPdfLocally,
   convertPdfToJpgLocally,
   LayoutSettings,
 } from '@/lib/localConverter';
@@ -255,6 +256,8 @@ export function ConverterWidget({ tool = 'unified' }: { tool?: string }) {
           let url;
           if (tool === 'pdf-to-jpg') {
             url = await convertPdfToJpgLocally(images[0].file, settings, (percent) => setProgress(percent));
+          } else if (tool === 'compress-pdf') {
+            url = await compressPdfLocally(images[0].file, (percent) => setProgress(percent));
           } else {
             const hasPdf = images.some(
               (img) => img.file.type === 'application/pdf',
@@ -390,12 +393,12 @@ export function ConverterWidget({ tool = 'unified' }: { tool?: string }) {
               {downloadUrl && (
                 <a
                   href={downloadUrl}
-                  download="converted.pdf"
+                  download={tool === 'pdf-to-jpg' ? 'converted-images.zip' : 'converted.pdf'}
                   target="_blank"
                   rel="noreferrer"
                   className="inline-flex items-center px-6 py-3 bg-green-600 text-white font-medium rounded-lg hover:bg-green-500 transition shadow-lg shadow-green-900/20"
                 >
-                  Download PDF
+                  {tool === 'pdf-to-jpg' ? 'Download Images (ZIP)' : 'Download PDF'}
                 </a>
               )}
               <button
@@ -405,7 +408,13 @@ export function ConverterWidget({ tool = 'unified' }: { tool?: string }) {
                 }}
                 className="px-6 py-3 bg-neutral-800 hover:bg-neutral-700 rounded-lg text-white font-medium transition"
               >
-                Convert Another
+                {tool === 'merge-pdf'
+                  ? 'Merge More'
+                  : tool === 'compress-pdf'
+                    ? 'Compress Another'
+                    : tool === 'pdf-to-jpg'
+                      ? 'Convert Another PDF'
+                      : 'Convert Another'}
               </button>
             </div>
           )}
@@ -445,10 +454,14 @@ export function ConverterWidget({ tool = 'unified' }: { tool?: string }) {
             <h3 className="text-xl font-medium mb-2 text-slate-100">
               {tool === 'merge-pdf'
                 ? 'Drag & Drop PDFs here'
-                : 'Drag & Drop images here'}
+                : tool === 'compress-pdf'
+                  ? 'Drag & Drop PDF here'
+                  : tool === 'pdf-to-jpg'
+                    ? 'Drag & Drop PDF here'
+                    : 'Drag & Drop images here'}
             </h3>
             <p className="text-slate-400 mb-6">
-              {tool === 'merge-pdf'
+              {tool === 'merge-pdf' || tool === 'compress-pdf' || tool === 'pdf-to-jpg'
                 ? 'Supports .PDF files'
                 : 'Supports .JPG, .JPEG, .PNG up to 50 Megapixels'}
             </p>
@@ -457,9 +470,9 @@ export function ConverterWidget({ tool = 'unified' }: { tool?: string }) {
               Browse Files
               <input
                 type="file"
-                multiple
+                multiple={tool !== 'compress-pdf' && tool !== 'pdf-to-jpg'}
                 accept={
-                  tool === 'merge-pdf'
+                  tool === 'merge-pdf' || tool === 'compress-pdf' || tool === 'pdf-to-jpg'
                     ? 'application/pdf'
                     : tool === 'unified'
                       ? 'image/jpeg, image/png, application/pdf'
@@ -589,9 +602,6 @@ export function ConverterWidget({ tool = 'unified' }: { tool?: string }) {
                         <option value="MAXIMUM">Maximum (Smallest File, Lowest Quality)</option>
                       </select>
                     </label>
-                    <p className="text-xs text-amber-500 mt-2 bg-amber-950/30 p-2 rounded border border-amber-900/50">
-                      <strong>Note:</strong> PDF compression requires our high-throughput cloud engines to analyze and downsample assets accurately.
-                    </p>
                   </div>
                 ) : tool === 'pdf-to-jpg' ? (
                   <div className="space-y-4">
@@ -813,7 +823,13 @@ export function ConverterWidget({ tool = 'unified' }: { tool?: string }) {
               disabled={images.length === 0}
               className="w-full mt-8 py-3 bg-gradient-to-r from-emerald-600 to-teal-600 disabled:from-slate-800 disabled:to-slate-800 disabled:text-slate-600 hover:from-emerald-500 hover:to-teal-500 text-white font-semibold rounded-lg transition-all shadow-lg shadow-emerald-950/40"
             >
-              Convert to PDF
+              {tool === 'merge-pdf'
+                ? 'Merge PDFs'
+                : tool === 'compress-pdf'
+                  ? 'Compress PDF'
+                  : tool === 'pdf-to-jpg'
+                    ? 'Convert PDF to JPG'
+                    : 'Convert to PDF'}
             </button>
           </div>
         </div>
