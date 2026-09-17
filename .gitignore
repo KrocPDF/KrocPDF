@@ -1,4 +1,4 @@
-﻿# Environments
+# Environments
 .env
 .env.local
 .env.development.local
@@ -55,12 +55,9 @@ data/
 logs/
 *.log
 
-# GSD Artifacts / Temporary Data
+# GSD Artifacts / Planning / Temporary Data
 .gemini/
 scratch/
-
-
-.planning/*.tmp
-
-
+.planning/
 *.tmp
+
