@@ -11,6 +11,8 @@ export function generateStaticParams() {
     { tool: 'png-to-pdf' },
     { tool: 'jpeg-to-pdf' },
     { tool: 'merge-pdf' },
+    { tool: 'compress-pdf' },
+    { tool: 'pdf-to-jpg' },
   ];
 }
 
@@ -40,7 +42,7 @@ export default async function ToolPage({
   const { tool } = await params;
 
   // Only allow valid routes
-  const validTools = ['jpg-to-pdf', 'png-to-pdf', 'jpeg-to-pdf', 'merge-pdf'];
+  const validTools = ['jpg-to-pdf', 'png-to-pdf', 'jpeg-to-pdf', 'merge-pdf', 'compress-pdf', 'pdf-to-jpg'];
   if (!validTools.includes(tool)) {
     notFound();
   }
