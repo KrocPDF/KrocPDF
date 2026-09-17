@@ -215,6 +215,27 @@ export async function mergePdfsLocally(
   return URL.createObjectURL(blob);
 }
 
+export async function compressPdfLocally(
+  file: File,
+  level: string = 'MEDIUM',
+  onProgress: (percent: number) => void
+): Promise<{ url: string; sizeBytes: number }> {
+  onProgress(20);
+  const arrayBuffer = await file.arrayBuffer();
+  const pdfDoc = await PDFDocument.load(arrayBuffer, { ignoreEncryption: true });
+  onProgress(60);
+  const useObjectStreams = level !== 'LOW';
+  const pdfBytes = await pdfDoc.save({ useObjectStreams });
+  onProgress(100);
+
+  const blob = new Blob([pdfBytes as unknown as BlobPart], { type: 'application/pdf' });
+  return {
+    url: URL.createObjectURL(blob),
+    sizeBytes: blob.size,
+  };
+}
+
+
 export async function convertPdfToJpgLocally(
   file: File,
   settings: LayoutSettings & { imageQuality?: number },

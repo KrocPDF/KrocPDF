@@ -7,6 +7,7 @@ import { uploadFileToS3 } from '@/lib/uploader';
 import {
   generateLocalPdf,
   mergePdfsLocally,
+  compressPdfLocally,
   convertPdfToJpgLocally,
   LayoutSettings,
 } from '@/lib/localConverter';
@@ -33,8 +34,17 @@ interface ImageFile extends PreviewImageItem {
   isEnhanced?: boolean;
 }
 
+function formatBytes(bytes: number): string {
+  if (!bytes || bytes === 0) return '0 B';
+  const k = 1024;
+  const sizes = ['B', 'KB', 'MB', 'GB'];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  return `${parseFloat((bytes / Math.pow(k, i)).toFixed(1))} ${sizes[i]}`;
+}
+
 export function ConverterWidget({ tool = 'unified' }: { tool?: string }) {
   const [images, setImages] = useState<ImageFile[]>([]);
+  const [compressedSizeBytes, setCompressedSizeBytes] = useState<number | null>(null);
   const [settings, setSettings] = useState<LayoutSettings & { engine: string; compressionLevel?: string; imageQuality?: number }>({
     pageSize: 'A4',
     orientation: 'PORTRAIT',
@@ -255,6 +265,10 @@ export function ConverterWidget({ tool = 'unified' }: { tool?: string }) {
           let url;
           if (tool === 'pdf-to-jpg') {
             url = await convertPdfToJpgLocally(images[0].file, settings, (percent) => setProgress(percent));
+          } else if (tool === 'compress-pdf') {
+            const res = await compressPdfLocally(images[0].file, settings.compressionLevel, (percent) => setProgress(percent));
+            url = res.url;
+            setCompressedSizeBytes(res.sizeBytes);
           } else {
             const hasPdf = images.some(
               (img) => img.file.type === 'application/pdf',
@@ -386,27 +400,66 @@ export function ConverterWidget({ tool = 'unified' }: { tool?: string }) {
           )}
 
           {status === 'READY' && (
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-2">
-              {downloadUrl && (
-                <a
-                  href={downloadUrl}
-                  download="converted.pdf"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center px-6 py-3 bg-green-600 text-white font-medium rounded-lg hover:bg-green-500 transition shadow-lg shadow-green-900/20"
-                >
-                  Download PDF
-                </a>
+            <div className="space-y-4 mt-2">
+              {tool === 'compress-pdf' && images.length > 0 && (
+                <div className="p-4 rounded-xl bg-slate-900/80 border border-emerald-500/30 max-w-md mx-auto flex items-center justify-around gap-4 text-center">
+                  <div>
+                    <div className="text-[11px] text-slate-400 font-medium uppercase tracking-wider">Original</div>
+                    <div className="text-base font-bold text-slate-300">
+                      {formatBytes(images.reduce((sum, img) => sum + img.file.size, 0))}
+                    </div>
+                  </div>
+                  <div className="text-emerald-400 text-lg font-extrabold">→</div>
+                  <div>
+                    <div className="text-[11px] text-slate-400 font-medium uppercase tracking-wider">Compressed</div>
+                    <div className="text-base font-bold text-emerald-400">
+                      {compressedSizeBytes ? formatBytes(compressedSizeBytes) : 'Optimized'}
+                    </div>
+                  </div>
+                  {compressedSizeBytes && images.reduce((sum, img) => sum + img.file.size, 0) > compressedSizeBytes && (
+                    <div className="px-2.5 py-1 rounded-lg bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 font-extrabold text-xs flex items-center gap-1">
+                      <span>🎉</span>
+                      <span>
+                        -{Math.round(
+                          ((images.reduce((sum, img) => sum + img.file.size, 0) - compressedSizeBytes) /
+                            images.reduce((sum, img) => sum + img.file.size, 0)) *
+                            100,
+                        )}%
+                      </span>
+                    </div>
+                  )}
+                </div>
               )}
-              <button
-                onClick={() => {
-                  setImages([]);
-                  setStatus('IDLE');
-                }}
-                className="px-6 py-3 bg-neutral-800 hover:bg-neutral-700 rounded-lg text-white font-medium transition"
-              >
-                Convert Another
-              </button>
+
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                {downloadUrl && (
+                  <a
+                    href={downloadUrl}
+                    download={tool === 'pdf-to-jpg' ? 'converted-images.zip' : 'converted.pdf'}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center px-6 py-3 bg-green-600 text-white font-medium rounded-lg hover:bg-green-500 transition shadow-lg shadow-green-900/20"
+                  >
+                    {tool === 'pdf-to-jpg' ? 'Download Images (ZIP)' : 'Download PDF'}
+                  </a>
+                )}
+                <button
+                  onClick={() => {
+                    setImages([]);
+                    setCompressedSizeBytes(null);
+                    setStatus('IDLE');
+                  }}
+                  className="px-6 py-3 bg-neutral-800 hover:bg-neutral-700 rounded-lg text-white font-medium transition"
+                >
+                  {tool === 'merge-pdf'
+                    ? 'Merge More'
+                    : tool === 'compress-pdf'
+                      ? 'Compress Another'
+                      : tool === 'pdf-to-jpg'
+                        ? 'Convert Another PDF'
+                        : 'Convert Another'}
+                </button>
+              </div>
             </div>
           )}
 
@@ -445,10 +498,14 @@ export function ConverterWidget({ tool = 'unified' }: { tool?: string }) {
             <h3 className="text-xl font-medium mb-2 text-slate-100">
               {tool === 'merge-pdf'
                 ? 'Drag & Drop PDFs here'
-                : 'Drag & Drop images here'}
+                : tool === 'compress-pdf'
+                  ? 'Drag & Drop PDF here'
+                  : tool === 'pdf-to-jpg'
+                    ? 'Drag & Drop PDF here'
+                    : 'Drag & Drop images here'}
             </h3>
             <p className="text-slate-400 mb-6">
-              {tool === 'merge-pdf'
+              {tool === 'merge-pdf' || tool === 'compress-pdf' || tool === 'pdf-to-jpg'
                 ? 'Supports .PDF files'
                 : 'Supports .JPG, .JPEG, .PNG up to 50 Megapixels'}
             </p>
@@ -457,9 +514,9 @@ export function ConverterWidget({ tool = 'unified' }: { tool?: string }) {
               Browse Files
               <input
                 type="file"
-                multiple
+                multiple={tool !== 'compress-pdf' && tool !== 'pdf-to-jpg'}
                 accept={
-                  tool === 'merge-pdf'
+                  tool === 'merge-pdf' || tool === 'compress-pdf' || tool === 'pdf-to-jpg'
                     ? 'application/pdf'
                     : tool === 'unified'
                       ? 'image/jpeg, image/png, application/pdf'
@@ -575,23 +632,74 @@ export function ConverterWidget({ tool = 'unified' }: { tool?: string }) {
                 </div>
 
                 {tool === 'compress-pdf' ? (
-                  <div className="space-y-4">
-                    <label className="block text-sm text-slate-400">
-                      Compression Level
-                      <select
-                        value={settings.compressionLevel}
-                        onChange={(e) => setSettings({ ...settings, compressionLevel: e.target.value })}
-                        className="mt-1 block w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 outline-none transition"
-                      >
-                        <option value="LOW">Low (Larger File, Highest Quality)</option>
-                        <option value="MEDIUM">Medium (Recommended)</option>
-                        <option value="HIGH">High (Smaller File, Lower Quality)</option>
-                        <option value="MAXIMUM">Maximum (Smallest File, Lowest Quality)</option>
-                      </select>
+                  <div className="space-y-2">
+                    <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
+                      Compression Preset
                     </label>
-                    <p className="text-xs text-amber-500 mt-2 bg-amber-950/30 p-2 rounded border border-amber-900/50">
-                      <strong>Note:</strong> PDF compression requires our high-throughput cloud engines to analyze and downsample assets accurately.
-                    </p>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                      {[
+                        {
+                          id: 'LOW',
+                          label: 'Low',
+                          badge: 'Max Quality',
+                          desc: 'Light pass, preserves maximum fidelity',
+                        },
+                        {
+                          id: 'MEDIUM',
+                          label: 'Medium',
+                          badge: 'Recommended',
+                          desc: 'Balanced file size & crisp visual quality',
+                        },
+                        {
+                          id: 'HIGH',
+                          label: 'High',
+                          badge: 'Small File',
+                          desc: 'Strong optimization for sharing & emails',
+                        },
+                        {
+                          id: 'MAXIMUM',
+                          label: 'Maximum',
+                          badge: 'Smallest',
+                          desc: 'Extreme compression for strict size limits',
+                        },
+                      ].map((preset) => {
+                        const isSelected = (settings.compressionLevel || 'MEDIUM') === preset.id;
+                        return (
+                          <button
+                            key={preset.id}
+                            type="button"
+                            onClick={() =>
+                              setSettings({ ...settings, compressionLevel: preset.id })
+                            }
+                            className={clsx(
+                              'p-3 rounded-xl border text-left transition-all relative flex flex-col justify-between cursor-pointer',
+                              isSelected
+                                ? 'bg-emerald-500/10 border-emerald-500 text-emerald-300 shadow-md shadow-emerald-950/50'
+                                : 'bg-slate-950/60 border-slate-800 hover:border-slate-700 text-slate-400 hover:text-slate-200'
+                            )}
+                          >
+                            <div className="flex items-center justify-between mb-1">
+                              <span className="font-semibold text-xs text-slate-100">
+                                {preset.label}
+                              </span>
+                              <span
+                                className={clsx(
+                                  'text-[9px] uppercase font-bold px-1.5 py-0.5 rounded border',
+                                  isSelected
+                                    ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40'
+                                    : 'bg-slate-800 text-slate-400 border-slate-700'
+                                )}
+                              >
+                                {preset.badge}
+                              </span>
+                            </div>
+                            <p className="text-[10px] leading-tight text-slate-400">
+                              {preset.desc}
+                            </p>
+                          </button>
+                        );
+                      })}
+                    </div>
                   </div>
                 ) : tool === 'pdf-to-jpg' ? (
                   <div className="space-y-4">
@@ -813,7 +921,13 @@ export function ConverterWidget({ tool = 'unified' }: { tool?: string }) {
               disabled={images.length === 0}
               className="w-full mt-8 py-3 bg-gradient-to-r from-emerald-600 to-teal-600 disabled:from-slate-800 disabled:to-slate-800 disabled:text-slate-600 hover:from-emerald-500 hover:to-teal-500 text-white font-semibold rounded-lg transition-all shadow-lg shadow-emerald-950/40"
             >
-              Convert to PDF
+              {tool === 'merge-pdf'
+                ? 'Merge PDFs'
+                : tool === 'compress-pdf'
+                  ? 'Compress PDF'
+                  : tool === 'pdf-to-jpg'
+                    ? 'Convert PDF to JPG'
+                    : 'Convert to PDF'}
             </button>
           </div>
         </div>

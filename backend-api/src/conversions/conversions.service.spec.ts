@@ -128,4 +128,29 @@ describe('ConversionsService', () => {
       })
     ).rejects.toThrow('File extension .jpg does not match declared MIME type image/png');
   });
+
+  it('should package compression_level into Redis payload for COMPRESS_PDF jobs', async () => {
+    prismaService.conversionJob.findUnique = vi.fn().mockResolvedValue({
+      id: 'job-compress-1',
+      status: 'CREATED',
+      jobType: 'COMPRESS_PDF',
+      compressionLevel: 'HIGH',
+      files: [{ sequenceOrder: 0, inputS3Key: 'raw/job-compress-1/0.pdf' }],
+    });
+
+    moduleRef.get(StorageService).verifyObjectExists = vi.fn().mockResolvedValue(true);
+
+    const result = await service.startJob('job-compress-1');
+    expect(result.jobId).toEqual('job-compress-1');
+
+    expect(redisService.publishTaskToStream).toHaveBeenCalledWith(
+      'conversions:jobs',
+      expect.objectContaining({
+        job_id: 'job-compress-1',
+        job_type: 'COMPRESS_PDF',
+        compression_level: 'HIGH',
+        target_s3_key: 'converted/job-compress-1/output.pdf',
+      })
+    );
+  });
 });

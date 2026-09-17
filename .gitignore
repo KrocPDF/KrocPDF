@@ -55,9 +55,9 @@ data/
 logs/
 *.log
 
-# GSD Artifacts / Temporary Data
+# GSD Artifacts / Planning / Temporary Data
 .gemini/
 scratch/
-
-
 .planning/
+*.tmp
+

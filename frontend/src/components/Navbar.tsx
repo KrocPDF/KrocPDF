@@ -55,10 +55,10 @@ export function Navbar() {
                 href={`/${tool.slug}`}
                 aria-current={pathname === `/${tool.slug}` ? 'page' : undefined}
                 className={clsx(
-                  "px-3 py-1.5 text-sm font-medium rounded-lg transition-all",
+                  "px-3 py-1.5 text-sm font-medium rounded-lg border transition-colors duration-150",
                   pathname === `/${tool.slug}`
-                    ? "bg-emerald-500/10 text-emerald-300 border border-emerald-500/25"
-                    : "text-slate-300 hover:text-white hover:bg-white/[0.04]"
+                    ? "bg-emerald-500/10 text-emerald-300 border-emerald-500/25"
+                    : "text-slate-300 hover:text-white hover:bg-white/[0.04] border-transparent"
                 )}
               >
                 {tool.name}
@@ -131,20 +131,20 @@ export function Navbar() {
             Active Tools
           </div>
           {activeTools.map((tool) => (
-            <Link
-              key={tool.slug}
-              href={`/${tool.slug}`}
-              role="menuitem"
-              onClick={() => setMobileOpen(false)}
-              className={clsx(
-                "block px-4 py-2.5 rounded-lg text-sm font-medium transition-colors",
-                pathname === `/${tool.slug}`
-                  ? "bg-emerald-500/10 text-emerald-300 border border-emerald-500/20"
-                  : "text-slate-300 hover:text-white hover:bg-white/5"
-              )}
-            >
-              {tool.name}
-            </Link>
+              <Link
+                key={tool.slug}
+                href={`/${tool.slug}`}
+                role="menuitem"
+                onClick={() => setMobileOpen(false)}
+                className={clsx(
+                  "block px-4 py-2.5 rounded-lg text-sm font-medium border transition-colors duration-150",
+                  pathname === `/${tool.slug}`
+                    ? "bg-emerald-500/10 text-emerald-300 border-emerald-500/20"
+                    : "text-slate-300 hover:text-white hover:bg-white/5 border-transparent"
+                )}
+              >
+                {tool.name}
+              </Link>
           ))}
 
           <div className="text-xs font-semibold uppercase tracking-wider text-slate-500 px-3 pt-3 pb-1">

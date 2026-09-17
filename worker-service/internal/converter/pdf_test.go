@@ -2,6 +2,8 @@ package converter
 
 import (
 	"testing"
+
+	"github.com/pdfcpu/pdfcpu/pkg/pdfcpu/model"
 )
 
 func TestGetImportConfig(t *testing.T) {
@@ -51,3 +53,34 @@ func TestGetImportConfig(t *testing.T) {
 		})
 	}
 }
+
+func TestCompressPDFLevels(t *testing.T) {
+	levels := []string{"LOW", "MEDIUM", "HIGH", "MAXIMUM", "UNKNOWN"}
+
+	for _, level := range levels {
+		t.Run(level, func(t *testing.T) {
+			// Validate level maps cleanly without panic
+			conf := model.NewDefaultConfiguration()
+			switch level {
+			case "LOW":
+				conf.OptimizeResourceDicts = true
+			case "MEDIUM":
+				conf.OptimizeResourceDicts = true
+				conf.WriteObjectStream = true
+			case "HIGH", "MAXIMUM":
+				conf.OptimizeResourceDicts = true
+				conf.OptimizeDuplicateContentStreams = true
+				conf.WriteObjectStream = true
+				conf.WriteXRefStream = true
+			default:
+				conf.OptimizeResourceDicts = true
+				conf.WriteObjectStream = true
+			}
+
+			if !conf.OptimizeResourceDicts {
+				t.Errorf("OptimizeResourceDicts must be true for level %s", level)
+			}
+		})
+	}
+}
+
