@@ -52,18 +52,27 @@ func MergePDFs(ctx context.Context, pdfPaths []string, outPath string) error {
 // CompressPDF optimizes a PDF file based on the requested level
 func CompressPDF(ctx context.Context, inPath string, outPath string, level string) error {
 	conf := model.NewDefaultConfiguration()
-	
+
 	// Map UI levels to pdfcpu configuration heuristics
-	// LOW / MEDIUM: standard
-	// HIGH / MAXIMUM: aggressive stream optimization
 	switch level {
-	case "LOW", "MEDIUM":
+	case "LOW":
 		conf.OptimizeResourceDicts = true
-	case "HIGH", "MAXIMUM":
+	case "MEDIUM":
+		conf.OptimizeResourceDicts = true
+		conf.WriteObjectStream = true
+	case "HIGH":
 		conf.OptimizeResourceDicts = true
 		conf.OptimizeDuplicateContentStreams = true
+		conf.WriteObjectStream = true
+		conf.WriteXRefStream = true
+	case "MAXIMUM":
+		conf.OptimizeResourceDicts = true
+		conf.OptimizeDuplicateContentStreams = true
+		conf.WriteObjectStream = true
+		conf.WriteXRefStream = true
 	default:
 		conf.OptimizeResourceDicts = true
+		conf.WriteObjectStream = true
 	}
 
 	return api.OptimizeFile(inPath, outPath, conf)
