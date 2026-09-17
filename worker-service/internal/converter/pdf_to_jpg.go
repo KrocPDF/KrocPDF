@@ -4,11 +4,13 @@ import (
 	"archive/zip"
 	"context"
 	"fmt"
-	"io/ioutil"
 	"os"
+	"path/filepath"
+	"strconv"
 
 	"github.com/h2non/bimg"
 	"github.com/pdfcpu/pdfcpu/pkg/api"
+	"github.com/pdfcpu/pdfcpu/pkg/pdfcpu/model"
 )
 
 // PdfToJpg extracts each page of a PDF as a JPG and streams it into a local ZIP file.
@@ -32,17 +34,7 @@ func PdfToJpg(ctx context.Context, inPath string, outZipPath string, quality int
 	
 	zipWriter := zip.NewWriter(zipFile)
 
-	// Read the PDF into memory once. 
-	// A 100MB PDF takes 100MB of RAM, which is completely fine and safe from OOM.
-	// OOM happens when *rasterized* images are stored.
-	pdfBytes, err := ioutil.ReadFile(inPath)
-	if err != nil {
-		zipWriter.Close()
-		zipFile.Close()
-		return fmt.Errorf("failed to read PDF file: %w", err)
-	}
-
-	for i := 0; i < pageCount; i++ {
+	for i := 1; i <= pageCount; i++ {
 		// Check context cancellation
 		select {
 		case <-ctx.Done():
@@ -54,32 +46,68 @@ func PdfToJpg(ctx context.Context, inPath string, outZipPath string, quality int
 
 		// Report progress
 		if progressCb != nil {
-			pct := 10 + int((float64(i) / float64(pageCount)) * 70) // 10% to 80%
-			progressCb(pct, fmt.Sprintf("Extracting page %d of %d", i+1, pageCount))
+			pct := 10 + int((float64(i-1)/float64(pageCount))*70) // 10% to 80%
+			progressCb(pct, fmt.Sprintf("Extracting page %d of %d", i, pageCount))
 		}
 
-		// Configure libvips to extract the specific page
-		options := bimg.Options{
-			Type:	bimg.JPEG,
+		pageDir, err := os.MkdirTemp("", "pdf-page-*")
+		if err != nil {
+			return fmt.Errorf("failed to create page directory: %w", err)
+		}
+
+		defer os.RemoveAll(pageDir)
+
+		conf := model.NewDefaultConfiguration()
+		if err := api.ExtractPagesFile(
+			inPath,
+			pageDir,
+			[]string{strconv.Itoa(i)},
+			conf,
+		); err != nil {
+			return fmt.Errorf("failed to extract page %d: %w", i, err)
+		}
+
+		// pdfcpu ExtractPagesFile outputs files as <inPathBase>_<pageNum>.pdf
+		// We need to figure out the exact generated name.
+		// Since we output to an empty temp dir, we can just grab the first .pdf file
+		entries, err := os.ReadDir(pageDir)
+		if err != nil {
+			return fmt.Errorf("failed to read page directory: %w", err)
+		}
+		var extractedPdf string
+		for _, entry := range entries {
+			if !entry.IsDir() && filepath.Ext(entry.Name()) == ".pdf" {
+				extractedPdf = filepath.Join(pageDir, entry.Name())
+				break
+			}
+		}
+		
+		if extractedPdf == "" {
+			return fmt.Errorf("pdfcpu did not generate a pdf file in %s", pageDir)
+		}
+		
+		// Wait! Actually, let's use the explicit Rename or just read extractedPdf
+		pageBytes, err := os.ReadFile(extractedPdf)
+		if err != nil {
+			return fmt.Errorf("failed to read extracted page %d: %w", i, err)
+		}
+
+		imgBuffer, err := bimg.NewImage(pageBytes).Process(bimg.Options{
+			Type:    bimg.JPEG,
 			Quality: quality,
-			Page:	i,
-		}
-
-		// Process the page
-		// bimg will call vips_pdfload to render only the requested page
-		imgBuffer, err := bimg.NewImage(pdfBytes).Process(options)
+		})
 		if err != nil {
 			zipWriter.Close()
 			zipFile.Close()
-			return fmt.Errorf("failed to extract page %d: %w", i+1, err)
+			return fmt.Errorf("failed to extract page %d: %w", i, err)
 		}
 
 		// Create a new file within the zip
-		f, err := zipWriter.Create(fmt.Sprintf("page_%d.jpg", i+1))
+		f, err := zipWriter.Create(fmt.Sprintf("page_%d.jpg", i))
 		if err != nil {
 			zipWriter.Close()
 			zipFile.Close()
-			return fmt.Errorf("failed to add page %d to zip: %w", i+1, err)
+			return fmt.Errorf("failed to add page %d to zip: %w", i, err)
 		}
 
 		// Stream the JPEG buffer directly into the zip.Writer
@@ -87,7 +115,7 @@ func PdfToJpg(ctx context.Context, inPath string, outZipPath string, quality int
 		if err != nil {
 			zipWriter.Close()
 			zipFile.Close()
-			return fmt.Errorf("failed to write page %d to zip: %w", i+1, err)
+			return fmt.Errorf("failed to write page %d to zip: %w", i, err)
 		}
 		
 		// Let GC quickly reclaim the image buffer

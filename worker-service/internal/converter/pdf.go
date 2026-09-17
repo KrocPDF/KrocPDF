@@ -59,12 +59,9 @@ func CompressPDF(ctx context.Context, inPath string, outPath string, level strin
 	switch level {
 	case "LOW", "MEDIUM":
 		conf.OptimizeResourceDicts = true
-		conf.OptimizeInlineImages = true
 	case "HIGH", "MAXIMUM":
 		conf.OptimizeResourceDicts = true
-		conf.OptimizeInlineImages = true
 		conf.OptimizeDuplicateContentStreams = true
-		conf.CreatePrintFile = true // strips non-essential elements like metadata
 	default:
 		conf.OptimizeResourceDicts = true
 	}
