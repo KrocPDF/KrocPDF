@@ -3,7 +3,7 @@ import { PrismaService } from '../prisma/prisma.service';
 import { StorageService } from '../storage/storage.service';
 import { RedisService } from '../redis/redis.service';
 import { InitiateConversionDto } from './conversions.dto';
-import { JobStatus, PageSize, PageOrientation, JobType } from '@prisma/client';
+import { JobStatus, PageSize, PageOrientation, JobType, CompressionLevel } from '@prisma/client';
 import { mergeMap } from 'rxjs/operators';
 
 @Injectable()
@@ -28,6 +28,7 @@ export class ConversionsService {
         margins: dto.settings?.margins || 'NONE',
         dpi: dto.settings?.dpi || 150,
         transparencyMode: (dto.settings?.transparencyMode as any) || 'FLATTEN_WHITE',
+        compressionLevel: dto.settings?.compressionLevel || CompressionLevel.MEDIUM,
         expiresAt,
       },
     });
@@ -108,6 +109,7 @@ export class ConversionsService {
       orientation: job.orientation,
       margins: job.margins,
       transparency_mode: (job as any).transparencyMode,
+      compression_level: (job as any).compressionLevel || 'MEDIUM',
       target_s3_key: targetS3Key,
       files: job.files.map((f: any) => ({
         order: f.sequenceOrder,

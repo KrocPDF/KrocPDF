@@ -29,6 +29,9 @@ export function ValidateFilesMimeType(validationOptions?: ValidationOptions) {
           if (!files || !Array.isArray(files)) return false;
           
           const jobType = dto.jobType || JobType.IMAGE_TO_PDF;
+          if ((jobType === JobType.COMPRESS_PDF || jobType === JobType.PDF_TO_JPG) && files.length !== 1) {
+            return false;
+          }
           for (const file of files) {
             if (jobType === JobType.IMAGE_TO_PDF) {
               if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.mimeType)) return false;
@@ -40,6 +43,10 @@ export function ValidateFilesMimeType(validationOptions?: ValidationOptions) {
         },
         defaultMessage(args: ValidationArguments) {
           const dto = args.object as InitiateConversionDto;
+          const files = (args.value as FileDto[]) || [];
+          if ((dto.jobType === JobType.COMPRESS_PDF || dto.jobType === JobType.PDF_TO_JPG) && files.length !== 1) {
+            return `${dto.jobType} requires exactly 1 PDF file`;
+          }
           if (dto.jobType === JobType.MERGE_PDF || dto.jobType === JobType.COMPRESS_PDF || dto.jobType === JobType.PDF_TO_JPG) {
             return 'All files must be application/pdf for this job type';
           }
