@@ -5,6 +5,7 @@
   "type": "module",
   "description": "KrocPDF - Dual-Engine Enterprise Document Conversion Platform",
   "scripts": {
+    "labeler": "node scripts/labeler.mjs",
     "release:notes": "node scripts/generate-release-notes.mjs --preview",
     "release:notes:first": "node scripts/generate-release-notes.mjs --first --preview",
     "release:changelog": "node scripts/generate-release-notes.mjs --write-changelog",
