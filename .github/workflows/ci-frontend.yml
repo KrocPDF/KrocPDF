@@ -2,10 +2,14 @@ name: CI - Frontend Client
 
 on:
   push:
+    branches:
+      - main
     paths:
       - 'frontend/**'
       - '.github/workflows/ci-frontend.yml'
   pull_request:
+    branches:
+      - main
     paths:
       - 'frontend/**'
       - '.github/workflows/ci-frontend.yml'
@@ -15,8 +19,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build:
-    name: Next.js Build & Lint
+  test-and-build:
+    name: Frontend Lint, Test & Build
     runs-on: ubuntu-latest
 
     defaults:
@@ -34,17 +38,26 @@ jobs:
           cache: 'npm'
           cache-dependency-path: frontend/package-lock.json
 
-      - name: Install dependencies
-        run: npm install
+      - name: Install dependencies (clean)
+        run: npm ci
 
-      - name: Security Audit (Warning)
-        run: npm audit || true
+      - name: Restore Next.js build cache
+        uses: actions/cache@v4
+        with:
+          path: frontend/.next/cache
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('frontend/package-lock.json') }}-${{ hashFiles('frontend/src/**') }}
+          restore-keys: |
+            ${{ runner.os }}-nextjs-${{ hashFiles('frontend/package-lock.json') }}-
+            ${{ runner.os }}-nextjs-
 
       - name: Run Type Check
         run: npx tsc --noEmit
 
-      - name: Run Lint
-        run: npm run lint --if-present
+      - name: Run ESLint
+        run: npm run lint
 
-      - name: Build Next.js
-        run: npm run build --if-present
+      - name: Run Unit Tests
+        run: npm test
+
+      - name: Build Next.js Production Bundle
+        run: npm run build

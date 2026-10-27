@@ -2,10 +2,14 @@ name: CI - Backend API
 
 on:
   push:
+    branches:
+      - main
     paths:
       - 'backend-api/**'
       - '.github/workflows/ci-backend.yml'
   pull_request:
+    branches:
+      - main
     paths:
       - 'backend-api/**'
       - '.github/workflows/ci-backend.yml'
@@ -15,8 +19,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  test:
-    name: Backend Lint, Validate & Test
+  test-and-build:
+    name: Backend Lint, Test & Build
     runs-on: ubuntu-latest
 
     defaults:
@@ -34,11 +38,11 @@ jobs:
           cache: 'npm'
           cache-dependency-path: backend-api/package-lock.json
 
-      - name: Install dependencies
-        run: npm install
+      - name: Install dependencies (clean)
+        run: npm ci
 
-      - name: Security Audit (Warning)
-        run: npm audit || true
+      - name: Validate Prisma Schema
+        run: npx prisma validate
 
       - name: Generate Prisma Client
         run: npx prisma generate
@@ -46,8 +50,11 @@ jobs:
       - name: Run Type Check
         run: npx tsc --noEmit
 
-      - name: Run ESLint
-        run: npm run lint --if-present
+      - name: Run Lint
+        run: npm run lint
 
-      - name: Run Tests
-        run: npm test --if-present
+      - name: Run Unit Tests
+        run: npm test
+
+      - name: Build NestJS Production Bundle
+        run: npm run build
