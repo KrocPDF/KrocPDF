@@ -22,6 +22,7 @@ jobs:
   test-and-build:
     name: Go Lint, Vet & Test
     runs-on: ubuntu-latest
+    timeout-minutes: 10
 
     defaults:
       run:
@@ -31,22 +32,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Go
-        uses: actions/setup-go@v5
-        with:
-          go-version: '1.25'
-          check-latest: true
-          cache: true
-          cache-dependency-path: worker-service/go.sum
-
-      - name: Install libvips
-        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends libvips-dev
+      - name: Build Worker Builder Image
+        run: docker build --target builder -t worker-builder .
 
       - name: Go Vet
-        run: go vet ./...
+        run: docker run --rm worker-builder go vet ./...
 
       - name: Run Go Tests
-        run: go test -v ./...
+        run: docker run --rm worker-builder go test -v ./...
 
-      - name: Verify Docker Build
+      - name: Verify Final Production Docker Build
         run: docker build -t worker-test .
