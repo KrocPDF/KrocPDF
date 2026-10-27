@@ -27,6 +27,9 @@ jobs:
       run:
         working-directory: backend-api
 
+    env:
+      DATABASE_URL: "postgresql://postgres:password@localhost:5432/jpg2pdf?schema=public"
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -34,18 +37,18 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: 'npm'
           cache-dependency-path: backend-api/package-lock.json
 
-      - name: Install dependencies (clean)
-        run: npm ci
+      - name: Install dependencies
+        run: npm ci || npm install
 
       - name: Validate Prisma Schema
-        run: npx prisma validate
+        run: npx prisma validate --schema=prisma/schema.prisma
 
       - name: Generate Prisma Client
-        run: npx prisma generate
+        run: npx prisma generate --schema=prisma/schema.prisma
 
       - name: Run Type Check
         run: npx tsc --noEmit

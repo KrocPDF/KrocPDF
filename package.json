@@ -1,0 +1,22 @@
+{
+  "name": "krocpdf-monorepo",
+  "version": "2.1.0",
+  "private": true,
+  "type": "module",
+  "description": "KrocPDF - Dual-Engine Enterprise Document Conversion Platform",
+  "scripts": {
+    "release:notes": "node scripts/generate-release-notes.mjs --preview",
+    "release:notes:first": "node scripts/generate-release-notes.mjs --first --preview",
+    "release:changelog": "node scripts/generate-release-notes.mjs --write-changelog",
+    "release": "node scripts/generate-release-notes.mjs"
+  },
+  "keywords": [
+    "pdf",
+    "jpg-to-pdf",
+    "wasm",
+    "converter",
+    "privacy-first"
+  ],
+  "author": "KrocPDF Team",
+  "license": "MIT"
+}

@@ -3,6 +3,7 @@ package processor
 import (
 	"fmt"
 	"io/ioutil"
+	"strings"
 
 	"github.com/h2non/bimg"
 )
@@ -21,8 +22,11 @@ func ProcessImage(inputPath string, format string, transparencyMode string) (str
 
 	image := bimg.NewImage(buffer)
 
+	mode := strings.ToUpper(transparencyMode)
+	fmtLower := strings.ToLower(format)
+
 	// Keep Transparent handling
-	if transparencyMode == "KEEP_TRANSPARENT" && format == "png" {
+	if mode == "KEEP_TRANSPARENT" && fmtLower == "png" {
 		meta, err := image.Metadata()
 		if err == nil && meta.Alpha {
 			// Direct passthrough to avoid color inversion or premultiplied alpha bugs
@@ -31,7 +35,7 @@ func ProcessImage(inputPath string, format string, transparencyMode string) (str
 	}
 
 	var bg bimg.Color
-	if transparencyMode == "FLATTEN_BLACK" {
+	if mode == "FLATTEN_BLACK" {
 		bg = bimg.Color{R: 0, G: 0, B: 0}
 	} else {
 		// Default: FLATTEN_WHITE
