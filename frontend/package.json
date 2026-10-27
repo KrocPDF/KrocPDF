@@ -13,13 +13,13 @@
     "@hello-pangea/dnd": "^18.0.1",
     "clsx": "^2.1.1",
     "fflate": "^0.8.3",
-    "lucide-react": "^1.41.0",
-    "next": "16.3.4",
+    "lucide-react": "^1.61.0",
+    "next": "16.4.3",
     "pdf-lib": "^1.17.1",
-    "pdfjs-dist": "^6.3.289",
-    "react": "19.2.8",
-    "react-dom": "19.2.8",
-    "tailwind-merge": "^3.6.0"
+    "pdfjs-dist": "^6.4.299",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "tailwind-merge": "^3.7.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
@@ -27,10 +27,10 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
-    "eslint-config-next": "16.3.4",
+    "eslint-config-next": "16.4.3",
     "tailwindcss": "^4",
     "typescript": "^5",
-    "vitest": "^5.0.0"
+    "vitest": "^5.0.5"
   },
   "overrides": {
     "@types/node": "$@types/node"
