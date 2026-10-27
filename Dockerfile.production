@@ -1,0 +1,69 @@
+# ==============================================================================
+# Stage 1: Build Go Worker Daemon (Go 1.25 + libvips + poppler)
+# ==============================================================================
+FROM golang:1.25-alpine AS go-builder
+
+RUN apk add --no-cache build-base vips-dev pkgconfig poppler-dev git
+
+WORKDIR /worker-build
+
+COPY worker-service/go.mod worker-service/go.sum* ./
+RUN go mod download || go mod tidy
+
+COPY worker-service/ ./
+RUN CGO_ENABLED=1 GOOS=linux go build -ldflags="-s -w" -o /build/kroc-worker cmd/main.go
+
+# ==============================================================================
+# Stage 2: Build NestJS API Gateway (Node 22 + Prisma)
+# ==============================================================================
+FROM node:22-alpine AS node-builder
+
+WORKDIR /node-build
+
+COPY backend-api/package*.json ./
+COPY backend-api/prisma ./prisma/
+
+RUN npm ci || npm install
+
+COPY backend-api/ ./
+RUN npx prisma generate
+RUN npm run build
+RUN npm prune --omit=dev
+
+# ==============================================================================
+# Stage 3: Unified Production Runtime Container
+# ==============================================================================
+FROM node:22-alpine
+
+# Install shared C libraries for bimg, pdfcpu, and poppler along with tini
+RUN apk add --no-cache \
+    ca-certificates \
+    vips \
+    poppler \
+    tini \
+    curl
+
+WORKDIR /app
+
+# Copy Go Worker binary
+COPY --from=go-builder /build/kroc-worker /usr/local/bin/kroc-worker
+RUN chmod +x /usr/local/bin/kroc-worker
+
+# Copy NestJS API compiled code, production dependencies, and Prisma client
+COPY --from=node-builder /node-build/dist ./dist
+COPY --from=node-builder /node-build/node_modules ./node_modules
+COPY --from=node-builder /node-build/package.json ./package.json
+COPY --from=node-builder /node-build/prisma ./prisma
+
+# Copy startup orchestration script
+COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
+# Render injects PORT (typically 10000 or 3000)
+ENV PORT=3000
+ENV NODE_ENV=production
+ENV ENABLE_WORKER_HTTP=false
+
+EXPOSE 3000
+
+ENTRYPOINT ["/sbin/tini", "--", "/usr/local/bin/docker-entrypoint.sh"]
