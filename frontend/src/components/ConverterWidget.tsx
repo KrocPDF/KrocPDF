@@ -42,6 +42,44 @@ function formatBytes(bytes: number): string {
   return `${parseFloat((bytes / Math.pow(k, i)).toFixed(1))} ${sizes[i]}`;
 }
 
+async function fetchWithColdStartRetry(
+  url: string,
+  options: RequestInit,
+  onWaitMessage?: (msg: string) => void,
+  maxAttempts: number = 10,
+): Promise<Response> {
+  let attempt = 0;
+  while (attempt < maxAttempts) {
+    attempt++;
+    try {
+      const res = await fetch(url, options);
+      if (res.ok) return res;
+
+      // Business logic client error (4xx) - return immediately, do not retry
+      if (res.status >= 400 && res.status < 500) {
+        return res;
+      }
+
+      // Server error (502, 503, 504) while Render/backend is waking up from free-tier sleep
+      if (attempt < maxAttempts) {
+        onWaitMessage?.(`Waking up cloud server (Render free-tier cold start: attempt ${attempt}/${maxAttempts})...`);
+        await new Promise((resolve) => setTimeout(resolve, 3000));
+        continue;
+      }
+      return res;
+    } catch (err: unknown) {
+      if (attempt < maxAttempts) {
+        const remainingSec = Math.max(0, (maxAttempts - attempt) * 3);
+        onWaitMessage?.(`Connecting to cloud conversion server (waking up, ~${remainingSec}s remaining)...`);
+        await new Promise((resolve) => setTimeout(resolve, 3000));
+        continue;
+      }
+      throw err;
+    }
+  }
+  throw new Error('Connection timed out. Please ensure the backend is running.');
+}
+
 export function ConverterWidget({ tool = 'unified' }: { tool?: string }) {
   const [images, setImages] = useState<ImageFile[]>([]);
   const [compressedSizeBytes, setCompressedSizeBytes] = useState<number | null>(null);
@@ -324,16 +362,23 @@ export function ConverterWidget({ tool = 'unified' }: { tool?: string }) {
         })),
       };
 
-      const res = await fetch(`${API_BASE_URL}/api/v1/conversions`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      });
+      const res = await fetchWithColdStartRetry(
+        `${API_BASE_URL}/api/v1/conversions`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        },
+        (waitMsg) => setMessage(waitMsg),
+      );
 
-      if (!res.ok)
-        throw new Error(
-          'Failed to initiate conversion. Ensure the backend is running.',
-        );
+      if (!res.ok) {
+        const errJson = await res.json().catch(() => null);
+        const detail = Array.isArray(errJson?.message)
+          ? errJson.message.join(', ')
+          : errJson?.message || 'Failed to initiate conversion. Please verify backend is live.';
+        throw new Error(detail);
+      }
       const data = await res.json();
 
       setMessage('Uploading images securely to storage...');
