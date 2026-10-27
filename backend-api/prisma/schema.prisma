@@ -76,13 +76,29 @@ model ConversionJob {
   outputSizeBytes BigInt?         @map("output_size_bytes")
   
   // Relations & Tracking
+  userId          String?         @map("user_id") @db.Uuid
+  user            User?           @relation(fields: [userId], references: [id], onDelete: SetNull)
   files           JobFile[]
   createdAt       DateTime        @default(now()) @map("created_at")
   updatedAt       DateTime        @updatedAt @map("updated_at")
   expiresAt       DateTime        @map("expires_at")
 
+  @@index([userId])
   @@index([status, createdAt])
   @@map("conversion_jobs")
+}
+
+model User {
+  id              String          @id @default(uuid()) @db.Uuid
+  email           String          @unique
+  name            String?
+  avatarUrl       String?         @map("avatar_url")
+  passwordHash    String?         @map("password_hash")
+  createdAt       DateTime        @default(now()) @map("created_at")
+  updatedAt       DateTime        @updatedAt @map("updated_at")
+  jobs            ConversionJob[]
+
+  @@map("users")
 }
 
 model JobFile {
