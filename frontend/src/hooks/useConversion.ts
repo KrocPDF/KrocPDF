@@ -25,11 +25,24 @@ export function useConversion() {
       setMessage('Triggering conversion worker...');
       setJobId(jobId);
 
-      const res = await fetch(`${API_BASE_URL}/api/v1/conversions/${jobId}/start`, {
-        method: 'POST',
-      });
+      let res: Response | null = null;
+      let startAttempts = 0;
+      while (startAttempts < 4) {
+        startAttempts++;
+        try {
+          res = await fetch(`${API_BASE_URL}/api/v1/conversions/${jobId}/start`, {
+            method: 'POST',
+          });
+          if (res.ok) break;
+          if (startAttempts < 4) await new Promise((r) => setTimeout(r, 2000));
+        } catch {
+          if (startAttempts < 4) await new Promise((r) => setTimeout(r, 2000));
+        }
+      }
 
-      if (!res.ok) throw new Error('Failed to start conversion job');
+      if (!res || !res.ok) {
+        throw new Error('Failed to start conversion job. Please verify backend is live.');
+      }
 
       // Clean up any existing connection
       cleanupSSE();
