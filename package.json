@@ -5,6 +5,11 @@
   "type": "module",
   "description": "KrocPDF - Dual-Engine Enterprise Document Conversion Platform",
   "scripts": {
+    "dev": "npm --prefix frontend run dev",
+    "dev:backend": "npm --prefix backend-api run start:dev",
+    "build:frontend": "npm --prefix frontend run build",
+    "build:backend": "npm --prefix backend-api run build",
+    "labeler": "node scripts/labeler.mjs",
     "release:notes": "node scripts/generate-release-notes.mjs --preview",
     "release:notes:first": "node scripts/generate-release-notes.mjs --first --preview",
     "release:changelog": "node scripts/generate-release-notes.mjs --write-changelog",
