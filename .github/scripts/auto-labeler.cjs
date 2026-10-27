@@ -306,7 +306,7 @@ module.exports = async function runAutoLabeler({ github, context, core }) {
     const labelsToRemove = [];
 
     // Calculate Size Label
-    let currentSizeLabel = 'size/XS';
+    let currentSizeLabel;
     if (totalLines < 10) {
       currentSizeLabel = 'size/XS';
     } else if (totalLines < 50) {

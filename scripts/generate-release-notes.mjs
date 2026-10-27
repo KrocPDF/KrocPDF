@@ -146,7 +146,7 @@ function inferGithubHandle(name, email) {
 
   // Check normalized name
   const normalizedName = (name || '').toLowerCase().replace(/\s+/g, '');
-  for (const [knownEmail, handle] of Object.entries(KNOWN_HANDLES)) {
+  for (const handle of Object.values(KNOWN_HANDLES)) {
     if (handle.toLowerCase() === normalizedName) return handle;
   }
 
