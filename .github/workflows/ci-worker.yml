@@ -2,10 +2,14 @@ name: CI - Worker Service
 
 on:
   push:
+    branches:
+      - main
     paths:
       - 'worker-service/**'
       - '.github/workflows/ci-worker.yml'
   pull_request:
+    branches:
+      - main
     paths:
       - 'worker-service/**'
       - '.github/workflows/ci-worker.yml'
@@ -15,9 +19,10 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  test:
+  test-and-build:
     name: Go Lint, Vet & Test
     runs-on: ubuntu-latest
+    timeout-minutes: 10
 
     defaults:
       run:
@@ -27,27 +32,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Go
-        uses: actions/setup-go@v5
-        with:
-          go-version: '1.25'
-          cache-dependency-path: worker-service/go.sum
-
-      - name: Install libvips
-        run: sudo apt-get update && sudo apt-get install -y libvips-dev
-
-
+      - name: Build Worker Builder Image
+        run: docker build --target builder -t worker-builder .
 
       - name: Go Vet
-        run: go vet ./...
+        run: docker run --rm worker-builder go vet ./...
 
       - name: Run Go Tests
-        run: go test -v ./...
+        run: docker run --rm worker-builder go test -v ./...
 
-      - name: Install and Run Go Vulncheck (Warning)
-        run: |
-          go install golang.org/x/vuln/cmd/govulncheck@latest
-          govulncheck ./... || true
-
-      - name: Verify Docker Build
+      - name: Verify Final Production Docker Build
         run: docker build -t worker-test .

@@ -1,0 +1,55 @@
+name: CI - Monorepo Gatekeeper
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  root-integrity:
+    name: Monorepo Root & Docker Integrity
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Validate Docker Compose Configuration
+        run: docker compose config
+
+      - name: Verify No Sensitive / Leaked Environment Files
+        run: |
+          if git ls-files | grep -E '^\.env(\..+)?$' | grep -v '.env.example'; then
+            echo "ERROR: Tracked .env files found in git tree!"
+            exit 1
+          fi
+          echo "No sensitive .env files tracked."
+
+      - name: Verify No Merge Conflict Markers
+        run: |
+          if git grep -nE '^(<<<<<<<|=======|>>>>>>>)' -- ':!*.md'; then
+            echo "ERROR: Unresolved merge conflict markers detected!"
+            exit 1
+          fi
+          echo "Clean tree, no conflict markers detected."
+
+  all-checks-passed:
+    name: Monorepo Gate / All Checks Passed
+    needs: [root-integrity]
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - name: Evaluate Monorepo Status
+        run: |
+          if [ "${{ needs.root-integrity.result }}" != "success" ]; then
+            echo "Root integrity check failed!"
+            exit 1
+          fi
+          echo "Monorepo root integrity gate passed successfully."

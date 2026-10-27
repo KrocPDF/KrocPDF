@@ -188,7 +188,7 @@ Keep branch names short, descriptive, and prefixed with the issue category:
 - `refactor/worker-buffer-pool`
 
 ### Conventional Commit Standards
-We follow the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) specification. This allows automated changelog generation for releases:
+We follow the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) specification. This drives our automated enterprise release notes generator and changelog synchronization:
 
 ```
 <type>(<scope>): <short description>
@@ -202,6 +202,16 @@ We follow the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0
 | `docs` | Documentation updates or tutorials | `docs(readme): add troubleshooting steps for local docker setup` |
 | `refactor` | Code restructuring without feature or bug changes | `refactor(api): extract presigned URL generator into dedicated service` |
 | `test` | Adding or updating unit/integration tests | `test(worker): add test cases for multi-page A4 compilation` |
+| `ci` / `infra` | CI/CD pipelines, workflows, and container orchestration | `ci: overhaul monorepo workflows and security gates` |
+
+> [!TIP]
+> **Automated Contributor Spotlight**:
+> When a new version is released, our automated release pipeline aggregates all changes, highlights **🎉 New Contributors** landing their first merged contribution, and generates a **👥 Contributions by Author** stack with direct PR and commit attribution.
+>
+> You can preview the upcoming release notes locally at any time:
+> ```bash
+> node scripts/generate-release-notes.mjs --preview
+> ```
 
 ---
 

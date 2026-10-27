@@ -1,0 +1,27 @@
+# Gitleaks Configuration for KrocPDF Monorepo
+title = "KrocPDF Gitleaks Config"
+
+[extend]
+# Inherit default Gitleaks rule configuration
+
+[allowlist]
+description = "Allowlist for dummy/mock credentials, sample configs, and tests"
+paths = [
+  '''^\.env\.example$''',
+  '''(^|/)\.env\.example$''',
+  '''^docker-compose\.ya?ml$''',
+  '''(^|/)test/.*''',
+  '''(^|/)tests/.*''',
+  '''\.spec\.[jt]sx?$''',
+  '''\.test\.[jt]sx?$''',
+  '''\.planning/.*''',
+]
+regexes = [
+  '''(?i)password''',
+  '''(?i)admin123''',
+  '''(?i)minioadmin''',
+  '''(?i)dummy''',
+  '''(?i)mock''',
+  '''(?i)CHANGE_ME''',
+  '''postgresql://postgres:password@localhost:5432''',
+]

@@ -1,0 +1,103 @@
+name: Release & Automated Release Notes
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      tag_name:
+        description: 'Release version tag (e.g., v2.2.0)'
+        required: true
+        type: string
+      is_draft:
+        description: 'Create release as a draft'
+        required: false
+        default: false
+        type: boolean
+      is_prerelease:
+        description: 'Mark release as pre-release'
+        required: false
+        default: false
+        type: boolean
+      update_changelog:
+        description: 'Update and commit CHANGELOG.md to default branch'
+        required: false
+        default: true
+        type: boolean
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  pull-requests: read
+  issues: read
+
+jobs:
+  publish-release:
+    name: Generate Notes & Publish Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Determine Target Tag
+        id: vars
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            TAG="${{ inputs.tag_name }}"
+          else
+            TAG="${{ github.ref_name }}"
+          fi
+          echo "RELEASE_TAG=$TAG" >> $GITHUB_ENV
+          echo "Release Tag target is $TAG"
+
+      - name: Generate Release Notes & Update Changelog
+        run: |
+          node scripts/generate-release-notes.mjs \
+            --tag "${{ env.RELEASE_TAG }}" \
+            --output release-notes.md \
+            --write-changelog
+
+      - name: Publish Release Notes to Step Summary
+        run: |
+          cat release-notes.md >> $GITHUB_STEP_SUMMARY
+
+      - name: Commit CHANGELOG.md Updates
+        if: |
+          github.ref == 'refs/heads/main' ||
+          github.event_name == 'push' ||
+          (github.event_name == 'workflow_dispatch' && inputs.update_changelog)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if [ -n "$(git status --porcelain CHANGELOG.md)" ]; then
+            git add CHANGELOG.md
+            git commit -m "chore(release): update CHANGELOG.md for ${{ env.RELEASE_TAG }} [skip ci]"
+            git fetch origin main || true
+            git push origin HEAD:main || echo "::warning::Could not automatically push CHANGELOG.md to main. This can happen if branch protection rules require a pull request."
+          else
+            echo "CHANGELOG.md unchanged or already up-to-date."
+          fi
+
+      - name: Create or Update GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ env.RELEASE_TAG }}
+          name: KrocPDF ${{ env.RELEASE_TAG }}
+          body_path: release-notes.md
+          draft: ${{ inputs.is_draft || false }}
+          prerelease: ${{ inputs.is_prerelease || false }}
+          generate_release_notes: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -5,8 +5,12 @@ updates:
   - package-ecosystem: "npm"
     directory: "/backend-api"
     schedule:
-      interval: "monthly"
-    open-pull-requests-limit: 0
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    groups:
+      dependencies:
+        patterns: ["*"]
+        update-types: ["minor", "patch"]
     ignore:
       # Ignore breaking major version upgrades across core libraries
       - dependency-name: "@prisma/*"
@@ -24,8 +28,12 @@ updates:
   - package-ecosystem: "npm"
     directory: "/frontend"
     schedule:
-      interval: "monthly"
-    open-pull-requests-limit: 0
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    groups:
+      dependencies:
+        patterns: ["*"]
+        update-types: ["minor", "patch"]
     ignore:
       # Ignore breaking major version upgrades across core libraries
       - dependency-name: "next"
@@ -43,8 +51,12 @@ updates:
   - package-ecosystem: "gomod"
     directory: "/worker-service"
     schedule:
-      interval: "monthly"
-    open-pull-requests-limit: 0
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    groups:
+      dependencies:
+        patterns: ["*"]
+        update-types: ["minor", "patch"]
     ignore:
       - dependency-name: "*"
         update-types: ["version-update:semver-major"]
@@ -53,5 +65,8 @@ updates:
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "monthly"
-    open-pull-requests-limit: 2
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    groups:
+      actions:
+        patterns: ["*"]
