@@ -255,7 +255,7 @@ Our platform decouples stateful API orchestration from CPU-bound image processin
 For detailed breakdowns of how our dual-engine architecture processes specific formats, view our specialized feature specifications:
 
 - [**Merge PDF Engine (v2.1)**](./docs/features/merge-pdf.md): Explores the Smart Auto-Fallback routing between in-browser `pdf-lib` and cloud `pdfcpu` workers, complete with DTO schemas and binary `%PDF-` validation gates.
-- *More format specifications coming soon.*
+- [**📱 Mobile App Engineering Blueprint (Flutter)**](./mobile_blueprint/README.md): Comprehensive architectural specifications, wire protocols, Flutter tech stack, UI/UX design tokens, and App Store / Google Play deployment pipelines for the official KrocPDF mobile client.
 
 <br/>
 <p align="center">
