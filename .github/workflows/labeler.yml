@@ -8,6 +8,11 @@ on:
     types:
       - opened
       - synchronize
+  pull_request:
+    types:
+      - opened
+      - synchronize
+  workflow_dispatch:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.event.issue.number || github.event.pull_request.number }}
