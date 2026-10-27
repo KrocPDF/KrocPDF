@@ -91,22 +91,22 @@ export function Navbar() {
             >
               <GithubIcon className="w-5 h-5" />
             </a>
-            <button
-              className="px-3 py-1.5 text-sm text-slate-300 hover:text-white transition-colors rounded-lg hover:bg-white/5"
-              aria-label="Log in (coming soon)"
-              title="Coming soon"
+            <Link
+              href="/login"
+              className="px-3 py-1.5 text-sm text-slate-300 hover:text-white transition-colors rounded-lg hover:bg-white/5 flex items-center"
+              aria-label="Log in"
             >
               <LogIn className="w-4 h-4 inline mr-1.5" />
               Log in
-            </button>
-            <button
-              className="px-3.5 py-1.5 text-sm font-medium bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-lg hover:from-emerald-500 hover:to-teal-500 transition-all shadow-md shadow-emerald-950/40"
-              aria-label="Sign up (coming soon)"
-              title="Coming soon"
+            </Link>
+            <Link
+              href="/signup"
+              className="px-3.5 py-1.5 text-sm font-medium bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-lg hover:from-emerald-500 hover:to-teal-500 transition-all shadow-md shadow-emerald-950/40 flex items-center"
+              aria-label="Sign up"
             >
               <UserPlus className="w-4 h-4 inline mr-1.5" />
               Sign up
-            </button>
+            </Link>
           </div>
 
           {/* Mobile Hamburger */}
@@ -177,18 +177,20 @@ export function Navbar() {
           </a>
 
           <div className="flex space-x-2 px-4 pt-2">
-            <button
-              className="flex-1 py-2.5 text-sm text-slate-300 border border-white/10 rounded-lg hover:bg-white/5 transition-colors"
-              title="Coming soon"
+            <Link
+              href="/login"
+              onClick={() => setMobileOpen(false)}
+              className="flex-1 py-2.5 text-center text-sm text-slate-300 border border-white/10 rounded-lg hover:bg-white/5 transition-colors"
             >
               Log in
-            </button>
-            <button
-              className="flex-1 py-2.5 text-sm font-medium bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-lg hover:from-emerald-500 hover:to-teal-500 transition-all shadow-md shadow-emerald-950/40"
-              title="Coming soon"
+            </Link>
+            <Link
+              href="/signup"
+              onClick={() => setMobileOpen(false)}
+              className="flex-1 py-2.5 text-center text-sm font-medium bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-lg hover:from-emerald-500 hover:to-teal-500 transition-all shadow-md shadow-emerald-950/40"
             >
               Sign up
-            </button>
+            </Link>
           </div>
         </div>
       </div>

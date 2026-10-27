@@ -19,25 +19,30 @@ import (
 )
 
 func main() {
-	// Start lightweight HTTP health server for Render Web Service
-	go func() {
-		port := os.Getenv("PORT")
-		if port == "" {
-			port = "8080"
-		}
-		http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-			w.WriteHeader(http.StatusOK)
-			w.Write([]byte("worker live"))
-		})
-		http.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
-			w.WriteHeader(http.StatusOK)
-			w.Write([]byte("worker ok"))
-		})
-		log.Printf("Health server listening on 0.0.0.0:%s", port)
-		if err := http.ListenAndServe("0.0.0.0:"+port, nil); err != nil {
-			log.Printf("Health server failed: %v", err)
-		}
-	}()
+	// Start lightweight HTTP health server (only when enabled or standalone)
+	if os.Getenv("ENABLE_WORKER_HTTP") != "false" {
+		go func() {
+			port := os.Getenv("WORKER_PORT")
+			if port == "" {
+				port = os.Getenv("PORT")
+			}
+			if port == "" {
+				port = "8080"
+			}
+			http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+				w.WriteHeader(http.StatusOK)
+				w.Write([]byte("worker live"))
+			})
+			http.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
+				w.WriteHeader(http.StatusOK)
+				w.Write([]byte("worker ok"))
+			})
+			log.Printf("Health server listening on 0.0.0.0:%s", port)
+			if err := http.ListenAndServe("0.0.0.0:"+port, nil); err != nil {
+				log.Printf("Health server failed: %v", err)
+			}
+		}()
+	}
 
 	redisUrl := os.Getenv("REDIS_URL")
 	if redisUrl == "" {

@@ -6,6 +6,7 @@
   "description": "KrocPDF - Dual-Engine Enterprise Document Conversion Platform",
   "scripts": {
     "dev": "npm --prefix frontend run dev",
+    "dev:frontend": "npm --prefix frontend run dev",
     "dev:backend": "npm --prefix backend-api run start:dev",
     "build:frontend": "npm --prefix frontend run build",
     "build:backend": "npm --prefix backend-api run build",
