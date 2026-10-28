@@ -343,23 +343,33 @@ export function ConverterWidget({ tool = 'unified' }: { tool?: string }) {
       }
 
       setMessage('Requesting upload URLs...');
+      const hasOnlyPdfs = images.length > 0 && images.every((img) => 
+        img.file.type === 'application/pdf' || img.file.name.toLowerCase().endsWith('.pdf')
+      );
+      const hasAnyPdf = images.some((img) => 
+        img.file.type === 'application/pdf' || img.file.name.toLowerCase().endsWith('.pdf')
+      );
+
       let jobType = 'IMAGE_TO_PDF';
-      if (tool === 'merge-pdf') jobType = 'MERGE_PDF';
-      else if (tool === 'compress-pdf') jobType = 'COMPRESS_PDF';
-      else if (tool === 'pdf-to-jpg') jobType = 'PDF_TO_JPG';
-      else {
-        const hasPdf = images.some((img) => img.file.type === 'application/pdf');
-        if (hasPdf) jobType = 'MERGE_PDF';
+      if (tool === 'merge-pdf' || hasOnlyPdfs || (hasAnyPdf && tool !== 'pdf-to-jpg' && tool !== 'compress-pdf')) {
+        jobType = 'MERGE_PDF';
+      } else if (tool === 'compress-pdf') {
+        jobType = 'COMPRESS_PDF';
+      } else if (tool === 'pdf-to-jpg') {
+        jobType = 'PDF_TO_JPG';
       }
 
       const payload = {
         jobType,
         settings,
-        files: images.map((img) => ({
-          fileName: img.file.name,
-          mimeType: img.file.type,
-          sizeBytes: img.file.size,
-        })),
+        files: images.map((img) => {
+          const isPdf = img.file.type === 'application/pdf' || img.file.name.toLowerCase().endsWith('.pdf');
+          return {
+            fileName: img.file.name,
+            mimeType: isPdf ? 'application/pdf' : img.file.type || 'image/jpeg',
+            sizeBytes: img.file.size,
+          };
+        }),
       };
 
       const res = await fetchWithColdStartRetry(
