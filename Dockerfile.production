@@ -29,19 +29,21 @@ COPY backend-api/ ./
 RUN npx prisma generate
 RUN npm run build
 RUN npm prune --omit=dev
+RUN npx prisma generate
 
 # ==============================================================================
 # Stage 3: Unified Production Runtime Container
 # ==============================================================================
 FROM node:22-alpine
 
-# Install shared C libraries for bimg, pdfcpu, and poppler along with tini
+# Install shared C libraries for bimg, pdfcpu, and poppler along with tini & openssl
 RUN apk add --no-cache \
     ca-certificates \
     vips \
     poppler \
     tini \
-    curl
+    curl \
+    openssl
 
 WORKDIR /app
 
@@ -54,6 +56,9 @@ COPY --from=node-builder /node-build/dist ./dist
 COPY --from=node-builder /node-build/node_modules ./node_modules
 COPY --from=node-builder /node-build/package.json ./package.json
 COPY --from=node-builder /node-build/prisma ./prisma
+
+# Explicitly ensure Prisma Client is generated and ready in final image
+RUN npx prisma generate
 
 # Copy startup orchestration script
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
