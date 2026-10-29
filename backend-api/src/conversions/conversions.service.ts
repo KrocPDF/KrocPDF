@@ -18,11 +18,20 @@ export class ConversionsService {
     const expiresAt = new Date();
     expiresAt.setMinutes(expiresAt.getMinutes() + 15);
 
+    // Auto-detect and safeguard jobType from payload files
+    let resolvedJobType = dto.jobType;
+    if (!resolvedJobType) {
+      const allPdfs = dto.files.length > 0 && dto.files.every(
+        (f) => f.mimeType === 'application/pdf' || f.fileName.toLowerCase().endsWith('.pdf')
+      );
+      resolvedJobType = allPdfs ? JobType.MERGE_PDF : JobType.IMAGE_TO_PDF;
+    }
+
     // Create the job first to generate the UUID
     const job = await this.prisma.conversionJob.create({
       data: {
         status: JobStatus.CREATED,
-        jobType: dto.jobType || JobType.IMAGE_TO_PDF,
+        jobType: resolvedJobType,
         pageSize: dto.settings?.pageSize || PageSize.A4,
         orientation: dto.settings?.orientation || PageOrientation.PORTRAIT,
         margins: dto.settings?.margins || 'NONE',

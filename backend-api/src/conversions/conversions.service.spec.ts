@@ -31,12 +31,16 @@ describe('ConversionsService', () => {
               delete: vi.fn().mockResolvedValue({}),
               findUnique: vi.fn(),
             },
+            jobFile: {
+              create: vi.fn().mockResolvedValue({}),
+            },
           },
         },
         {
           provide: StorageService,
           useValue: {
             getPresignedUploadUrl: vi.fn().mockResolvedValue('url'),
+            generatePresignedPutUrl: vi.fn().mockResolvedValue('url'),
             deleteObject: vi.fn().mockResolvedValue(true),
           },
         },
@@ -150,6 +154,34 @@ describe('ConversionsService', () => {
         job_type: 'COMPRESS_PDF',
         compression_level: 'HIGH',
         target_s3_key: 'converted/job-compress-1/output.pdf',
+      })
+    );
+  });
+
+  it('should automatically infer MERGE_PDF when jobType is omitted but all files are PDFs', async () => {
+    prismaService.conversionJob.create = vi.fn().mockImplementation((args) => {
+      return Promise.resolve({
+        id: 'job-auto-merge',
+        status: 'CREATED',
+        jobType: args.data.jobType,
+      });
+    });
+
+    moduleRef.get(StorageService).generatePresignedPutUrl = vi.fn().mockResolvedValue('presigned-url');
+
+    const result = await service.createConversionJob({
+      files: [
+        { fileName: 'doc1.pdf', mimeType: 'application/pdf', sizeBytes: 5000 },
+        { fileName: 'doc2.pdf', mimeType: 'application/pdf', sizeBytes: 8000 },
+      ],
+    });
+
+    expect(result.jobId).toBe('job-auto-merge');
+    expect(prismaService.conversionJob.create).toHaveBeenCalledWith(
+      expect.objectContaining({
+        data: expect.objectContaining({
+          jobType: 'MERGE_PDF',
+        }),
       })
     );
   });

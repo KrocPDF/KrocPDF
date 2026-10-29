@@ -247,6 +247,39 @@ func main() {
 			// Change outPath to zip so the uploader picks it up
 			outPath = outZipPath
 		} else {
+			// Defensive check: If files are actually PDFs, automatically reroute to MergePDFs
+			if len(fileItems) > 0 {
+				firstHeader, err := s3Client.GetHeaderBytes(ctx, fileItems[0].Key, 16)
+				if err == nil && len(firstHeader) >= 4 &&
+					firstHeader[0] == '%' && firstHeader[1] == 'P' && firstHeader[2] == 'D' && firstHeader[3] == 'F' {
+					log.Printf("Detected PDF binary payload mislabeled as %s for job %s. Rerouting to MergePDFs.", jobType, jobId)
+					var downloadedPaths []string
+					for i, item := range fileItems {
+						stream, err := s3Client.DownloadStream(ctx, item.Key)
+						if err != nil {
+							worker.PublishEvent(ctx, jobId, "FAILED", 0, fmt.Sprintf("Failed to download PDF %d", i+1))
+							return err
+						}
+						localPath := filepath.Join(tempDir, fmt.Sprintf("doc_%d.pdf", i))
+						outFile, err := os.Create(localPath)
+						if err != nil {
+							stream.Close()
+							return err
+						}
+						io.Copy(outFile, stream)
+						outFile.Close()
+						stream.Close()
+						downloadedPaths = append(downloadedPaths, localPath)
+					}
+					worker.PublishEvent(ctx, jobId, "PROCESSING", 60, "Merging PDFs...")
+					if err := converter.MergePDFs(ctx, downloadedPaths, outPath); err != nil {
+						worker.PublishEvent(ctx, jobId, "FAILED", 0, fmt.Sprintf("PDF Merge failed: %v", err))
+						return err
+					}
+					goto uploadOutput
+				}
+			}
+
 			for i, item := range fileItems {
 				headerBytes, err := s3Client.GetHeaderBytes(ctx, item.Key, 65535)
 				if err != nil {
@@ -313,7 +346,7 @@ func main() {
 				return err
 			}
 		}
-
+	uploadOutput:
 		worker.PublishEvent(ctx, jobId, "PROCESSING", 85, "Uploading result...")
 		
 		finalFile, err := os.Open(outPath)
