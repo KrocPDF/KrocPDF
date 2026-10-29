@@ -46,7 +46,26 @@ func main() {
 
 	redisUrl := os.Getenv("REDIS_URL")
 	if redisUrl == "" {
-		redisUrl = "redis://localhost:6379"
+		host := os.Getenv("REDIS_HOST")
+		if host != "" {
+			port := os.Getenv("REDIS_PORT")
+			if port == "" {
+				port = "6379"
+			}
+			password := os.Getenv("REDIS_PASSWORD")
+			tls := os.Getenv("REDIS_TLS") == "true"
+			protocol := "redis"
+			if tls {
+				protocol = "rediss"
+			}
+			if password != "" {
+				redisUrl = fmt.Sprintf("%s://default:%s@%s:%s", protocol, password, host, port)
+			} else {
+				redisUrl = fmt.Sprintf("%s://%s:%s", protocol, host, port)
+			}
+		} else {
+			redisUrl = "redis://localhost:6379"
+		}
 	}
 
 	opt, err := redis.ParseURL(redisUrl)
@@ -78,25 +97,20 @@ func main() {
 		bucketName = "conversions"
 	}
 
-	s3Client, err := storage.NewS3Client(context.Background(), s3Endpoint, region, accessKey, secretKey, bucketName)
+	s3Client, err := storage.NewS3Client(accessKey, secretKey, s3Endpoint, region, bucketName)
 	if err != nil {
 		log.Fatalf("Failed to initialize S3 client: %v", err)
 	}
 
-	worker := consumer.NewWorker(rdb, "conversions:jobs", "pdf_workers", "worker-1")
-	worker.InitGroup(context.Background())
+	worker := consumer.NewWorker(rdb)
 
-	log.Println("Starting Go Worker Daemon with Real PDF Pipeline...")
-	
-	worker.Start(context.Background(), func(ctx context.Context, payload map[string]interface{}) error {
+	ctx := context.Background()
+
+	// Start consuming tasks
+	worker.ConsumeTasks(ctx, func(ctx context.Context, payload map[string]interface{}) error {
 		jobId, ok := payload["job_id"].(string)
 		if !ok {
-			log.Println("Invalid job_id in payload")
-			return nil
-		}
-		targetS3Key, ok := payload["target_s3_key"].(string)
-		if !ok {
-			log.Printf("Invalid target_s3_key for job %s", jobId)
+			log.Println("Invalid payload: missing job_id")
 			return nil
 		}
 		filesRaw, ok := payload["files"].([]interface{})
@@ -223,15 +237,9 @@ func main() {
 			inFile.Close()
 			stream.Close()
 
-			qualityStr, ok := payload["image_quality"].(string)
 			quality := 80
-			if ok {
-				switch qualityStr {
-				case "LOW": quality = 40
-				case "MEDIUM": quality = 60
-				case "HIGH": quality = 80
-				case "MAXIMUM": quality = 100
-				}
+			if q, ok := payload["image_quality"].(float64); ok && q > 0 {
+				quality = int(q)
 			}
 
 			outZipPath := filepath.Join(tempDir, "output.zip")
@@ -361,6 +369,11 @@ func main() {
 		contentType := "application/pdf"
 		if filepath.Ext(outPath) == ".zip" {
 			contentType = "application/zip"
+		}
+		
+		targetS3Key, _ := payload["target_s3_key"].(string)
+		if targetS3Key == "" {
+			targetS3Key = fmt.Sprintf("converted/%s/output.pdf", jobId)
 		}
 		
 		if err := s3Client.UploadStream(ctx, targetS3Key, finalFile, fileInfo.Size(), contentType); err != nil {

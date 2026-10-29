@@ -9,7 +9,20 @@ export class RedisService implements OnModuleDestroy {
   private readonly subscriber: Redis;
 
   constructor(private readonly configService: ConfigService) {
-    const redisUrl = this.configService.get<string>('REDIS_URL', 'redis://localhost:6379');
+    let redisUrl = this.configService.get<string>('REDIS_URL');
+    if (!redisUrl) {
+      const host = this.configService.get<string>('REDIS_HOST', 'localhost');
+      const port = this.configService.get<string>('REDIS_PORT', '6379');
+      const password = this.configService.get<string>('REDIS_PASSWORD');
+      const tls = this.configService.get<string>('REDIS_TLS') === 'true';
+      const protocol = tls ? 'rediss' : 'redis';
+      if (password) {
+        redisUrl = `${protocol}://default:${password}@${host}:${port}`;
+      } else {
+        redisUrl = `${protocol}://${host}:${port}`;
+      }
+    }
+
     this.publisher = new Redis(redisUrl);
     this.subscriber = new Redis(redisUrl);
   }
@@ -48,16 +61,13 @@ export class RedisService implements OnModuleDestroy {
         }
       };
 
-      this.subscriber.subscribe(channel, (err: any) => {
-        if (err) observer.error(err);
+      this.subscriber.subscribe(channel).then(() => {
+        this.subscriber.on('message', handleMessage);
       });
 
-      this.subscriber.on('message', handleMessage);
-
-      // Teardown logic when the client disconnects
       return () => {
-        this.subscriber.off('message', handleMessage);
         this.subscriber.unsubscribe(channel);
+        this.subscriber.removeListener('message', handleMessage);
       };
     });
   }
