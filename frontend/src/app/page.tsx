@@ -84,12 +84,6 @@ export default function HomePage() {
           Hero Section (Expanded Full-Screen Width)
           ============================================ */}
       <section className="relative py-16 sm:py-24 lg:py-28 px-4 sm:px-8 lg:px-12 xl:px-16 border-b border-zinc-900/80">
-        {/* Subtle Geometric Background Grid */}
-        <div 
-          className="absolute inset-0 bg-grid-pattern opacity-40 [mask-image:radial-gradient(ellipse_75%_55%_at_50%_0%,#000_60%,transparent_100%)] pointer-events-none" 
-          aria-hidden="true"
-        />
-
         <div className="w-full text-center relative z-10 fade-in-up">
           <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.06] mb-6 text-zinc-100 max-w-6xl mx-auto">
             Every Document Tool <br className="hidden sm:inline" />

@@ -51,11 +51,6 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-[85vh] flex items-center justify-center px-4 py-12 relative overflow-hidden">
-      <div 
-        className="absolute inset-0 bg-grid-pattern opacity-30 [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_60%,transparent_100%)] pointer-events-none" 
-        aria-hidden="true"
-      />
-
       <div className="w-full max-w-md relative z-10 fade-in-up">
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center space-x-2 text-2xl font-bold tracking-tight text-white mb-2">

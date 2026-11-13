@@ -65,12 +65,7 @@ export default async function ToolPage({
   };
 
   return (
-    <div className="min-h-[calc(100vh-4rem)] bg-zinc-950 text-zinc-100 flex flex-col items-center py-8 px-4 sm:px-8 lg:px-12 xl:px-16 font-sans relative overflow-hidden">
-      <div 
-        className="absolute inset-0 bg-grid-pattern opacity-30 [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_60%,transparent_100%)] pointer-events-none" 
-        aria-hidden="true"
-      />
-
+    <div className="min-h-[calc(100vh-4rem)] text-zinc-100 flex flex-col items-center py-8 px-4 sm:px-8 lg:px-12 xl:px-16 font-sans relative overflow-hidden">
       {/* Inject JSON-LD */}
       <script
         type="application/ld+json"

@@ -218,6 +218,154 @@ body {
   animation: pulseGlow 4s ease-in-out infinite;
 }
 
+/* ========================================
+   Background Ambient Drifting & Light Tracers
+   ======================================== */
+
+@keyframes driftSlowOne {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translate3d(50px, 35px, 0) scale(1.08);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.6;
+  }
+}
+
+@keyframes driftSlowTwo {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1.05);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translate3d(-45px, 50px, 0) scale(0.95);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1.05);
+    opacity: 0.8;
+  }
+}
+
+@keyframes driftSlowThree {
+  0% {
+    transform: translate3d(0, 0, 0) scale(0.98);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translate3d(30px, -40px, 0) scale(1.06);
+    opacity: 0.85;
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(0.98);
+    opacity: 0.5;
+  }
+}
+
+.animate-drift-one {
+  animation: driftSlowOne 18s ease-in-out infinite;
+}
+
+.animate-drift-two {
+  animation: driftSlowTwo 22s ease-in-out infinite;
+}
+
+.animate-drift-three {
+  animation: driftSlowThree 26s ease-in-out infinite;
+}
+
+@keyframes beamHorizontal {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+@keyframes beamHorizontalReverse {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+}
+
+@keyframes beamVertical {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}
+
+@keyframes beamVerticalDelayed {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}
+
+.animate-beam-h {
+  animation: beamHorizontal 10s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.animate-beam-h-reverse {
+  animation: beamHorizontalReverse 14s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  animation-delay: 3s;
+}
+
+.animate-beam-v {
+  animation: beamVertical 12s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  animation-delay: 1.5s;
+}
+
+.animate-beam-v-delayed {
+  animation: beamVerticalDelayed 16s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  animation-delay: 5s;
+}
+
 @keyframes fadeInUp {
   from {
     opacity: 0;
