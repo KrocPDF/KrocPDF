@@ -166,3 +166,4 @@ KrocPDF is committed to building an inclusive tool for everyone:
 - [Performance Benchmarks](./benchmarks.md) — Real-world compilation times and hardware metrics
 - [Privacy Policy](../PRIVACY.md) — 0-byte WASM guarantee and 24h cloud auto-purge
 - [Security Policy](../SECURITY.md) — STRIDE threat model and responsible disclosure
+
