@@ -419,7 +419,7 @@ export function ConverterWidget({ tool = 'unified' }: { tool?: string }) {
   };
 
   return (
-    <div className="max-w-4xl w-full space-y-8 relative">
+    <div className="w-full space-y-8 relative">
       {toastMsg && (
         <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-[calc(100%+1rem)] z-50 bg-zinc-100 text-zinc-950 px-6 py-3 rounded-xl shadow-2xl shadow-black/40 whitespace-nowrap animate-in fade-in slide-in-from-bottom-2 flex items-center gap-2 text-sm font-semibold border border-zinc-200">
           {toastMsg}
@@ -542,15 +542,18 @@ export function ConverterWidget({ tool = 'unified' }: { tool?: string }) {
 
       {/* Main Workspace */}
       {(status === 'IDLE' || status === 'ERROR') && (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           {/* Left: Dropzone */}
           <div
             onDragOver={onDragOver}
             onDrop={onDrop}
-            className="md:col-span-2 border-2 border-dashed border-zinc-800 hover:border-zinc-500 bg-zinc-950/40 rounded-2xl p-8 flex flex-col items-center justify-center text-center transition-colors cursor-pointer min-h-[300px]"
+            className="lg:col-span-7 xl:col-span-8 border-2 border-dashed border-zinc-800 hover:border-zinc-500 bg-zinc-950/70 hover:bg-zinc-900/40 rounded-3xl p-8 sm:p-12 flex flex-col items-center justify-center text-center transition-all duration-300 cursor-pointer min-h-[380px] lg:min-h-[460px] pulse-glow-box shadow-2xl glass-card relative overflow-hidden group"
           >
-            <UploadCloud className="w-12 h-12 text-zinc-500 mb-4" />
-            <h3 className="text-xl font-medium mb-2 text-zinc-100">
+            <div className="w-16 h-16 rounded-2xl flex items-center justify-center transition-all duration-300 border border-zinc-700/80 bg-zinc-900 text-zinc-300 group-hover:text-white group-hover:border-zinc-500 group-hover:scale-105 animate-float mb-5 shadow-inner">
+              <UploadCloud className="w-8 h-8" />
+            </div>
+
+            <h3 className="text-2xl sm:text-3xl font-semibold mb-2.5 text-zinc-100 tracking-tight">
               {tool === 'merge-pdf'
                 ? 'Drag & Drop PDFs here'
                 : tool === 'compress-pdf'
@@ -559,13 +562,27 @@ export function ConverterWidget({ tool = 'unified' }: { tool?: string }) {
                     ? 'Drag & Drop PDF here'
                     : 'Drag & Drop images here'}
             </h3>
-            <p className="text-zinc-400 mb-6">
+            <p className="text-zinc-400 mb-6 max-w-md text-sm sm:text-base leading-relaxed">
               {tool === 'merge-pdf' || tool === 'compress-pdf' || tool === 'pdf-to-jpg'
-                ? 'Supports .PDF files'
-                : 'Supports .JPG, .JPEG, .PNG up to 50 Megapixels'}
+                ? 'Supports .PDF files for instant processing'
+                : 'Supports .JPG, .JPEG, .PNG & .WEBP up to 50 Megapixels'}
             </p>
 
-            <label className="px-6 py-3 bg-zinc-100 text-zinc-950 font-semibold rounded-lg hover:bg-white transition-all cursor-pointer shadow-xl shadow-black/30">
+            <div className="flex flex-wrap items-center justify-center gap-2 mb-7">
+              {(tool === 'merge-pdf' || tool === 'compress-pdf' || tool === 'pdf-to-jpg'
+                ? ['.PDF', 'Lossless', 'Multi-file']
+                : ['.JPG', '.PNG', '.JPEG', '.WEBP']
+              ).map((tag) => (
+                <span
+                  key={tag}
+                  className="px-2.5 py-1 rounded-md text-[11px] font-mono font-medium bg-zinc-900/90 border border-zinc-800 text-zinc-400 group-hover:border-zinc-700 group-hover:text-zinc-300 transition-colors"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+
+            <label className="px-7 py-3.5 bg-zinc-100 text-zinc-950 font-semibold rounded-xl hover:bg-white transition-all cursor-pointer shadow-xl hover:shadow-2xl hover:scale-[1.02] active:scale-[0.98]">
               Browse Files
               <input
                 type="file"
@@ -637,7 +654,7 @@ export function ConverterWidget({ tool = 'unified' }: { tool?: string }) {
           </div>
 
           {/* Right: Settings */}
-          <div className="bg-zinc-900/40 border border-zinc-800 p-6 rounded-2xl flex flex-col justify-between">
+          <div className="lg:col-span-5 xl:col-span-4 bg-zinc-900/50 border border-zinc-800/80 p-6 sm:p-7 rounded-3xl flex flex-col justify-between glass-card shadow-xl space-y-6">
             <div>
               <div className="flex items-center space-x-2 text-zinc-200 mb-6">
                 <Settings className="w-5 h-5 text-zinc-300" />
@@ -727,27 +744,28 @@ export function ConverterWidget({ tool = 'unified' }: { tool?: string }) {
                               setSettings({ ...settings, compressionLevel: preset.id })
                             }
                             className={clsx(
-                              'p-3 rounded-xl border text-left transition-all relative flex flex-col justify-between cursor-pointer',
+                              'p-3 rounded-xl border text-left transition-all relative flex flex-col justify-between cursor-pointer min-h-[140px]',
                               isSelected
                                 ? 'bg-zinc-800 border-zinc-500 text-zinc-100 shadow-sm'
                                 : 'bg-zinc-950/60 border-zinc-800 hover:border-zinc-700 text-zinc-400 hover:text-zinc-200'
                             )}
                           >
-                            <div className="flex items-center justify-between mb-1">
+                            {/* Label at top-left; badge pinned as a corner tag at top-right */}
+                            <div className="flex items-start">
                               <span className="font-semibold text-xs text-zinc-100">
                                 {preset.label}
                               </span>
-                              <span
-                                className={clsx(
-                                  'text-[9px] uppercase font-bold px-1.5 py-0.5 rounded border',
-                                  isSelected
-                                    ? 'bg-zinc-100 text-zinc-950 border-zinc-200'
-                                    : 'bg-zinc-800 text-zinc-400 border-zinc-700'
-                                )}
-                              >
-                                {preset.badge}
-                              </span>
                             </div>
+                            <span
+                              className={clsx(
+                                'absolute top-2 right-2 z-10 text-[9px] uppercase font-bold px-1.5 py-0.5 rounded border',
+                                isSelected
+                                  ? 'bg-zinc-100 text-zinc-950 border-zinc-200'
+                                  : 'bg-zinc-800 text-zinc-400 border-zinc-700'
+                              )}
+                            >
+                              {preset.badge}
+                            </span>
                             <p className="text-[10px] leading-tight text-zinc-400">
                               {preset.desc}
                             </p>
@@ -988,33 +1006,39 @@ export function ConverterWidget({ tool = 'unified' }: { tool?: string }) {
         </div>
       )}
 
-              {/* Sortable Grid */}
+              {/* Sortable Grid (Expansive Multi-Page Workspace) */}
       {(status === 'IDLE' || status === 'ERROR') && images.length > 0 && (
-        <div className="pt-8">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-xl font-medium flex items-center text-zinc-100">
-              <FileImage className="w-5 h-5 mr-2 text-zinc-300" />
-              Reorder Pages ({images.length})
-            </h3>
-            <button
-              type="button"
-              onClick={() => {
-                setActivePreviewIndex(0);
-                setIsPreviewModalOpen(true);
-              }}
-              className="inline-flex items-center gap-1.5 text-xs font-semibold text-zinc-200 bg-zinc-900 border border-zinc-700 px-3 py-1.5 rounded-lg hover:bg-zinc-800 transition"
-            >
-              <Sparkles className="w-3.5 h-3.5" /> Multi-Page Scanner Editor
-            </button>
-          </div>
-          <DragDropContext onDragEnd={handleDragEnd}>
-            <Droppable droppableId="images" direction="horizontal">
-              {(provided) => (
-                <div
-                  {...provided.droppableProps}
-                  ref={provided.innerRef}
-                  className="flex flex-wrap gap-4"
-                >
+        <div className="pt-6">
+          <div className="glass-card rounded-3xl p-6 sm:p-8 border border-zinc-800 shadow-2xl">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-5 border-b border-zinc-800/80">
+              <div>
+                <h3 className="text-xl sm:text-2xl font-bold flex items-center text-zinc-100 tracking-tight">
+                  <FileImage className="w-5 h-5 mr-2.5 text-zinc-300" />
+                  Reorder &amp; Manage Pages
+                </h3>
+                <p className="text-xs text-zinc-400 mt-1">
+                  Drag pages to reorder sequence ({images.length} {images.length === 1 ? 'page' : 'pages'} total)
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => {
+                  setActivePreviewIndex(0);
+                  setIsPreviewModalOpen(true);
+                }}
+                className="inline-flex items-center gap-2 text-xs font-semibold text-zinc-200 bg-zinc-900 border border-zinc-700 px-4 py-2 rounded-xl hover:bg-zinc-800 hover:border-zinc-500 transition shadow-sm w-fit"
+              >
+                <Sparkles className="w-3.5 h-3.5 text-zinc-300" /> Multi-Page Scanner Editor
+              </button>
+            </div>
+            <DragDropContext onDragEnd={handleDragEnd}>
+              <Droppable droppableId="images" direction="horizontal">
+                {(provided) => (
+                  <div
+                    {...provided.droppableProps}
+                    ref={provided.innerRef}
+                    className="flex flex-wrap gap-4 sm:gap-5 justify-start items-start"
+                  >
                   {images.map((img, index) => (
                     <Draggable key={img.id} draggableId={img.id} index={index}>
                       {(provided, snapshot) => (
@@ -1114,6 +1138,7 @@ export function ConverterWidget({ tool = 'unified' }: { tool?: string }) {
               )}
             </Droppable>
           </DragDropContext>
+          </div>
         </div>
       )}
 
