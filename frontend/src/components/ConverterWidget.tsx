@@ -547,8 +547,20 @@ export function ConverterWidget({ tool = 'unified' }: { tool?: string }) {
           <div
             onDragOver={onDragOver}
             onDrop={onDrop}
-            className="lg:col-span-7 xl:col-span-8 border-2 border-dashed border-zinc-800 hover:border-zinc-500 bg-zinc-950/70 hover:bg-zinc-900/40 rounded-3xl p-8 sm:p-12 flex flex-col items-center justify-center text-center transition-all duration-300 cursor-pointer min-h-[380px] lg:min-h-[460px] pulse-glow-box shadow-2xl glass-card relative overflow-hidden group"
+            className="lg:col-span-7 xl:col-span-8 border border-dashed border-zinc-800 hover:border-zinc-500 bg-zinc-950/80 hover:bg-zinc-900/40 rounded-3xl p-6 sm:p-12 flex flex-col items-center justify-center text-center transition-all duration-300 cursor-pointer min-h-[380px] lg:min-h-[460px] pulse-glow-box shadow-2xl glass-card scale-border-beam scale-crosshair scale-crosshair-tl scale-crosshair-tr scale-crosshair-bl scale-crosshair-br relative overflow-hidden group"
           >
+            {/* Scale-style Header Status Bar */}
+            <div className="w-full flex items-center justify-between border-b border-zinc-800/80 pb-3 mb-6 font-mono text-[11px] text-zinc-500 uppercase tracking-wider">
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-zinc-100 animate-pulse" />
+                <span className="text-zinc-300 font-semibold tracking-widest">WORKSPACE // READY</span>
+              </div>
+              <div className="flex items-center gap-3 text-[10px]">
+                <span className="px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-zinc-300">ON-DEVICE</span>
+                <span className="hidden sm:inline-block px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-zinc-400">ENCRYPTION: LOCAL</span>
+              </div>
+            </div>
+
             <div className="w-16 h-16 rounded-2xl flex items-center justify-center transition-all duration-300 border border-zinc-700/80 bg-zinc-900 text-zinc-300 group-hover:text-white group-hover:border-zinc-500 group-hover:scale-105 animate-float mb-5 shadow-inner">
               <UploadCloud className="w-8 h-8" />
             </div>

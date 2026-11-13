@@ -1,19 +1,18 @@
 @import "tailwindcss";
 
 :root {
-  --background: #09090b;
+  --background: #060608;
   --foreground: #fafafa;
-  --surface: #121215;
-  --surface-elevated: #18181b;
+  --surface: #0e0e11;
+  --surface-elevated: #141418;
   --surface-cream: #faf9f5;
-  --surface-cream-muted: #f4f2ea;
-  --border: #27272a;
-  --border-hover: #3f3f46;
+  --border: #1e1e24;
+  --border-hover: #383842;
   --text-muted: #71717a;
   --text-secondary: #a1a1aa;
   --accent-cream: #f5f3ec;
-  --glass-bg: rgba(9, 9, 11, 0.82);
-  --glass-border: rgba(255, 255, 255, 0.09);
+  --glass-bg: rgba(6, 6, 8, 0.85);
+  --glass-border: rgba(255, 255, 255, 0.08);
 }
 
 @theme inline {
@@ -31,18 +30,18 @@ body {
 }
 
 /* ========================================
-   High-End Geometric Grid & Ambient Canvas
+   Scale.com Architectural Grid & Canvas
    ======================================== */
 
 .bg-grid-pattern {
   background-image: 
     linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
-  background-size: 44px 44px;
+  background-size: 40px 40px;
 }
 
 .bg-dot-pattern {
-  background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
   background-size: 24px 24px;
 }
 
@@ -51,8 +50,65 @@ body {
   background-color: var(--background);
 }
 
+/* Scale.com Precision Crosshair Corner Accents */
+.scale-crosshair {
+  position: relative;
+}
+
+.scale-crosshair-tl::before {
+  content: '+';
+  position: absolute;
+  top: -8px;
+  left: -6px;
+  font-family: var(--font-mono, monospace);
+  font-size: 13px;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.4);
+  pointer-events: none;
+  z-index: 10;
+}
+
+.scale-crosshair-tr::after {
+  content: '+';
+  position: absolute;
+  top: -8px;
+  right: -6px;
+  font-family: var(--font-mono, monospace);
+  font-size: 13px;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.4);
+  pointer-events: none;
+  z-index: 10;
+}
+
+.scale-crosshair-bl::before {
+  content: '+';
+  position: absolute;
+  bottom: -8px;
+  left: -6px;
+  font-family: var(--font-mono, monospace);
+  font-size: 13px;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.4);
+  pointer-events: none;
+  z-index: 10;
+}
+
+.scale-crosshair-br::after {
+  content: '+';
+  position: absolute;
+  bottom: -8px;
+  right: -6px;
+  font-family: var(--font-mono, monospace);
+  font-size: 13px;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.4);
+  pointer-events: none;
+  z-index: 10;
+}
+
 /* ========================================
-   Glassmorphism (Shadcn-style)
+   Glassmorphism (Scale / Shadcn-style)
    ======================================== */
 
 .glass {
@@ -63,29 +119,25 @@ body {
 }
 
 .glass-card {
-  background: rgba(18, 18, 21, 0.65);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: rgba(14, 14, 17, 0.7);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-/* ========================================
-   Interactive Card & Glow Effects
-   ======================================== */
-
+/* Scale.com High-Tech Card Hover */
 .card-glow {
   position: relative;
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, border-color 0.25s ease, background-color 0.25s ease;
 }
 
 .card-glow:hover {
-  transform: translateY(-3px);
-  border-color: rgba(255, 255, 255, 0.22);
-  background-color: rgba(24, 24, 27, 0.9);
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.24);
+  background-color: rgba(20, 20, 24, 0.9);
   box-shadow: 
-    0 20px 40px -15px rgba(0, 0, 0, 0.8),
-    0 0 25px -5px rgba(255, 255, 255, 0.06),
-    0 0 0 1px rgba(255, 255, 255, 0.12);
+    0 24px 48px -12px rgba(0, 0, 0, 0.85),
+    0 0 0 1px rgba(255, 255, 255, 0.15);
 }
 
 .card-glow-muted {
@@ -100,37 +152,44 @@ body {
 }
 
 /* ========================================
-   Border Beam & Shimmer Animations
+   Scale.com Animated Light Sweep Border
    ======================================== */
 
-@keyframes shimmer {
+@keyframes borderLightSweep {
   0% {
-    transform: translateX(-100%);
+    background-position: -200% 0;
   }
   100% {
-    transform: translateX(100%);
+    background-position: 200% 0;
   }
 }
 
-.animate-shimmer {
+.scale-border-beam {
   position: relative;
-  overflow: hidden;
 }
 
-.animate-shimmer::after {
+.scale-border-beam::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0.08) 25%,
+    rgba(255, 255, 255, 0.35) 50%,
+    rgba(255, 255, 255, 0.08) 75%,
     transparent 100%
   );
-  animation: shimmer 2.8s infinite;
+  background-size: 200% 100%;
+  animation: borderLightSweep 6s linear infinite;
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
 }
 
 @keyframes floatSlow {
@@ -138,7 +197,7 @@ body {
     transform: translateY(0px);
   }
   50% {
-    transform: translateY(-6px);
+    transform: translateY(-4px);
   }
 }
 
@@ -148,15 +207,15 @@ body {
 
 @keyframes pulseGlow {
   0%, 100% {
-    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.06);
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.04);
   }
   50% {
-    box-shadow: 0 0 25px 2px rgba(255, 255, 255, 0.12);
+    box-shadow: 0 0 30px 1px rgba(255, 255, 255, 0.08);
   }
 }
 
 .pulse-glow-box {
-  animation: pulseGlow 3s ease-in-out infinite;
+  animation: pulseGlow 4s ease-in-out infinite;
 }
 
 @keyframes fadeInUp {
@@ -177,7 +236,7 @@ body {
 @keyframes scaleIn {
   from {
     opacity: 0;
-    transform: scale(0.96);
+    transform: scale(0.97);
   }
   to {
     opacity: 1;

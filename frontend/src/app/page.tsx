@@ -107,15 +107,27 @@ export default function HomePage() {
             onDragOver={handleDragOver}
             onDragLeave={handleDragLeave}
             className={clsx(
-              "relative max-w-5xl xl:max-w-6xl w-full mx-auto border-2 border-dashed rounded-3xl p-8 sm:p-14 lg:p-16 transition-all duration-300 cursor-pointer group shadow-2xl glass-card",
+              "relative max-w-5xl xl:max-w-6xl w-full mx-auto border border-dashed rounded-3xl p-6 sm:p-12 lg:p-14 transition-all duration-300 cursor-pointer group shadow-2xl glass-card scale-border-beam scale-crosshair scale-crosshair-tl scale-crosshair-tr scale-crosshair-bl scale-crosshair-br",
               dragActive
                 ? "border-zinc-100 bg-zinc-900/95 scale-[1.01] shadow-[0_0_50px_rgba(255,255,255,0.15)] ring-2 ring-white/20"
-                : "border-zinc-800 hover:border-zinc-500 bg-zinc-950/70 hover:bg-zinc-900/50 pulse-glow-box"
+                : "border-zinc-800 hover:border-zinc-600 bg-zinc-950/80 hover:bg-zinc-900/60 pulse-glow-box"
             )}
             role="button"
             tabIndex={0}
             aria-label="Drop files here to start converting, or click to browse tools"
           >
+            {/* Scale-style Header Status Bar */}
+            <div className="w-full flex items-center justify-between border-b border-zinc-800/80 pb-3 mb-6 font-mono text-[11px] text-zinc-500 uppercase tracking-wider">
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-zinc-100 animate-pulse" />
+                <span className="text-zinc-300 font-semibold tracking-widest">WORKSPACE // READY</span>
+              </div>
+              <div className="flex items-center gap-3 text-[10px]">
+                <span className="px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-zinc-300">LOCAL ENGINE</span>
+                <span className="hidden sm:inline-block px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-zinc-400">100% PRIVATE</span>
+              </div>
+            </div>
+
             <div className="flex flex-col items-center space-y-6">
               <div className={clsx(
                 "w-20 h-20 rounded-3xl flex items-center justify-center transition-all duration-300 border shadow-inner",
@@ -229,16 +241,19 @@ export default function HomePage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <FeatureCard
+              index="[ 01 ]"
               icon={Shield}
               title="100% Private & On-Device"
               description="Your documents are converted directly on your phone or computer. Your sensitive files and images never touch external servers or get stored anywhere."
             />
             <FeatureCard
+              index="[ 02 ]"
               icon={Zap}
               title="Blazing Fast & Unlimited"
               description="No waiting in lines, no slow uploads, and no arbitrary file size limits. Convert individual documents or bulk batches with zero lag."
             />
             <FeatureCard
+              index="[ 03 ]"
               icon={Wifi}
               title="Works Completely Offline"
               description="Keep working even without an internet connection. Fully functional offline with zero telemetry, zero accounts, and zero watermarks."
@@ -368,10 +383,14 @@ function ToolCard({
   return (
     <Link
       href={`/${tool.slug}`}
-      className="card-glow glass-card rounded-2xl p-6 text-center block h-full transition-all group"
+      className="card-glow glass-card rounded-2xl p-6 text-center block h-full transition-all group scale-crosshair scale-crosshair-tl scale-crosshair-tr relative overflow-hidden"
       role="link"
       aria-label={`Open ${tool.name} converter`}
     >
+      <div className="flex items-center justify-between text-[10px] font-mono text-zinc-500 mb-3 uppercase tracking-wider">
+        <span>TOOL</span>
+        <span className="text-zinc-400">● READY</span>
+      </div>
       <div className="w-12 h-12 mx-auto rounded-xl flex items-center justify-center mb-4 bg-zinc-900 border border-zinc-800 group-hover:border-zinc-700 group-hover:scale-105 transition-all">
         <Icon className="w-6 h-6 text-zinc-200 group-hover:text-white transition-colors" />
       </div>
@@ -385,14 +404,20 @@ function FeatureCard({
   icon: Icon,
   title,
   description,
+  index,
 }: {
   icon: React.ElementType;
   title: string;
   description: string;
+  index: string;
 }) {
   return (
-    <div className="card-glow glass-card rounded-2xl p-6 sm:p-8 hover:border-zinc-600 transition-all flex flex-col justify-between">
+    <div className="card-glow glass-card rounded-2xl p-6 sm:p-8 hover:border-zinc-600 transition-all flex flex-col justify-between scale-crosshair scale-crosshair-tl scale-crosshair-tr relative">
       <div>
+        <div className="flex items-center justify-between font-mono text-xs text-zinc-500 mb-6 border-b border-zinc-800/80 pb-3">
+          <span className="text-zinc-300 font-bold">{index}</span>
+          <span className="uppercase text-[10px] tracking-widest text-zinc-400">ARCHITECTURE</span>
+        </div>
         <div className="w-11 h-11 rounded-xl flex items-center justify-center mb-5 border border-zinc-800 bg-zinc-900 text-zinc-200">
           <Icon className="w-5 h-5 text-zinc-100" />
         </div>

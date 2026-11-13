@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Lock, Mail, User, ArrowRight, ShieldCheck, Sparkles } from 'lucide-react';
-import { CloudflareTurnstile } from '@/components/CloudflareTurnstile';
 import { getApiUrl } from '@/lib/api';
 
 export default function SignUpPage() {
@@ -12,7 +11,6 @@ export default function SignUpPage() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [turnstileToken, setTurnstileToken] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
@@ -26,7 +24,7 @@ export default function SignUpPage() {
       const res = await fetch(`${getApiUrl()}/auth/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, password, turnstileToken }),
+        body: JSON.stringify({ name, email, password }),
       });
 
       const data = await res.json();
@@ -142,9 +140,6 @@ export default function SignUpPage() {
                 />
               </div>
             </div>
-
-            {/* Cloudflare Turnstile Bot Defense */}
-            <CloudflareTurnstile onSuccess={(token) => setTurnstileToken(token)} />
 
             <button
               type="submit"
