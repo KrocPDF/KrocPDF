@@ -750,22 +750,22 @@ export function ConverterWidget({ tool = 'unified' }: { tool?: string }) {
                                 : 'bg-zinc-950/60 border-zinc-800 hover:border-zinc-700 text-zinc-400 hover:text-zinc-200'
                             )}
                           >
-                            {/* Label at top-left; badge pinned as a corner tag at top-right */}
-                            <div className="flex items-start">
+                            {/* Label and badge stacked vertically on the left so they never overlap */}
+                            <div className="flex flex-col gap-1.5">
                               <span className="font-semibold text-xs text-zinc-100">
                                 {preset.label}
                               </span>
+                              <span
+                                className={clsx(
+                                  'text-[9px] uppercase font-bold px-2 py-0.5 rounded border inline-block',
+                                  isSelected
+                                    ? 'bg-zinc-100 text-zinc-950 border-zinc-200'
+                                    : 'bg-zinc-800 text-zinc-400 border-zinc-700'
+                                )}
+                              >
+                                {preset.badge}
+                              </span>
                             </div>
-                            <span
-                              className={clsx(
-                                'absolute top-2 right-2 z-10 text-[9px] uppercase font-bold px-1.5 py-0.5 rounded border',
-                                isSelected
-                                  ? 'bg-zinc-100 text-zinc-950 border-zinc-200'
-                                  : 'bg-zinc-800 text-zinc-400 border-zinc-700'
-                              )}
-                            >
-                              {preset.badge}
-                            </span>
                             <p className="text-[10px] leading-tight text-zinc-400">
                               {preset.desc}
                             </p>

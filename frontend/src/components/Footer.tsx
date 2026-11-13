@@ -9,7 +9,7 @@ export function Footer() {
 
   return (
     <footer className="border-t border-zinc-900 bg-zinc-950 text-zinc-400" role="contentinfo">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="w-full px-4 sm:px-8 lg:px-12 xl:px-16 py-14">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {/* Column 1 — Product */}
           <div className="col-span-2 md:col-span-1">

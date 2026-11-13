@@ -83,31 +83,31 @@ export default function HomePage() {
       {/* ============================================
           Hero Section (Expanded Full-Screen Width)
           ============================================ */}
-      <section className="relative py-16 sm:py-24 lg:py-28 px-4 sm:px-6 lg:px-8 border-b border-zinc-900/80">
+      <section className="relative py-16 sm:py-24 lg:py-28 px-4 sm:px-8 lg:px-12 xl:px-16 border-b border-zinc-900/80">
         {/* Subtle Geometric Background Grid */}
         <div 
           className="absolute inset-0 bg-grid-pattern opacity-40 [mask-image:radial-gradient(ellipse_75%_55%_at_50%_0%,#000_60%,transparent_100%)] pointer-events-none" 
           aria-hidden="true"
         />
 
-        <div className="max-w-7xl mx-auto text-center relative z-10 fade-in-up">
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.06] mb-6 text-zinc-100 max-w-5xl mx-auto">
+        <div className="w-full text-center relative z-10 fade-in-up">
+          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.06] mb-6 text-zinc-100 max-w-6xl mx-auto">
             Every Document Tool <br className="hidden sm:inline" />
             <span className="text-zinc-400 font-medium">You Need, Pure &amp; Private.</span>
           </h1>
           
-          <p className="text-base sm:text-xl text-zinc-400 max-w-3xl mx-auto mb-10 leading-relaxed font-normal">
+          <p className="text-base sm:text-xl text-zinc-400 max-w-4xl mx-auto mb-10 leading-relaxed font-normal">
             Fast, zero-compromise document processing. Convert images or merge PDFs directly in your browser via local WASM or with secure dedicated cloud workers.{' '}
             <span className="text-zinc-200 font-medium">Free, open source, no watermarks.</span>
           </p>
 
-          {/* Expansive Hero Drop Zone CTA */}
+          {/* Expansive Hero Drop Zone CTA (Edge-to-Edge) */}
           <div
             onDrop={handleHeroDrop}
             onDragOver={handleDragOver}
             onDragLeave={handleDragLeave}
             className={clsx(
-              "relative max-w-4xl w-full mx-auto border-2 border-dashed rounded-3xl p-8 sm:p-12 transition-all duration-300 cursor-pointer group shadow-2xl glass-card",
+              "relative max-w-5xl xl:max-w-6xl w-full mx-auto border-2 border-dashed rounded-3xl p-8 sm:p-14 lg:p-16 transition-all duration-300 cursor-pointer group shadow-2xl glass-card",
               dragActive
                 ? "border-zinc-100 bg-zinc-900/95 scale-[1.01] shadow-[0_0_50px_rgba(255,255,255,0.15)] ring-2 ring-white/20"
                 : "border-zinc-800 hover:border-zinc-500 bg-zinc-950/70 hover:bg-zinc-900/50 pulse-glow-box"
@@ -116,31 +116,31 @@ export default function HomePage() {
             tabIndex={0}
             aria-label="Drop files here to start converting, or click to browse tools"
           >
-            <div className="flex flex-col items-center space-y-5">
+            <div className="flex flex-col items-center space-y-6">
               <div className={clsx(
-                "w-16 h-16 rounded-2xl flex items-center justify-center transition-all duration-300 border shadow-inner",
+                "w-20 h-20 rounded-3xl flex items-center justify-center transition-all duration-300 border shadow-inner",
                 dragActive
                   ? "bg-zinc-100 text-zinc-950 border-white scale-110"
                   : "bg-zinc-900 border-zinc-700/80 text-zinc-300 group-hover:text-white group-hover:border-zinc-500 group-hover:scale-105 animate-float"
               )}>
-                <UploadCloud className="w-8 h-8" />
+                <UploadCloud className="w-10 h-10" />
               </div>
               
-              <div className="space-y-1.5">
-                <p className="text-xl sm:text-2xl font-semibold text-zinc-100 tracking-tight">
+              <div className="space-y-2">
+                <p className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-zinc-100 tracking-tight">
                   {dragActive ? 'Release to Convert Instantly' : 'Drag & Drop Any Images or PDFs Here'}
                 </p>
-                <p className="text-sm text-zinc-400 max-w-md mx-auto">
+                <p className="text-sm sm:text-base text-zinc-400 max-w-lg mx-auto">
                   Auto-detects JPG, PNG, WebP, or PDF and launches the optimal conversion engine
                 </p>
               </div>
 
               {/* Supported Formats Pills */}
-              <div className="flex flex-wrap items-center justify-center gap-2 pt-1 pb-2">
+              <div className="flex flex-wrap items-center justify-center gap-2.5 pt-1 pb-2">
                 {['.JPG', '.PNG', '.JPEG', '.WEBP', '.PDF'].map((ext) => (
                   <span
                     key={ext}
-                    className="px-2.5 py-1 rounded-md text-[11px] font-mono font-medium bg-zinc-900/90 border border-zinc-800 text-zinc-400 group-hover:border-zinc-700 group-hover:text-zinc-300 transition-colors"
+                    className="px-3 py-1.5 rounded-lg text-xs font-mono font-medium bg-zinc-900/90 border border-zinc-800 text-zinc-400 group-hover:border-zinc-700 group-hover:text-zinc-300 transition-colors"
                   >
                     {ext}
                   </span>
@@ -150,10 +150,10 @@ export default function HomePage() {
               <div className="pt-2">
                 <Link
                   href="/jpg-to-pdf"
-                  className="inline-flex items-center px-6 py-3 text-sm font-semibold bg-zinc-100 text-zinc-950 rounded-xl hover:bg-white transition-all shadow-xl hover:shadow-2xl hover:scale-[1.02] active:scale-[0.98]"
+                  className="inline-flex items-center px-8 py-3.5 text-sm sm:text-base font-semibold bg-zinc-100 text-zinc-950 rounded-xl hover:bg-white transition-all shadow-xl hover:shadow-2xl hover:scale-[1.02] active:scale-[0.98]"
                 >
                   Start Converting Now
-                  <ArrowRight className="w-4 h-4 ml-2" />
+                  <ArrowRight className="w-5 h-5 ml-2" />
                 </Link>
               </div>
             </div>
@@ -164,8 +164,8 @@ export default function HomePage() {
       {/* ============================================
           Trust Badges
           ============================================ */}
-      <section className="py-6 px-4 sm:px-6 lg:px-8 border-b border-zinc-900/80 bg-zinc-950/80 backdrop-blur-md">
-        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-center gap-x-10 gap-y-4">
+      <section className="py-6 px-4 sm:px-8 lg:px-12 xl:px-16 border-b border-zinc-900/80 bg-zinc-950/80 backdrop-blur-md">
+        <div className="w-full flex flex-wrap items-center justify-center gap-x-12 gap-y-4">
           <TrustBadge icon={Lock} text="100% Open Source" />
           <TrustBadge icon={Shield} text="Files never leave your browser (Local WASM)" />
           <TrustBadge icon={Zap} text="Zero Sign-up Required" />
@@ -183,10 +183,10 @@ export default function HomePage() {
       </section>
 
       {/* ============================================
-          Tool Cards Grid (Expansive 3 & 4 Columns)
+          Tool Cards Grid (Edge-to-Edge 6-Column Layout)
           ============================================ */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 relative">
-        <div className="max-w-7xl mx-auto">
+      <section className="py-20 px-4 sm:px-8 lg:px-12 xl:px-16 relative">
+        <div className="w-full">
           <div className="text-center mb-14">
             <h2 className="text-3xl sm:text-4xl font-extrabold text-zinc-100 tracking-tight mb-3">
               Available Conversion Tools
@@ -196,7 +196,7 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-6 gap-5">
             {toolCards.map((tool) => (
               <ToolCard
                 key={tool.slug}
@@ -214,10 +214,10 @@ export default function HomePage() {
       </section>
 
       {/* ============================================
-          Why KrocPDF Features Section (Expansive)
+          Why KrocPDF Features Section (Edge-to-Edge)
           ============================================ */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 border-t border-zinc-900/80 relative">
-        <div className="max-w-7xl mx-auto">
+      <section className="py-20 px-4 sm:px-8 lg:px-12 xl:px-16 border-t border-zinc-900/80 relative">
+        <div className="w-full">
           <div className="text-center mb-14">
             <h2 className="text-3xl sm:text-4xl font-extrabold text-zinc-100 tracking-tight mb-3">
               Why Choose KrocPDF?
@@ -227,7 +227,7 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <FeatureCard
               icon={Shield}
               title="Privacy Guaranteed (WASM)"
