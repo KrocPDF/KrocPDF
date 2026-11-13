@@ -2,12 +2,6 @@
 
 import React, { useEffect, useRef } from 'react';
 
-interface GridCell {
-  x: number;
-  y: number;
-  alpha: number; // 0 to 1 decay
-}
-
 export function InteractiveGridCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -16,6 +10,23 @@ export function InteractiveGridCanvas() {
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
+
+    // Disable on mobile / touch devices and reduced-motion — this canvas is a
+    // mouse-trail decoration with no value on phones. It burns CPU/battery for
+    // zero benefit there.
+    const isMobileOrTouch =
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent,
+      ) ||
+      'ontouchstart' in window ||
+      navigator.maxTouchPoints > 0;
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)',
+    ).matches;
+    if (isMobileOrTouch || prefersReducedMotion) {
+      canvas.style.display = 'none';
+      return;
+    }
 
     let animationFrameId: number;
     let width = 0;
@@ -29,7 +40,6 @@ export function InteractiveGridCanvas() {
     let mouseY = -1000;
     let targetMouseX = -1000;
     let targetMouseY = -1000;
-    let isMoving = false;
     let moveTimeout: NodeJS.Timeout;
 
     // Active trail map: key = `${col},${row}`, value = alpha
@@ -42,7 +52,7 @@ export function InteractiveGridCanvas() {
       canvas.height = height * dpr;
       canvas.style.width = `${width}px`;
       canvas.style.height = `${height}px`;
-      ctx.scale(dpr, dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     };
 
     resize();
@@ -51,21 +61,27 @@ export function InteractiveGridCanvas() {
     const onMouseMove = (e: MouseEvent) => {
       targetMouseX = e.clientX;
       targetMouseY = e.clientY;
-      isMoving = true;
       clearTimeout(moveTimeout);
-      moveTimeout = setTimeout(() => {
-        isMoving = false;
-      }, 1200);
+      moveTimeout = setTimeout(() => {}, 1200);
     };
 
     const onMouseLeave = () => {
       targetMouseX = -1000;
       targetMouseY = -1000;
-      isMoving = false;
     };
 
     window.addEventListener('mousemove', onMouseMove, { passive: true });
     document.addEventListener('mouseleave', onMouseLeave);
+
+    // Pause when tab is hidden to save battery.
+    const onVisibilityChange = () => {
+      if (document.hidden) {
+        cancelAnimationFrame(animationFrameId);
+      } else {
+        animationFrameId = requestAnimationFrame(draw);
+      }
+    };
+    document.addEventListener('visibilitychange', onVisibilityChange);
 
     const draw = () => {
       // Smooth lerp mouse position for silky tracking
@@ -167,6 +183,7 @@ export function InteractiveGridCanvas() {
       window.removeEventListener('resize', resize);
       window.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseleave', onMouseLeave);
+      document.removeEventListener('visibilitychange', onVisibilityChange);
       clearTimeout(moveTimeout);
     };
   }, []);
@@ -183,4 +200,3 @@ export function InteractiveGridCanvas() {
     />
   );
 }
-

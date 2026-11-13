@@ -2,7 +2,7 @@
 
 <img src="docs/assets/KrocPDF_Logo_Without_Bg.png" alt="KrocPDF Logo" width="120" />
 
-# ⚡ KrocPDF — Privacy-First Document Platform
+# KrocPDF — Privacy-First Document Platform
 
 <p align="center">
   <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&pause=1000&color=A855F7&center=true&vCenter=true&random=false&width=750&lines=The+Anti-iLovePDF%3A+100%25+Privacy-First+Document+Engine;100MB+Free+Files+%E2%80%A2+Zero+Watermarks+%E2%80%A2+Zero+Ads;Dual+Engine%3A+Client-Side+WASM+%2B+High-Throughput+Go;Sub-800ms+Compilation+%E2%80%A2+Real-Time+SSE+Progress;Built+with+Next.js+16+%2B+NestJS+%2B+Redis+%2B+Cloudflare+R2" alt="Typing SVG" />
@@ -23,10 +23,10 @@
 
 <div align="center">
   <a href="https://jpg-to-pdf-zeta.vercel.app">
-    <img src="https://img.shields.io/badge/⚡_Conversion_Latency-Sub--800ms-7928CA?style=for-the-badge&logo=fastapi&logoColor=white" alt="Latency" />
-    <img src="https://img.shields.io/badge/🛡️_Local_Privacy-0_Bytes_Uploaded-0070F3?style=for-the-badge&logo=webassembly&logoColor=white" alt="Privacy" />
-    <img src="https://img.shields.io/badge/🚀_Cloudflare_R2-%240_Egress_Cost-F38020?style=for-the-badge&logo=cloudflare&logoColor=white" alt="Egress" />
-    <img src="https://img.shields.io/badge/🗜️_Quality_Retention-100%25_Lossless-10B981?style=for-the-badge&logo=speedtest&logoColor=white" alt="Lossless" />
+    <img src="https://img.shields.io/badge/Conversion_Latency-Sub--800ms-7928CA?style=for-the-badge&logo=fastapi&logoColor=white" alt="Latency" />
+    <img src="https://img.shields.io/badge/Local_Privacy-0_Bytes_Uploaded-0070F3?style=for-the-badge&logo=webassembly&logoColor=white" alt="Privacy" />
+    <img src="https://img.shields.io/badge/Cloudflare_R2-%240_Egress_Cost-F38020?style=for-the-badge&logo=cloudflare&logoColor=white" alt="Egress" />
+    <img src="https://img.shields.io/badge/Quality_Retention-100%25_Lossless-10B981?style=for-the-badge&logo=speedtest&logoColor=white" alt="Lossless" />
   </a>
 </div>
 
@@ -38,16 +38,16 @@
 
 ---
 
-## 📸 Visual Showcase & UI Interface
+## Visual Showcase & UI Interface
 
 <div align="center">
 
-### 🌐 Modular Landing Page & Tool Hub (`/`)
+### Modular Landing Page & Tool Hub (`/`)
 <img src="docs/assets/krocpdf_homepage.png" alt="KrocPDF Landing Page" width="95%" />
 
 <br/><br/>
 
-### ⚡ Dedicated In-Browser Conversion Pages (`/png-to-pdf`, `/jpg-to-pdf`)
+### Dedicated In-Browser Conversion Pages (`/png-to-pdf`, `/jpg-to-pdf`)
 <p align="center">
   <img src="docs/assets/krocpdf_png_to_pdf.png" alt="PNG to PDF Conversion Page" width="48%" />
   &nbsp;
@@ -58,7 +58,7 @@
 
 ---
 
-## 📑 Interactive System Radar & Directory
+## Interactive System Radar & Directory
 
 ```mermaid
 %%{init: {'theme': 'dark', 'themeVariables': { 'fontSize': '13px', 'fontFamily': 'Inter, system-ui, sans-serif' }}}%%
@@ -74,48 +74,48 @@ flowchart TB
     classDef nodeAmber fill:#B45309,stroke:#F59E0B,stroke-width:1px,color:#FFFFFF;
     classDef nodeRose fill:#BE123C,stroke:#F43F5E,stroke-width:1px,color:#FFFFFF;
 
-    subgraph NorthEast ["🚀 QUADRANT I: VALUE & DIFFERENTIATION"]
+    subgraph NorthEast ["QUADRANT I: VALUE & DIFFERENTIATION"]
         direction TB
-        Q1["💡 Core Proposition"]:::quadrant1
-        N1_1["💡 Why This Exists<br/>• Zero predatory paywalls<br/>• 100MB free files"]:::nodeBlue
-        N1_2["✨ Key Capabilities<br/>• Lossless 300 DPI<br/>• Drag-and-drop sort"]:::nodeBlue
-        N1_3["🥊 The Differentiator<br/>• Us vs. iLovePDF / Smallpdf"]:::nodeBlue
+        Q1["Core Proposition"]:::quadrant1
+        N1_1["Why This Exists<br/>• Zero predatory paywalls<br/>• 100MB free files"]:::nodeBlue
+        N1_2["Key Capabilities<br/>• Lossless 300 DPI<br/>• Drag-and-drop sort"]:::nodeBlue
+        N1_3["The Differentiator<br/>• Us vs. iLovePDF / Smallpdf"]:::nodeBlue
         Q1 --> N1_1
         N1_1 --> N1_2
         N1_2 --> N1_3
     end
 
-    subgraph NorthWest ["⚙️ QUADRANT II: ARCHITECTURE & ENGINE"]
+    subgraph NorthWest ["QUADRANT II: ARCHITECTURE & ENGINE"]
         direction TB
-        Q2["🏗️ Distributed Engine"]:::quadrant2
-        N2_1["⚡ Dual-Engine Topology<br/>• WASM Client Engine<br/>• Go Worker Daemon"]:::nodeGreen
-        N2_2["☁️ Cloudflare R2 Storage<br/>• Zero-egress bandwidth<br/>• 24h ephemeral purge"]:::nodeGreen
-        N2_3["⚙️ Environment Matrix<br/>• Full .env specifications"]:::nodeGreen
+        Q2["Distributed Engine"]:::quadrant2
+        N2_1["Dual-Engine Topology<br/>• WASM Client Engine<br/>• Go Worker Daemon"]:::nodeGreen
+        N2_2["Cloudflare R2 Storage<br/>• Zero-egress bandwidth<br/>• 24h ephemeral purge"]:::nodeGreen
+        N2_3["Environment Matrix<br/>• Full .env specifications"]:::nodeGreen
         Q2 --> N2_1
         N2_1 --> N2_2
         N2_2 --> N2_3
     end
 
     %% Central Hub
-    CORE(("⚡ JPG to PDF<br/>PLATFORM<br/>CORE")):::core
+    CORE(("JPG to PDF<br/>PLATFORM<br/>CORE")):::core
 
-    subgraph SouthEast ["🛠️ QUADRANT III: DEVELOPER ONBOARDING"]
+    subgraph SouthEast ["QUADRANT III: DEVELOPER ONBOARDING"]
         direction TB
-        Q3["💻 Developer Workspace"]:::quadrant3
-        N3_1["📋 Prerequisites<br/>• Docker, Go 1.21, Node 20"]:::nodeAmber
-        N3_2["🚀 Local Quick Start<br/>• 5-min Docker Compose"]:::nodeAmber
-        N3_3["📖 API Reference<br/>• REST endpoints & SSE streams"]:::nodeAmber
+        Q3["Developer Workspace"]:::quadrant3
+        N3_1["Prerequisites<br/>• Docker, Go 1.21, Node 20"]:::nodeAmber
+        N3_2["Local Quick Start<br/>• 5-min Docker Compose"]:::nodeAmber
+        N3_3["API Reference<br/>• REST endpoints & SSE streams"]:::nodeAmber
         Q3 --> N3_1
         N3_1 --> N3_2
         N3_2 --> N3_3
     end
 
-    subgraph SouthWest ["🛡️ QUADRANT IV: QUALITY & GOVERNANCE"]
+    subgraph SouthWest ["QUADRANT IV: QUALITY & GOVERNANCE"]
         direction TB
-        Q4["⚖️ Governance & Evolution"]:::quadrant4
-        N4_1["🧪 Automated Test Suite<br/>• Unit, Vitest, Go test"]:::nodeRose
-        N4_2["🗺️ Strategic Roadmap<br/>• v1.1 WASM to v1.5 ADRs"]:::nodeRose
-        N4_3["❓ Diagnostics & FAQ<br/>• CORS & memory tuning"]:::nodeRose
+        Q4["Governance & Evolution"]:::quadrant4
+        N4_1["Automated Test Suite<br/>• Unit, Vitest, Go test"]:::nodeRose
+        N4_2["Strategic Roadmap<br/>• v1.1 WASM to v1.5 ADRs"]:::nodeRose
+        N4_3["Diagnostics & FAQ<br/>• CORS & memory tuning"]:::nodeRose
         Q4 --> N4_1
         N4_1 --> N4_2
         N4_2 --> N4_3
@@ -134,18 +134,18 @@ flowchart TB
 
 <p align="center">
   <b>Jump Directly:</b>
-  <a href="#-why-this-exists"><code>💡 Why Us</code></a> •
-  <a href="#-key-features"><code>✨ Features</code></a> •
-  <a href="#-us-vs-them"><code>🥊 Comparison</code></a> •
-  <a href="#-architecture-overview"><code>🏗 Architecture</code></a> •
-  <a href="#-prerequisites"><code>📋 Prerequisites</code></a> •
-  <a href="#-quick-start-local-development"><code>🚀 Quick Start</code></a> •
-  <a href="#-usage-guide"><code>📖 API Guide</code></a> •
-  <a href="#️-production-deployment-cloudflare-r2"><code>☁️ Cloudflare R2</code></a> •
-  <a href="#-testing--quality-assurance"><code>🧪 Testing</code></a> •
-  <a href="#️-roadmap"><code>🗺️ Roadmap</code></a> •
-  <a href="#-troubleshooting--faq"><code>❓ FAQ</code></a> •
-  <a href="#-contributing"><code>🤝 Contributing</code></a>
+  <a href="#why-this-exists"><code>Why Us</code></a> •
+  <a href="#key-features"><code>Features</code></a> •
+  <a href="#us-vs-them"><code>Comparison</code></a> •
+  <a href="#architecture-overview"><code>Architecture</code></a> •
+  <a href="#prerequisites"><code>Prerequisites</code></a> •
+  <a href="#quick-start-local-development"><code>Quick Start</code></a> •
+  <a href="#usage-guide"><code>API Guide</code></a> •
+  <a href="#production-deployment-cloudflare-r2"><code>Cloudflare R2</code></a> •
+  <a href="#testing--quality-assurance"><code>Testing</code></a> •
+  <a href="#roadmap"><code>Roadmap</code></a> •
+  <a href="#troubleshooting--faq"><code>FAQ</code></a> •
+  <a href="#contributing--community"><code>Contributing</code></a>
 </p>
 
 <br/>
@@ -154,10 +154,10 @@ flowchart TB
 </p>
 <br/>
 
-## 💡 Why This Exists
+## Why This Exists
 
 > [!CAUTION]
-> ### 🛑 The Problem: The Predatory "Free" Converter Trap
+> ### The Problem: The Predatory "Free" Converter Trap
 > Most commercial online converters (iLovePDF, Smallpdf, PDF Candy) lure users with a "free" claim, then aggressively monetize document urgency through user-hostile mechanics:
 > - **Arbitrary Paywalls:** 15–25 MB caps strategically engineered to fail on high-res camera scans or multi-page documents.
 > - **Permanent Data Harvesting:** Invoices, tax returns, and ID scans are uploaded to opaque third-party cloud disks with no proof of deletion.
@@ -165,21 +165,21 @@ flowchart TB
 > - **Deceptive Dark Patterns:** Full-screen popups, countdown blockers, and fake download buttons running tracking scripts.
 
 > [!TIP]
-> ### ⚡ The Mission: Enterprise Quality with Zero-Compromise Privacy
+> ### The Mission: Enterprise Quality with Zero-Compromise Privacy
 > We engineered this platform to be the definitive **open-source, privacy-first alternative**:
 > - **Client-First Inversion (WASM):** Small-to-medium files compile right inside your browser's WebAssembly sandbox. **0 bytes leave your machine.**
 > - **High-Throughput Distributed Cloud Worker:** Massive multi-gigabyte queues scale seamlessly through Go goroutines (`pdfcpu` + `govips`).
 > - **Zero Bandwidth Penalties:** Integrated with Cloudflare R2's zero-egress S3 API, allowing unlimited 100 MB free conversions without cost traps.
 
-### 🥊 The Architecture Shift at a Glance
+### The Architecture Shift at a Glance
 
-| ❌ **The Predatory Incumbents** | 🟢 **Our Open-Source Architecture** |
+| Optional **The Predatory Incumbents** |  **Our Open-Source Architecture** |
 | :--- | :--- |
-| 🚫 **Capped at 15–25 MB**<br>Forces paid subscription traps when submitting documents. | ⚡ **100 MB Free File Limits**<br>4x higher than standard industry ceilings. |
-| 📉 **Forced Recompression & Branding**<br>Downsamples to 72 DPI and adds unwanted watermarks. | 💎 **Lossless 150/300 DPI Fidelity**<br>Pixel-perfect clarity, zero watermarks, legal-ready output. |
-| 👁️ **Opaque Server Logging**<br>Sensitive personal files uploaded and retained indefinitely. | 🛡️ **Dual-Engine Privacy (WASM First)**<br>Local mode runs 100% in-browser; files never touch a wire. |
-| ⏳ **Indefinite Retention**<br>No visibility into when or if files are permanently deleted. | ⏱️ **Strict 24h Purge + Instant Delete**<br>Enforced automated lifecycle deletion rules on Cloudflare R2. |
-| 🪤 **Aggressive Ad Banners & Trackers**<br>Cluttered, deceptive UI designed to harvest ad impressions. | 🧼 **Zero Ads & Pure Glassmorphism**<br>Minimalist, focused, distraction-free open-source workspace. |
+|  **Capped at 15–25 MB**<br>Forces paid subscription traps when submitting documents. |  **100 MB Free File Limits**<br>4x higher than standard industry ceilings. |
+|  **Forced Recompression & Branding**<br>Downsamples to 72 DPI and adds unwanted watermarks. |  **Lossless 150/300 DPI Fidelity**<br>Pixel-perfect clarity, zero watermarks, legal-ready output. |
+|  **Opaque Server Logging**<br>Sensitive personal files uploaded and retained indefinitely. |  **Dual-Engine Privacy (WASM First)**<br>Local mode runs 100% in-browser; files never touch a wire. |
+|  **Indefinite Retention**<br>No visibility into when or if files are permanently deleted. |  **Strict 24h Purge + Instant Delete**<br>Enforced automated lifecycle deletion rules on Cloudflare R2. |
+|  **Aggressive Ad Banners & Trackers**<br>Cluttered, deceptive UI designed to harvest ad impressions. |  **Zero Ads & Pure Glassmorphism**<br>Minimalist, focused, distraction-free open-source workspace. |
 
 <br/>
 <p align="center">
@@ -187,7 +187,7 @@ flowchart TB
 </p>
 <br/>
 
-## ✨ Key Features
+## Key Features
 
 | Feature | Details | Benefit |
 |:---|:---|:---|
@@ -206,7 +206,7 @@ flowchart TB
 </p>
 <br/>
 
-## 🥊 Us vs. Them
+## Us vs. Them
 
 | Metric / Capability | Conventional Tools (iLovePDF, Smallpdf) | Our Platform |
 |:---|:---|:---|
@@ -223,7 +223,7 @@ flowchart TB
 </p>
 <br/>
 
-## 🏗 Architecture Overview
+## Architecture Overview
 
 Our platform decouples stateful API orchestration from CPU-bound image processing through an asynchronous, event-driven queue:
 
@@ -250,12 +250,12 @@ Our platform decouples stateful API orchestration from CPU-bound image processin
                                                                                                └── (SSE Progress)  ──> Next.js UI
 ```
 
-### 📚 Feature Specifications & Deep Dives
+### Feature Specifications & Deep Dives
 
 For detailed breakdowns of how our dual-engine architecture processes specific formats, view our specialized feature specifications:
 
 - [**Merge PDF Engine (v2.1)**](./docs/features/merge-pdf.md): Explores the Smart Auto-Fallback routing between in-browser `pdf-lib` and cloud `pdfcpu` workers, complete with DTO schemas and binary `%PDF-` validation gates.
-- [**📱 Mobile App Engineering Blueprint (Flutter)**](./mobile_blueprint/README.md): Comprehensive architectural specifications, wire protocols, Flutter tech stack, UI/UX design tokens, and App Store / Google Play deployment pipelines for the official KrocPDF mobile client.
+- [** Mobile App Engineering Blueprint (Flutter)**](./mobile_blueprint/README.md): Comprehensive architectural specifications, wire protocols, Flutter tech stack, UI/UX design tokens, and App Store / Google Play deployment pipelines for the official KrocPDF mobile client.
 
 <br/>
 <p align="center">
@@ -263,7 +263,7 @@ For detailed breakdowns of how our dual-engine architecture processes specific f
 </p>
 <br/>
 
-## 📋 Prerequisites
+## Prerequisites
 
 Before running the project locally, ensure you have the following installed:
 
@@ -278,23 +278,23 @@ Before running the project locally, ensure you have the following installed:
 </p>
 <br/>
 
-## 🚀 Quick Start (Local Development)
+## Quick Start (Local Development)
 
 <div align="center">
 <table>
 <tr>
 <td style="background-color: #0d1117; border-radius: 8px;">
-<p>🔴 &nbsp; 🟡 &nbsp; 🟢 &nbsp; <b>terminal — 80x24</b></p>
+<p><b>terminal — 80x24</b></p>
 
 ```bash
-# ⚡ 1-Command Production-Parity Local Bootstrap
+# 1-Command Production-Parity Local Bootstrap
 git clone https://github.com/alokprashar864/jpg_to_pdf.git
 cd jpg_to_pdf && docker compose up -d
 
-✔ Container jpg2pdf-postgres   Running (Port 5432)
-✔ Container jpg2pdf-redis      Running (Port 6379)
-✔ Container jpg2pdf-minio      Running (S3 API :9000 | Web Console :9001)
-✔ Active Engine Routing        Client WASM: Online | Cloud Worker: Listening
+[OK] Container jpg2pdf-postgres   Running (Port 5432)
+[OK] Container jpg2pdf-redis      Running (Port 6379)
+[OK] Container jpg2pdf-minio      Running (S3 API :9000 | Web Console :9001)
+[OK] Active Engine Routing        Client WASM: Online | Cloud Worker: Listening
 ```
 
 </td>
@@ -346,7 +346,7 @@ npm run dev
 </p>
 <br/>
 
-## 📖 Usage Guide
+## Usage Guide
 
 ### 1. Web Interface
 1. Open your browser to `http://localhost:3001` or [Live Demo](https://jpg-to-pdf-zeta.vercel.app).
@@ -391,24 +391,24 @@ curl -N http://localhost:3000/api/jobs/<JOB_ID>/progress
 </p>
 <br/>
 
-## ⚙️ Configuration Reference
+## Configuration Reference
 
 <details open>
-<summary><b>🛠️ Click to Collapse / Expand Environment Variable Matrix (<code>.env</code>)</b></summary>
+<summary><b> Click to Collapse / Expand Environment Variable Matrix (<code>.env</code>)</b></summary>
 <br/>
 
 All application secrets and endpoints can be customized in `.env`:
 
 | Variable | Required | Default / Example | Purpose |
 |:---|:---:|:---|:---|
-| `DATABASE_URL` | ✅ | `postgresql://postgres:password@localhost:5432/jpg2pdf` | PostgreSQL database connection string |
-| `REDIS_URL` | ✅ | `redis://localhost:6379` | Redis broker connection for streaming queues |
-| `S3_ENDPOINT` | ✅ | `http://localhost:9000` *(Local)* / `https://<ID>.r2.cloudflarestorage.com` | S3-compatible endpoint (MinIO / Cloudflare R2) |
-| `AWS_ACCESS_KEY_ID` | ✅ | `admin` *(Local)* / Cloudflare Token ID | S3 API client access identifier |
-| `AWS_SECRET_ACCESS_KEY` | ✅ | `admin123` *(Local)* / Cloudflare Secret | S3 API authentication secret |
-| `AWS_REGION` | ❌ | `us-east-1` *(Local)* / `auto` *(R2)* | Storage bucket geographic region |
-| `S3_BUCKET_NAME` | ❌ | `conversions` | Storage bucket name for temporary artifacts |
-| `API_PORT` | ❌ | `3000` | Port for the NestJS API gateway |
+| `DATABASE_URL` | Yes | `postgresql://postgres:password@localhost:5432/jpg2pdf` | PostgreSQL database connection string |
+| `REDIS_URL` | Yes | `redis://localhost:6379` | Redis broker connection for streaming queues |
+| `S3_ENDPOINT` | Yes | `http://localhost:9000` *(Local)* / `https://<ID>.r2.cloudflarestorage.com` | S3-compatible endpoint (MinIO / Cloudflare R2) |
+| `AWS_ACCESS_KEY_ID` | Yes | `admin` *(Local)* / Cloudflare Token ID | S3 API client access identifier |
+| `AWS_SECRET_ACCESS_KEY` | Yes | `admin123` *(Local)* / Cloudflare Secret | S3 API authentication secret |
+| `AWS_REGION` | Optional | `us-east-1` *(Local)* / `auto` *(R2)* | Storage bucket geographic region |
+| `S3_BUCKET_NAME` | Optional | `conversions` | Storage bucket name for temporary artifacts |
+| `API_PORT` | Optional | `3000` | Port for the NestJS API gateway |
 
 </details>
 
@@ -418,7 +418,7 @@ All application secrets and endpoints can be customized in `.env`:
 </p>
 <br/>
 
-## ☁️ Production Deployment (Cloudflare R2)
+## Production Deployment (Cloudflare R2)
 
 To deploy at scale with zero bandwidth egress costs:
 
@@ -442,7 +442,7 @@ To deploy at scale with zero bandwidth egress costs:
 </p>
 <br/>
 
-## 🧪 Testing & Quality Assurance
+## Testing & Quality Assurance
 
 Run test suites across each microservice:
 
@@ -466,7 +466,7 @@ npm run test
 </p>
 <br/>
 
-## ❓ Troubleshooting & FAQ
+## Troubleshooting & FAQ
 
 <details>
 <summary><strong>Q: I get a "CORS Policy Blocked" error during cloud uploads</strong></summary>
@@ -492,7 +492,7 @@ In-browser conversion utilizes WebAssembly and client-side canvas rendering. The
 </p>
 <br/>
 
-## 🗺️ Roadmap
+## Roadmap
 
 - [x] **v1.0 (Current):**
   - [x] Dual-engine architecture (Local WASM + Cloud Go Worker)
@@ -512,7 +512,7 @@ In-browser conversion utilizes WebAssembly and client-side canvas rendering. The
 </p>
 <br/>
 
-## 🤝 Contributing & Community
+## Contributing & Community
 
 > **We believe in open engineering and community-first innovation.** Whether you're fixing a typo, optimizing Go memory buffers, refining Next.js canvas rendering, or proposing a new compression profile, your contributions help keep the web free from predatory paywalls.
 
@@ -533,7 +533,7 @@ In-browser conversion utilizes WebAssembly and client-side canvas rendering. The
 
 <br/>
 
-### 🛠️ Contribution Lifecycle
+### Contribution Lifecycle
 
 ```
 [ 1. Fork & Branch ] ──> [ 2. Local Docker Test ] ──> [ 3. Conventional Commit ] ──> [ 4. CI Validation ] ──> [ 5. Merge & Recognition ]
@@ -554,7 +554,7 @@ In-browser conversion utilizes WebAssembly and client-side canvas rendering. The
 </p>
 <br/>
 
-### 💖 Contributor Recognition
+### Contributor Recognition
 
 Every contributor who gets a PR merged is permanently immortalized in our project release notes and contributor graph. Thank you to everyone helping democratize document processing!
 
@@ -570,7 +570,7 @@ Every contributor who gets a PR merged is permanently immortalized in our projec
 </p>
 <br/>
 
-## 📄 License & Intellectual Property
+## License & Intellectual Property
 
 This project is open-source software licensed under the **[MIT License](./LICENSE)**.
 
@@ -582,7 +582,7 @@ of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction...
 ```
 
-You are free to inspect, modify, fork, and self-host this software for personal, academic, or commercial projects. If you find this software useful, please consider giving the repository a ⭐️ to help others discover it!
+You are free to inspect, modify, fork, and self-host this software for personal, academic, or commercial projects. If you find this software useful, please consider giving the repository a star to help others discover it!
 
 <div align="center">
 
@@ -590,7 +590,7 @@ You are free to inspect, modify, fork, and self-host this software for personal,
   <img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=1,2,3,4&height=3&section=header" width="100%" alt="divider" />
 </p>
 
-### ⭐ Support Open-Source & Privacy-First Tooling
+### star Support Open-Source & Privacy-First Tooling
 
 If this platform saved you from paying for an overpriced PDF subscription or simplified your workflow, consider starring the repo:
 
@@ -603,7 +603,7 @@ If this platform saved you from paying for an overpriced PDF subscription or sim
 <br/>
 
 ```
-⚡ Dual-Engine WASM & Go Worker Architecture • Zero-Egress Cloudflare R2 • 100% Privacy by Design
+ Dual-Engine WASM & Go Worker Architecture • Zero-Egress Cloudflare R2 • 100% Privacy by Design
 ```
 
 <sub>Maintained by <b>Alok Prashar</b> & the Open-Source Community. Released under the MIT License.</sub>

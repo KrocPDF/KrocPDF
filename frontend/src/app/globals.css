@@ -516,4 +516,37 @@ body {
   animation: krocIdleBreathing 3.5s ease-in-out infinite;
 }
 
+/* ========================================
+   Mobile / Reduced Motion: Kill expensive
+   continuous animations so phones stay smooth
+   ======================================== */
+@media (max-width: 768px), (prefers-reduced-motion: reduce) {
+  .animate-marquee-ltr,
+  .animate-float,
+  .pulse-glow-box,
+  .animate-drift-one,
+  .animate-drift-two,
+  .animate-drift-three,
+  .animate-beam-h,
+  .animate-beam-h-reverse,
+  .animate-beam-v,
+  .animate-beam-v-delayed,
+  .animate-kroc-idle,
+  .scale-border-beam::before {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .scale-border-beam::before {
+    opacity: 0.35 !important;
+  }
+
+  /* Reduce backdrop-filter blur cost on mobile GPUs */
+  .glass-card,
+  .glass {
+    backdrop-filter: blur(6px) !important;
+    -webkit-backdrop-filter: blur(6px) !important;
+  }
+}
+
 
