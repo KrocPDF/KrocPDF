@@ -65,44 +65,47 @@ export default async function ToolPage({
   };
 
   return (
-    <div className="min-h-[calc(100vh-4rem)] bg-slate-950 text-slate-100 flex flex-col items-center p-4 sm:p-8 font-sans">
+    <div className="min-h-[calc(100vh-4rem)] text-zinc-100 flex flex-col items-center py-8 px-4 sm:px-8 lg:px-12 xl:px-16 font-sans relative overflow-hidden">
       {/* Inject JSON-LD */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      {/* Breadcrumb */}
-      <div className="max-w-4xl w-full mb-6 pt-4">
-        <Link
-          href="/"
-          className="inline-flex items-center text-sm text-slate-400 hover:text-emerald-300 transition-colors group"
-        >
-          <ArrowLeft className="w-4 h-4 mr-1.5 group-hover:-translate-x-0.5 transition-transform text-emerald-400" />
-          Back to All Tools
-        </Link>
-      </div>
-      
-      <div className="max-w-4xl w-full space-y-8 pb-16">
-        <div className="text-center space-y-2">
-          <h1 className="text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-emerald-400 via-teal-300 to-emerald-300 bg-clip-text text-transparent">
+      {/* Main Responsive Container */}
+      <div className="w-full relative z-10 space-y-8 pb-16">
+        {/* Breadcrumb Navigation */}
+        <div className="pt-2">
+          <Link
+            href="/"
+            className="inline-flex items-center text-xs font-medium text-zinc-400 hover:text-white transition-colors group px-3 py-1.5 rounded-lg bg-zinc-900/60 border border-zinc-800/80 hover:border-zinc-700 w-fit"
+          >
+            <ArrowLeft className="w-3.5 h-3.5 mr-1.5 group-hover:-translate-x-0.5 transition-transform text-zinc-400 group-hover:text-white" />
+            Back to All Tools
+          </Link>
+        </div>
+        
+        {/* Tool Header */}
+        <div className="text-center space-y-3 max-w-2xl mx-auto pt-2">
+          <h1 className="text-3xl sm:text-5xl font-extrabold text-zinc-100 tracking-tight">
             {config.h1}
           </h1>
-          <p className="text-slate-400">{config.subtitle}</p>
+          <p className="text-sm sm:text-base text-zinc-400 leading-relaxed">{config.subtitle}</p>
         </div>
 
+        {/* Converter Workspace */}
         <ConverterWidget tool={tool} />
 
         {/* Sibling Tool Links */}
         {siblings.length > 0 && (
-          <div className="pt-8 border-t border-slate-800/80">
-            <p className="text-sm text-slate-400 mb-3">Try also:</p>
-            <div className="flex flex-wrap gap-2">
+          <div className="pt-10 border-t border-zinc-900">
+            <p className="text-xs font-semibold uppercase tracking-wider text-zinc-500 mb-3">Other Tools</p>
+            <div className="flex flex-wrap gap-2.5">
               {siblings.map((sibling) => (
                 <Link
                   key={sibling.slug}
                   href={`/${sibling.slug}`}
-                  className="px-4 py-2 text-sm bg-slate-900/60 border border-slate-800 rounded-lg text-slate-300 hover:text-white hover:border-emerald-500/40 hover:bg-slate-900 transition-all"
+                  className="px-4 py-2 text-xs font-medium bg-zinc-900/80 border border-zinc-800 rounded-xl text-zinc-300 hover:text-white hover:border-zinc-700 hover:bg-zinc-850 transition-all shadow-sm"
                 >
                   {sibling.name}
                 </Link>

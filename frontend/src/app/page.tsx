@@ -11,18 +11,17 @@ import {
   GitMerge,
   Minimize2,
   FileOutput,
-  Shield,
-  Zap,
-  Wifi,
-  Lock,
-
   ArrowRight,
   Bell,
   Mail,
+  Sparkles,
 } from 'lucide-react';
 import clsx from 'clsx';
-import { GithubIcon } from '@/components/icons/GithubIcon';
 import { toolCards, type ToolCardConfig } from '@/lib/seoConfigs';
+import { InteractiveGridCanvas } from '@/components/InteractiveGridCanvas';
+import { CompanyMarquee } from '@/components/CompanyMarquee';
+import { FeatureTiles } from '@/components/FeatureTiles';
+import { KrocCrunchDemo } from '@/components/KrocCrunchDemo';
 
 const iconMap: Record<ToolCardConfig['iconId'], React.ElementType> = {
   'image': Image,
@@ -75,105 +74,107 @@ export default function HomePage() {
     if (!notifyEmail.trim()) return;
     setNotifySubmitted(prev => new Set(prev).add(slug));
     setNotifyEmail('');
-    // In a real app, this would POST to an API
   };
 
   return (
-    <div className="gradient-mesh min-h-screen">
+    <div className="gradient-mesh min-h-screen relative overflow-hidden">
+      {/* Interactive Reactive Grid Mesh Canvas */}
+      <InteractiveGridCanvas />
       {/* ============================================
-          Hero Section
+          Hero Section (Expanded Full-Screen Width)
           ============================================ */}
-      <section className="relative py-20 sm:py-28 lg:py-36 px-4">
-        <div className="max-w-5xl mx-auto text-center animate-fade-in-up">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1] mb-6">
-            <span className="bg-gradient-to-r from-emerald-400 via-teal-300 to-emerald-300 bg-clip-text text-transparent bg-[length:200%_auto] animate-[gradientShift_8s_ease_infinite]">
-              Every Document Tool
-            </span>
-            <br />
-            <span className="text-slate-100">You Need</span>
+      <section className="relative py-16 sm:py-24 lg:py-28 px-4 sm:px-8 lg:px-12 xl:px-16 border-b border-zinc-900/80">
+        <div className="w-full text-center relative z-10 fade-in-up">
+          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.06] mb-6 text-zinc-100 max-w-6xl mx-auto">
+            Every Document Tool <br className="hidden sm:inline" />
+            <span className="text-zinc-400 font-medium">You Need, Pure &amp; Private.</span>
           </h1>
-          <p className="text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed">
-            Privacy-first document conversion. Convert images to PDF instantly — locally in your browser or via secure cloud workers.{' '}
-            <span className="text-emerald-300/90 font-medium">Free, open source, no watermarks.</span>
+          
+          <p className="text-base sm:text-xl text-zinc-400 max-w-4xl mx-auto mb-10 leading-relaxed font-normal">
+            Convert, merge, and organize your documents in seconds — right on your device. Your files never leave your computer, with zero tracking and no watermarks.{' '}
+            <span className="text-zinc-200 font-medium">100% private, free, and secure.</span>
           </p>
 
-          {/* Hero Drop Zone CTA */}
+          {/* Expansive Hero Drop Zone CTA (Edge-to-Edge) */}
           <div
             onDrop={handleHeroDrop}
             onDragOver={handleDragOver}
             onDragLeave={handleDragLeave}
             className={clsx(
-              "relative max-w-xl mx-auto border-2 border-dashed rounded-2xl p-8 sm:p-10 transition-all duration-300 cursor-pointer group",
+              "relative max-w-5xl xl:max-w-6xl w-full mx-auto border border-dashed rounded-3xl p-6 sm:p-12 lg:p-14 transition-all duration-300 cursor-pointer group shadow-2xl glass-card scale-border-beam scale-crosshair scale-crosshair-tl scale-crosshair-tr scale-crosshair-bl scale-crosshair-br",
               dragActive
-                ? "border-emerald-500 bg-emerald-500/10 scale-[1.02] shadow-lg shadow-emerald-500/15"
-                : "border-slate-800 hover:border-emerald-500/40 bg-slate-900/30 hover:bg-slate-900/60"
+                ? "border-zinc-100 bg-zinc-900/95 scale-[1.01] shadow-[0_0_50px_rgba(255,255,255,0.15)] ring-2 ring-white/20"
+                : "border-zinc-800 hover:border-zinc-600 bg-zinc-950/80 hover:bg-zinc-900/60 pulse-glow-box"
             )}
             role="button"
             tabIndex={0}
             aria-label="Drop files here to start converting, or click to browse tools"
           >
-            <div className="flex flex-col items-center space-y-4">
+            <div className="flex flex-col items-center space-y-6">
               <div className={clsx(
-                "w-14 h-14 rounded-2xl flex items-center justify-center transition-all",
+                "w-20 h-20 rounded-3xl flex items-center justify-center transition-all duration-300 border shadow-inner",
                 dragActive
-                  ? "bg-emerald-500/20 text-emerald-400 scale-110"
-                  : "bg-slate-800 text-slate-400 group-hover:text-emerald-300 group-hover:bg-slate-800/80"
+                  ? "bg-zinc-100 text-zinc-950 border-white scale-110"
+                  : "bg-zinc-900 border-zinc-700/80 text-zinc-300 group-hover:text-white group-hover:border-zinc-500 group-hover:scale-105 animate-float"
               )}>
-                <UploadCloud className="w-7 h-7" />
+                <UploadCloud className="w-10 h-10" />
               </div>
-              <div>
-                <p className="text-lg font-semibold text-slate-100">
-                  {dragActive ? 'Release to convert' : 'Drop any image here to start'}
+              
+              <div className="space-y-2">
+                <p className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-zinc-100 tracking-tight">
+                  {dragActive ? 'Release to Convert Instantly' : 'Drag & Drop Any Images or PDFs Here'}
                 </p>
-                <p className="text-sm text-slate-400 mt-1">
-                  JPG, PNG, JPEG, PDF — auto-detected and routed to the right tool
+                <p className="text-sm sm:text-base text-zinc-400 max-w-lg mx-auto">
+                  Auto-detects JPG, PNG, WebP, or PDF and launches the optimal conversion engine
                 </p>
               </div>
-              <Link
-                href="/jpg-to-pdf"
-                className="inline-flex items-center px-6 py-2.5 text-sm font-medium bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-lg hover:from-emerald-500 hover:to-teal-500 transition-all shadow-lg shadow-emerald-950/40 hover:shadow-emerald-900/60"
-              >
-                Start Converting
-                <ArrowRight className="w-4 h-4 ml-2" />
-              </Link>
+
+              {/* Supported Formats Pills */}
+              <div className="flex flex-wrap items-center justify-center gap-2.5 pt-1 pb-2">
+                {['.JPG', '.PNG', '.JPEG', '.WEBP', '.PDF'].map((ext) => (
+                  <span
+                    key={ext}
+                    className="px-3 py-1.5 rounded-lg text-xs font-mono font-medium bg-zinc-900/90 border border-zinc-800 text-zinc-400 group-hover:border-zinc-700 group-hover:text-zinc-300 transition-colors"
+                  >
+                    {ext}
+                  </span>
+                ))}
+              </div>
+
+              <div className="pt-2">
+                <Link
+                  href="/jpg-to-pdf"
+                  className="inline-flex items-center px-8 py-3.5 text-sm sm:text-base font-semibold bg-zinc-100 text-zinc-950 rounded-xl hover:bg-white transition-all shadow-xl hover:shadow-2xl hover:scale-[1.02] active:scale-[0.98]"
+                >
+                  Start Converting Now
+                  <ArrowRight className="w-5 h-5 ml-2" />
+                </Link>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* ============================================
-          Trust Badges
+          Company / Ecosystem Rotating Marquee (Left to Right, Transparent)
           ============================================ */}
-      <section className="py-6 px-4 border-y border-white/5 bg-slate-950/40">
-        <div className="max-w-5xl mx-auto flex flex-wrap items-center justify-center gap-x-8 gap-y-3 animate-fade-in">
-          <TrustBadge icon={Lock} text="100% Open Source" />
-          <TrustBadge icon={Shield} text="Files never leave your browser" />
-          <TrustBadge icon={Zap} text="No sign-up required" />
-          <a
-            href="https://github.com/alokprashar864/jpg_to_pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center space-x-1.5 text-sm text-slate-400 hover:text-emerald-400 transition-colors"
-          >
-            <GithubIcon className="w-4 h-4" />
-            <span>Star on GitHub</span>
-          </a>
-        </div>
-      </section>
+      <CompanyMarquee />
 
       {/* ============================================
-          Tool Cards Grid
+          Tool Cards Grid (Edge-to-Edge 6-Column Layout)
           ============================================ */}
-      <section className="py-16 sm:py-20 px-4">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-12 animate-fade-in-up">
-            <h2 className="text-2xl sm:text-3xl font-bold text-slate-100 mb-3">All PDF Tools</h2>
-            <p className="text-slate-400 max-w-lg mx-auto">
-              Choose a tool below to get started. More tools are on the way.
+      <section className="py-20 px-4 sm:px-8 lg:px-12 xl:px-16 relative">
+        <div className="w-full">
+          <div className="text-center mb-14">
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-zinc-100 tracking-tight mb-3">
+              Available Conversion Tools
+            </h2>
+            <p className="text-sm sm:text-base text-zinc-400 max-w-xl mx-auto">
+              Select an optimized tool below. Lossless client rendering or high-throughput batch workers.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 stagger-children">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-6 gap-5">
             {toolCards.map((tool) => (
               <ToolCard
                 key={tool.slug}
@@ -191,35 +192,29 @@ export default function HomePage() {
       </section>
 
       {/* ============================================
-          Features Section
+          Why KrocPDF Features Section (Edge-to-Edge)
           ============================================ */}
-      <section className="py-16 sm:py-20 px-4 border-t border-white/5">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-12 animate-fade-in-up">
-            <h2 className="text-2xl sm:text-3xl font-bold text-slate-100 mb-3">Why KrocPDF?</h2>
-            <p className="text-slate-400">Built different. Built right.</p>
+      <section className="py-20 px-4 sm:px-8 lg:px-12 xl:px-16 border-t border-zinc-900/80 relative">
+        <div className="w-full">
+          <div className="text-center mb-14">
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-zinc-100 tracking-tight mb-3">
+              Why Choose KrocPDF?
+            </h2>
+            <p className="text-sm sm:text-base text-zinc-400 max-w-xl mx-auto">
+              Built for complete privacy, instant speed, and effortless document conversion.
+            </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 stagger-children">
-            <FeatureCard
-              icon={Shield}
-              title="Privacy First"
-              description="Your files are processed locally in your browser using WebAssembly. Nothing is uploaded unless you choose Cloud mode."
-              accentColor="emerald"
-            />
-            <FeatureCard
-              icon={Zap}
-              title="Blazing Fast"
-              description="Dual-engine architecture: instant local processing or high-throughput Go workers for batch conversions."
-              accentColor="teal"
-            />
-            <FeatureCard
-              icon={Wifi}
-              title="Works Offline"
-              description="Local conversion works without an internet connection. No accounts, no uploads, no tracking."
-              accentColor="cyan"
-            />
-          </div>
+          <FeatureTiles />
+        </div>
+      </section>
+
+      {/* ============================================
+          Submerged Mascot Crunch Video Showcase
+          ============================================ */}
+      <section className="py-16 sm:py-24 px-4 sm:px-8 lg:px-12 xl:px-16 border-t border-zinc-900/80 relative">
+        <div className="w-full">
+          <KrocCrunchDemo />
         </div>
       </section>
     </div>
@@ -229,15 +224,6 @@ export default function HomePage() {
 /* ==========================================
    Sub-Components
    ========================================== */
-
-function TrustBadge({ icon: Icon, text }: { icon: React.ElementType; text: string }) {
-  return (
-    <div className="flex items-center space-x-1.5 text-sm text-slate-400">
-      <Icon className="w-4 h-4 text-emerald-400" />
-      <span>{text}</span>
-    </div>
-  );
-}
 
 function ToolCard({
   tool,
@@ -261,9 +247,9 @@ function ToolCard({
 
   if (tool.comingSoon) {
     return (
-      <div className="tooltip-container relative">
+      <div className="tooltip-container relative h-full">
         <div
-          className="card-glow-muted bg-slate-900/40 border border-slate-800/80 rounded-2xl p-6 text-center"
+          className="card-glow-muted glass-card rounded-2xl p-6 text-center h-full flex flex-col justify-between"
           onClick={() => setActiveTooltip(isTooltipOpen ? null : tool.slug)}
           onKeyDown={(e) => {
             if (e.key === 'Enter' || e.key === ' ') {
@@ -276,42 +262,44 @@ function ToolCard({
           aria-label={`${tool.name} — coming soon`}
           aria-expanded={isTooltipOpen}
         >
-          <div className="w-12 h-12 mx-auto rounded-xl flex items-center justify-center mb-4 bg-slate-800/40">
-            <Icon className="w-6 h-6 text-slate-500" />
+          <div>
+            <div className="w-12 h-12 mx-auto rounded-xl flex items-center justify-center mb-4 bg-zinc-900 border border-zinc-800">
+              <Icon className="w-6 h-6 text-zinc-400" />
+            </div>
+            <div className="flex items-center justify-center space-x-2 mb-2">
+              <h3 className="font-semibold text-zinc-300 text-base">{tool.name}</h3>
+              <span className="text-[10px] uppercase font-bold px-2 py-0.5 rounded bg-zinc-800 border border-zinc-700 text-zinc-400">
+                Soon
+              </span>
+            </div>
+            <p className="text-xs text-zinc-500 leading-relaxed">{tool.shortDescription}</p>
           </div>
-          <div className="flex items-center justify-center space-x-2 mb-2">
-            <h3 className="font-semibold text-slate-400">{tool.name}</h3>
-            <span className="text-[10px] uppercase font-bold px-1.5 py-0.5 rounded-full bg-emerald-500/[0.08] border border-emerald-500/15 text-emerald-400/80">
-              Soon
-            </span>
-          </div>
-          <p className="text-sm text-slate-500">{tool.shortDescription}</p>
         </div>
 
         {/* Tooltip */}
         {isTooltipOpen && (
-          <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 z-50 w-72 animate-scale-in">
-            <div className="bg-slate-900 border border-slate-700 rounded-xl p-4 shadow-xl shadow-black/40">
+          <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 z-50 w-72 scale-in">
+            <div className="bg-zinc-900 border border-zinc-700 rounded-xl p-4 shadow-2xl">
               <div className="flex items-center space-x-2 mb-2">
-                <Bell className="w-4 h-4 text-emerald-400" />
-                <p className="text-sm font-semibold text-slate-200">Coming Soon</p>
+                <Bell className="w-3.5 h-3.5 text-zinc-200" />
+                <p className="text-xs font-semibold text-zinc-200">Coming Soon</p>
               </div>
-              <p className="text-xs text-slate-400 mb-3">{tool.comingSoonBlurb}</p>
+              <p className="text-xs text-zinc-400 mb-3">{tool.comingSoonBlurb}</p>
 
               {notifySubmitted.has(tool.slug) ? (
-                <p className="text-xs text-emerald-400 font-medium">
+                <p className="text-xs text-zinc-200 font-medium">
                   ✓ We&apos;ll notify you when this ships!
                 </p>
               ) : (
-                <div className="flex space-x-2">
+                <div className="flex space-x-1.5">
                   <div className="flex-1 relative">
-                    <Mail className="w-3.5 h-3.5 absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-500" />
+                    <Mail className="w-3.5 h-3.5 absolute left-2.5 top-1/2 -translate-y-1/2 text-zinc-500" />
                     <input
                       type="email"
                       placeholder="your@email.com"
                       value={notifyEmail}
                       onChange={(e) => setNotifyEmail(e.target.value)}
-                      className="w-full pl-8 pr-3 py-2 text-xs bg-slate-800 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 outline-none transition"
+                      className="w-full pl-8 pr-2.5 py-1.5 text-xs bg-zinc-800 border border-zinc-700 rounded-lg text-white placeholder-zinc-500 focus:border-zinc-400 outline-none transition"
                       aria-label="Email for notification"
                       onKeyDown={(e) => {
                         if (e.key === 'Enter') onNotify(tool.slug);
@@ -323,7 +311,7 @@ function ToolCard({
                       e.stopPropagation();
                       onNotify(tool.slug);
                     }}
-                    className="px-3 py-2 text-xs font-medium bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg transition-colors"
+                    className="px-3 py-1.5 text-xs font-semibold bg-zinc-100 hover:bg-white text-zinc-950 rounded-lg transition-colors"
                   >
                     Notify
                   </button>
@@ -331,7 +319,7 @@ function ToolCard({
               )}
 
               {/* Arrow */}
-              <div className="absolute top-full left-1/2 -translate-x-1/2 border-[6px] border-transparent border-t-slate-900" />
+              <div className="absolute top-full left-1/2 -translate-x-1/2 border-[5px] border-transparent border-t-zinc-900" />
             </div>
           </div>
         )}
@@ -342,54 +330,15 @@ function ToolCard({
   return (
     <Link
       href={`/${tool.slug}`}
-      className="card-glow bg-slate-900/30 border border-slate-800/80 hover:border-emerald-500/40 rounded-2xl p-6 text-center block transition-all"
+      className="card-glow glass-card rounded-2xl p-6 text-center block h-full transition-all group scale-crosshair scale-crosshair-tl scale-crosshair-tr relative overflow-hidden"
       role="link"
       aria-label={`Open ${tool.name} converter`}
     >
-      <div
-        className="w-12 h-12 mx-auto rounded-xl flex items-center justify-center mb-4"
-        style={{
-          background: `linear-gradient(135deg, ${tool.accentFrom}20, ${tool.accentTo}10)`,
-          border: `1px solid ${tool.accentFrom}30`
-        }}
-      >
-        <Icon
-          className="w-6 h-6"
-          style={{ color: tool.accentFrom }}
-        />
+      <div className="w-12 h-12 mx-auto rounded-xl flex items-center justify-center mb-4 bg-zinc-900 border border-zinc-800 group-hover:border-zinc-700 group-hover:scale-105 transition-all">
+        <Icon className="w-6 h-6 text-zinc-200 group-hover:text-white transition-colors" />
       </div>
-      <h3 className="font-semibold text-slate-100 mb-2">{tool.name}</h3>
-      <p className="text-sm text-slate-400">{tool.shortDescription}</p>
+      <h3 className="font-semibold text-zinc-100 text-base mb-2 group-hover:text-white transition-colors">{tool.name}</h3>
+      <p className="text-xs text-zinc-400 leading-relaxed">{tool.shortDescription}</p>
     </Link>
-  );
-}
-
-function FeatureCard({
-  icon: Icon,
-  title,
-  description,
-  accentColor,
-}: {
-  icon: React.ElementType;
-  title: string;
-  description: string;
-  accentColor: 'emerald' | 'teal' | 'cyan';
-}) {
-  const colorMap = {
-    emerald: { bg: 'bg-emerald-500/10 border-emerald-500/20', text: 'text-emerald-400' },
-    teal: { bg: 'bg-teal-500/10 border-teal-500/20', text: 'text-teal-400' },
-    cyan: { bg: 'bg-cyan-500/10 border-cyan-500/20', text: 'text-cyan-400' },
-  };
-
-  const colors = colorMap[accentColor];
-
-  return (
-    <div className="bg-slate-900/30 border border-slate-800/80 rounded-2xl p-6 hover:border-emerald-500/30 transition-colors">
-      <div className={clsx("w-10 h-10 rounded-xl flex items-center justify-center mb-4 border", colors.bg)}>
-        <Icon className={clsx("w-5 h-5", colors.text)} />
-      </div>
-      <h3 className="font-semibold text-slate-100 mb-2">{title}</h3>
-      <p className="text-sm text-slate-400 leading-relaxed">{description}</p>
-    </div>
   );
 }

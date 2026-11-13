@@ -2,17 +2,17 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { Lock, Mail, User, ArrowRight, ShieldCheck, Sparkles } from 'lucide-react';
-import { CloudflareTurnstile } from '@/components/CloudflareTurnstile';
+import { Lock, Mail, User, ArrowRight, ShieldCheck } from 'lucide-react';
 import { getApiUrl } from '@/lib/api';
+import { InteractiveGridCanvas } from '@/components/InteractiveGridCanvas';
 
 export default function SignUpPage() {
   const router = useRouter();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [turnstileToken, setTurnstileToken] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
@@ -26,7 +26,7 @@ export default function SignUpPage() {
       const res = await fetch(`${getApiUrl()}/auth/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, password, turnstileToken }),
+        body: JSON.stringify({ name, email, password }),
       });
 
       const data = await res.json();
@@ -54,62 +54,77 @@ export default function SignUpPage() {
 
   return (
     <div className="min-h-[85vh] flex items-center justify-center px-4 py-12 relative overflow-hidden">
-      {/* Background Glow */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl pointer-events-none" />
+      {/* Interactive Reactive Grid Mesh Canvas */}
+      <InteractiveGridCanvas />
 
-      <div className="w-full max-w-md relative z-10">
+      <div className="w-full max-w-md relative z-10 fade-in-up">
+        {/* Brand Header */}
         <div className="text-center mb-8">
-          <Link href="/" className="inline-flex items-center space-x-2 text-2xl font-bold tracking-tight text-white mb-2">
-            <span className="w-8 h-8 rounded-lg bg-gradient-to-br from-emerald-400 to-teal-600 flex items-center justify-center shadow-lg shadow-emerald-950/40 text-black font-extrabold text-sm">
-              K
+          <Link
+            href="/"
+            className="inline-flex items-center space-x-2.5 group mb-3"
+            aria-label="KrocPDF Home"
+          >
+            <div className="relative w-9 h-9 flex items-center justify-center">
+              <Image
+                src="/brand/logo-without-bg.png"
+                alt="KrocPDF Logo"
+                width={36}
+                height={36}
+                className="w-9 h-9 object-contain group-hover:scale-105 transition-transform duration-200 brightness-110"
+                priority
+              />
+            </div>
+            <span className="text-2xl font-bold tracking-tight">
+              <span className="text-zinc-100 font-extrabold tracking-tighter">Kroc</span>
+              <span className="text-zinc-400 font-medium">PDF</span>
             </span>
-            <span>Kroc<span className="text-emerald-400">PDF</span></span>
           </Link>
-          <h1 className="text-2xl font-bold text-white tracking-tight">Create an account</h1>
-          <p className="text-sm text-slate-400 mt-1">
+          <h1 className="text-2xl font-bold text-zinc-100 tracking-tight">Create an account</h1>
+          <p className="text-xs text-zinc-400 mt-1">
             Free forever. Optional convenience for presets and batch conversion
           </p>
         </div>
 
-        {/* Card */}
-        <div className="bg-neutral-900/80 backdrop-blur-xl border border-white/10 rounded-2xl p-6 sm:p-8 shadow-2xl shadow-black/80">
+        {/* Sign Up Form Card */}
+        <div className="bg-zinc-950/80 border border-zinc-800/90 rounded-2xl p-6 sm:p-8 shadow-2xl backdrop-blur-xl scale-crosshair scale-crosshair-tl scale-crosshair-tr scale-crosshair-bl scale-crosshair-br">
           {error && (
-            <div className="mb-5 p-3 rounded-lg bg-rose-500/10 border border-rose-500/20 text-rose-300 text-xs flex items-center">
+            <div className="mb-5 p-3 rounded-xl bg-red-950/40 border border-red-900/60 text-red-400 text-xs flex items-center">
               <span>{error}</span>
             </div>
           )}
 
           {success && (
-            <div className="mb-5 p-3 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 text-xs flex items-center space-x-2">
-              <ShieldCheck className="w-4 h-4 flex-shrink-0" />
+            <div className="mb-5 p-3 rounded-xl bg-zinc-900 border border-zinc-700 text-zinc-200 text-xs flex items-center space-x-2">
+              <ShieldCheck className="w-4 h-4 flex-shrink-0 text-zinc-300" />
               <span>Account created successfully! Redirecting...</span>
             </div>
           )}
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-xs font-medium text-slate-300 mb-1.5" htmlFor="name">
+              <label className="block text-xs font-medium text-zinc-300 mb-1.5" htmlFor="name">
                 Full name (optional)
               </label>
               <div className="relative">
-                <User className="w-4 h-4 text-slate-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                <User className="w-4 h-4 text-zinc-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
                 <input
                   id="name"
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Jane Doe"
-                  className="w-full pl-10 pr-4 py-2.5 bg-neutral-950/70 border border-white/10 rounded-xl text-sm text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/50 transition-colors"
+                  className="w-full pl-10 pr-4 py-2.5 bg-zinc-900/70 border border-zinc-800 rounded-xl text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-zinc-400 focus:ring-1 focus:ring-zinc-400/20 transition-all"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-medium text-slate-300 mb-1.5" htmlFor="email">
+              <label className="block text-xs font-medium text-zinc-300 mb-1.5" htmlFor="email">
                 Email address
               </label>
               <div className="relative">
-                <Mail className="w-4 h-4 text-slate-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                <Mail className="w-4 h-4 text-zinc-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
                 <input
                   id="email"
                   type="email"
@@ -117,17 +132,17 @@ export default function SignUpPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="you@domain.com"
-                  className="w-full pl-10 pr-4 py-2.5 bg-neutral-950/70 border border-white/10 rounded-xl text-sm text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/50 transition-colors"
+                  className="w-full pl-10 pr-4 py-2.5 bg-zinc-900/70 border border-zinc-800 rounded-xl text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-zinc-400 focus:ring-1 focus:ring-zinc-400/20 transition-all"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-medium text-slate-300 mb-1.5" htmlFor="password">
+              <label className="block text-xs font-medium text-zinc-300 mb-1.5" htmlFor="password">
                 Password (minimum 6 characters)
               </label>
               <div className="relative">
-                <Lock className="w-4 h-4 text-slate-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                <Lock className="w-4 h-4 text-zinc-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
                 <input
                   id="password"
                   type="password"
@@ -136,47 +151,24 @@ export default function SignUpPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full pl-10 pr-4 py-2.5 bg-neutral-950/70 border border-white/10 rounded-xl text-sm text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/50 transition-colors"
+                  className="w-full pl-10 pr-4 py-2.5 bg-zinc-900/70 border border-zinc-800 rounded-xl text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-zinc-400 focus:ring-1 focus:ring-zinc-400/20 transition-all"
                 />
               </div>
             </div>
 
-            {/* Cloudflare Turnstile Bot Defense */}
-            <CloudflareTurnstile onSuccess={(token) => setTurnstileToken(token)} />
-
             <button
               type="submit"
               disabled={loading || success}
-              className="w-full mt-2 py-2.5 px-4 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-medium text-sm transition-all shadow-lg shadow-emerald-950/40 flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+              className="w-full mt-2 py-2.5 px-4 rounded-xl bg-zinc-100 hover:bg-white text-zinc-950 font-semibold text-sm transition-all shadow-md flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer active:scale-[0.99]"
             >
               <span>{loading ? 'Creating account...' : 'Create Free Account'}</span>
               <ArrowRight className="w-4 h-4" />
             </button>
           </form>
 
-          <div className="relative my-6">
-            <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-white/10" />
-            </div>
-            <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-neutral-900 px-3 text-slate-500 font-medium tracking-wider">
-                Or
-              </span>
-            </div>
-          </div>
-
-          {/* Friction-Free Guest Option */}
-          <Link
-            href="/"
-            className="w-full py-2.5 px-4 rounded-xl border border-white/10 hover:bg-white/5 text-slate-300 hover:text-white text-sm font-medium transition-colors flex items-center justify-center space-x-2"
-          >
-            <Sparkles className="w-4 h-4 text-emerald-400" />
-            <span>Continue as Guest (No Account Needed)</span>
-          </Link>
-
-          <p className="text-center text-xs text-slate-400 mt-6">
+          <p className="text-center text-xs text-zinc-500 mt-6 pt-2 border-t border-zinc-900">
             Already have an account?{' '}
-            <Link href="/login" className="text-emerald-400 hover:text-emerald-300 font-medium underline underline-offset-4">
+            <Link href="/login" className="text-zinc-200 hover:text-white font-medium underline underline-offset-4 transition-colors">
               Log in
             </Link>
           </p>
