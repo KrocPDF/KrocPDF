@@ -68,16 +68,18 @@ graph TD
   - Manages goroutine lifecycles and memory limits during massive batch conversions.
 
 ### 5. DevOps & Infrastructure Agent
-- **Scope**: `docker-compose.yml`, Dockerfiles, MinIO bucket policies, and CI/CD workflows.
+- **Scope**: `docker-compose.yml`, Dockerfiles, MinIO bucket policies, production `infra/` (`infra/k8s/`, `infra/nginx/`, `infra/monitoring/`), and CI/CD workflows.
 - **Responsibilities**:
   - Maintains deterministic container configurations and automated healthchecks.
+  - Keeps local `docker-compose.yml` and production `infra/` manifests strictly synchronized whenever ports, environment variables, or networking change.
   - Configures 1-day retention lifecycles on MinIO conversion buckets for data privacy.
   - Ensures local development mirrors production environment variables.
 
 ### 6. Monorepo QA & Integrity Agent
-- **Scope**: Full-stack verification, linting, type checks, and regression audits.
+- **Scope**: Full-stack verification, linting, type checks, e2e test orchestration, and regression audits.
 - **Responsibilities**:
-  - Executes test suites across all 3 services (`npm run lint`, `npx tsc`, `vitest`, `go vet`).
+  - Executes unit test suites across all 3 services (`npm run lint`, `npx tsc`, `vitest`, `go vet`).
+  - Executes root-level integration tests (`npm run test:e2e` in `e2e/`) with Playwright to verify WASM 0-byte privacy, cloud SSE progress streaming, and keyboard accessibility.
   - Validates zero leakage of credentials, `any` types, or orphaned goroutines.
 
 ---
@@ -88,11 +90,11 @@ When executing features or refactors that span multiple layers, agents must exec
 
 ```
 Wave 1: Infra & DB  ──►  Wave 2: Worker Engine  ──►  Wave 3: API Gateway  ──►  Wave 4: Frontend Client  ──►  Wave 5: QA Gate
-(docker, prisma)         (worker-service/go)          (backend-api/nest)        (frontend/next)              (monorepo test)
+(docker, infra, db)      (worker-service/go)          (backend-api/nest)        (frontend/next)              (unit & e2e test)
 ```
 
 ### Wave 1: Infrastructure & Data Contracts
-1. Update `docker-compose.yml`, `.env.example`, or MinIO initialization scripts if storage/service configuration changes.
+1. Update `docker-compose.yml`, `.env.example`, MinIO initialization scripts, AND the new production `infra/` configurations (`infra/k8s/`, `infra/nginx/`, `infra/monitoring/`) together whenever service, networking, or storage configurations change.
 2. Update `backend-api/prisma/schema.prisma` and run `npx prisma db push` or create migrations.
 3. Lock down shared DTOs and data schemas.
 
@@ -115,7 +117,8 @@ Wave 1: Infra & DB  ──►  Wave 2: Worker Engine  ──►  Wave 3: API Gat
 
 ### Wave 5: Monorepo Verification & Audit Gate
 1. Perform an end-to-end trace from client request $\rightarrow$ S3 upload $\rightarrow$ Redis stream $\rightarrow$ Go assembly $\rightarrow$ SSE completion.
-2. Confirm zero regressions across all services.
+2. Execute root-level integration tests (`npm run test:e2e` via Playwright in `e2e/`) to validate zero regressions across WASM privacy, SSE streaming, and accessibility.
+3. Confirm zero regressions across all services and ensure all workspace test suites pass (`npm run test:unit`, `npm run lint`, `npm run typecheck`).
 
 ---
 
@@ -184,6 +187,7 @@ flowchart TD
 |:---|:---|:---|
 | **[`AGENTS.md`](./AGENTS.md)** | Root multi-agent swarm taxonomy, 5-Wave Execution Protocol, and universal guardrails. | **First entry point** for any AI agent or contributor. |
 | **[`CLAUDE.md`](./CLAUDE.md)** | Universal CLI command reference, local Docker boot commands, lint/test suites, and syntax standards. | Before running build, test, or migration commands. |
+| **[`docs/getting-started.md`](./docs/getting-started.md)** | 5-minute zero-friction fast path (WASM/Frontend) and complete cloud monorepo boot guide. | When onboarding new developers or testing local setups. |
 | **[`ARCHITECTURE.md`](./ARCHITECTURE.md)** | Comprehensive dual-engine architecture: client-side WASM vs. Go worker, Redis Streams event bus, and MinIO/S3 lifecycle. | Before proposing or implementing cross-service changes. |
 | **[`README.md`](./README.md)** | High-level product overview, visual interface showcase, performance metrics, and interactive system radar. | For platform overview, public features, and quick start. |
 
@@ -194,6 +198,7 @@ flowchart TD
 | **[`frontend/CLAUDE.md`](./frontend/CLAUDE.md)** | Frontend development cheatsheet, dev port conventions, Oxlint rules, and Vitest suite instructions. | Before running frontend unit tests or builds. |
 | **[`frontend/README.md`](./frontend/README.md)** | Frontend component architecture, Tailwind v4 tokens, and interactive canvas components. | When working on UI components or pages. |
 | **[`backend-api/README.md`](./backend-api/README.md)** | NestJS 12 architecture, Prisma 5 database schema, S3 presigned URL generation, and Redis queue producer. | Before editing `backend-api/` controllers or services. |
+| **[`docs/benchmarks.md`](./docs/benchmarks.md)** | Empirical benchmark methodology, hardware specs, memory traces, and sub-800ms compilation validation. | When tuning performance, profiling memory, or validating speed claims. |
 | **[`docs/features/merge-pdf.md`](./docs/features/merge-pdf.md)** | Specification for PDF merging, page orientation, memory limits, and Go `pdfcpu` pipelines. | When working on PDF assembly or worker features. |
 | **[`mobile_blueprint/`](./mobile_blueprint/README.md)** | Complete 7-part architecture & technical specification for the Flutter/Dart mobile application. | Before implementing or reviewing mobile features. |
 | &nbsp;&nbsp;↳ [`01_ARCHITECTURE_AND_DUAL_ENGINE.md`](./mobile_blueprint/01_ARCHITECTURE_AND_DUAL_ENGINE.md) | Mobile dual-engine model (on-device WASM/native vs. Go cloud worker parity). | Mobile architecture design. |
@@ -211,6 +216,8 @@ flowchart TD
 | **[`PRIVACY.md`](./PRIVACY.md)** | Formal privacy charter: 0-byte WASM local execution guarantee, 24h cloud auto-purge lifecycle, and cookie-free telemetry. | When handling telemetry, data flows, or storage logic. |
 | **[`TERMS.md`](./TERMS.md)** | Terms of Service, Acceptable Use Policy (malware and DDoS abuse prohibitions), warranty disclaimers, and trademark protection. | For legal compliance, licensing, and usage guidelines. |
 | **[`SECURITY.md`](./SECURITY.md)** | Vulnerability disclosure channels, private reporting instructions, and responsible remediation policies. | When reporting or fixing security vulnerabilities. |
+| &nbsp;&nbsp;↳ [`THREAT_MODEL.md`](./security/THREAT_MODEL.md) | STRIDE threat model, sandboxing boundaries, and abuse vectors. | When modifying authentication, queue, or storage logic. |
+| &nbsp;&nbsp;↳ [`AUDIT_CHECKLIST.md`](./security/AUDIT_CHECKLIST.md) | Pre-release security verification checklist. | Before major releases or infrastructure updates. |
 | **[`CONTRIBUTING.md`](./CONTRIBUTING.md)** | Contribution lifecycle, Conventional Commits formatting, local Docker boot guide, and PR requirements. | Before opening a Pull Request or creating a branch. |
 | **[`CODE_OF_CONDUCT.md`](./CODE_OF_CONDUCT.md)** | Contributor Covenant standards for an inclusive and harassment-free community. | When interacting in issues, discussions, or PR reviews. |
 | **[`SUPPORT.md`](./SUPPORT.md)** | Support channels, in-app issue reporting, FAQ, and troubleshooting guide. | When seeking assistance, reporting bugs, or helping users. |

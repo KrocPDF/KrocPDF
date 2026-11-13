@@ -62,7 +62,7 @@ We request that researchers adhere to **Responsible Disclosure** guidelines. **U
 
 ### How to Submit a Vulnerability
 1. **GitHub Private Security Advisory (Recommended):**  
-   Submit a private report via **[GitHub Security Advisories](https://github.com/alokprashar864/jpg_to_pdf/security/advisories/new)**. This creates a confidential, encrypted workspace for discussion between you and our core maintainers.
+   Submit a private report via **[GitHub Security Advisories](https://github.com/KrocPDF/KrocPDF/security/advisories/new)**. This creates a confidential, encrypted workspace for discussion between you and our core maintainers.
 2. **Alternative Contact:**  
    If you cannot access GitHub Advisories, contact the lead maintainer directly via email at `security@alokprashar.com` (or the email linked to this repository profile) with the subject line:  
    `[SECURITY VULNERABILITY] - <Component Affected>`.

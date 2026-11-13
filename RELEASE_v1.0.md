@@ -101,7 +101,7 @@ To truly disrupt the entrenched incumbents (like iLovePDF and Smallpdf), we coul
 - **The Incumbents:** Rely on slow, single-threaded web workers or clunky server queues that choke when converting dozens of high-res images at once.
 - **Our Platform:** Our backend is powered by a blistering-fast **Go worker daemon** utilizing native `pdfcpu` streams. Tasks are managed robustly by **Redis Streams**, meaning even if a user uploads 50 massive JPGs, the system processes them in parallel without crashing, streaming progress back to the UI in real-time via Server-Sent Events (SSE).
 
-[Star on GitHub →](https://github.com/alokprashar864/jpg_to_pdf)
+[Star on GitHub →](https://github.com/KrocPDF/KrocPDF)
 
 ## 🏗 System Architecture & Flow
 
@@ -269,8 +269,8 @@ To capitalize on our superior technical foundation, our marketing strategy focus
 
 ## 🔗 Quick Links
 - [Try the tool →](https://jpg-to-pdf-zeta.vercel.app/)
-- [GitHub Repo →](https://github.com/alokprashar864/jpg_to_pdf)
-- [Report a Bug →](https://github.com/alokprashar864/jpg_to_pdf/issues)
+- [GitHub Repo →](https://github.com/KrocPDF/KrocPDF)
+- [Report a Bug →](https://github.com/KrocPDF/KrocPDF/issues)
 
 ---
 *Built to redefine document conversion tools without compromises.*
