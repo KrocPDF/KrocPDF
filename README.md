@@ -11,6 +11,8 @@
   <a href="https://nestjs.com/"><img src="https://img.shields.io/badge/NestJS-12-E0234E?logo=nestjs" alt="NestJS" /></a>
   <a href="https://go.dev/"><img src="https://img.shields.io/badge/Go-1.25-00ADD8?logo=go" alt="Go" /></a>
   <a href="https://www.postgresql.org/"><img src="https://img.shields.io/badge/PostgreSQL-16-336791?logo=postgresql" alt="PostgreSQL" /></a>
+  <a href="https://redis.io/"><img src="https://img.shields.io/badge/Redis-Streams-DC382D?logo=redis" alt="Redis Streams" /></a>
+  <a href="https://www.cloudflare.com/products/r2/"><img src="https://img.shields.io/badge/Cloudflare-R2_%240_Egress-F38020?logo=cloudflare" alt="Cloudflare R2" /></a>
 </p>
 
 </div>

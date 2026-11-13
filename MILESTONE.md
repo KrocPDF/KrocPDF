@@ -34,10 +34,11 @@ This milestone plan executes a decisive two-pronged pivot:
 | Milestone | Code | Theme | Primary Goal | Target Horizon |
 |:---|:---:|:---|:---|:---:|
 | **Milestone 1** | `v1.1` | **Economic Defense** | Client-side WASM engine, Redis rate-limiting & cloud usage tiers | Week 1 – 2 |
-| **Milestone 2** | `v1.2` | **Feature Moat** | Target File Size compression (binary search) & Document Scanner mode | Week 3 – 4 |
-| **Milestone 3** | `v1.3` | **Distribution Channels** | Chrome Extension, PWA offline mode, `@brand/jpg-to-pdf-core` NPM package | Week 5 – 6 |
-| **Milestone 4** | `v1.4` | **SEO Pivot** | Eliminate programmatic doorway traps; publish 5 foundational research guides | Week 7 – 8 |
-| **Milestone 5** | `v1.5` | **Trust & ADRs** | Public Transparency Dashboard (deletion audit) & Architectural Decision Records | Ongoing |
+| **Milestone 2** | `v1.2` | **Feature Moat** | Target File Size compression (binary search), WebWorkers & UX polish | Week 3 – 4 |
+| **Milestone 3** | `v1.3` | **Distribution & Formats** | Chrome Extension, PWA offline mode, HEIC/HEIF decoding, OCR pipeline | Week 5 – 6 |
+| **Milestone 4** | `v1.4` | **Mobile & Ecosystem** | Cross-platform Flutter mobile app, on-device conversion parity | Week 7 – 8 |
+| **Milestone 5** | `v1.5` | **Trust & ADRs** | Public Transparency Dashboard (deletion audit) & Architectural Decision Records | Week 9 – 10 |
+| **Milestone 6** | `v2.0` | **Enterprise Scale** | S3 multipart upload, DLQ recovery, Prometheus metrics, 100k+ conversions/day | Production v2 |
 
 ---
 
@@ -202,6 +203,59 @@ This milestone plan executes a decisive two-pronged pivot:
   - `ADR-003`: Go Worker Engine Selection (`pdfcpu` + `govips` vs Node Canvas)
   - `ADR-004`: Rate-Limiting and Sliding-Window Token Throttling
   - `ADR-005`: Decommissioning Programmatic Doorways in Response to Search Spam Updates
+
+---
+
+## ⚡ Milestone 6: Enterprise Scale, Real-Time Observability & Multi-Region (v2.0)
+**Goal:** Harden system architecture to handle 100k+ daily conversions with zero-egress distributed workers, automated dead-letter queue recovery, edge caching, and real-time telemetry.
+
+### Issue #52: S3 Multipart Streaming Upload for 100MB+ Assemblies
+- **Priority:** `P1 - HIGH`
+- **Labels:** `help wanted`, `area:worker`, `area:infra-storage`, `type: performance`
+- **Scope:** Switch from single `PutObject` calls to `s3manager.NewUploader` streaming with 5MB chunk buffers, preventing GC spikes during large 300 DPI batch conversions.
+
+### Issue #53: Redis Streams Dead-Letter Queue (DLQ) Auto-Recovery
+- **Priority:** `P1 - HIGH`
+- **Labels:** `help wanted`, `area:backend-api`, `area:observability`, `priority: high`
+- **Scope:** Implement an automated worker claim mechanism (`XAUTOCLAIM`) for hung tasks, dead-letter routing to `stream:conversions:dlq`, and automated SSE user notifications.
+
+---
+
+## 🤝 Open-Source Contributor Hub & Targeted Issue Queues
+
+To welcome new contributors, all open issues are labeled with standardized difficulty and domain tags:
+
+### 🌟 Beginner-Friendly Issues (`good first issue`)
+| Issue | Title | Area | Milestone |
+|:---:|:---|:---:|:---:|
+| **[#45](https://github.com/KrocPDF/KrocPDF/issues/45)** | Keyboard shortcuts for drag-and-drop image reordering & deletion | Frontend | `v1.2` |
+| **[#46](https://github.com/KrocPDF/KrocPDF/issues/46)** | Configurable page numbering toggle in PDF output (pdf-lib) | WASM / UI | `v1.2` |
+| **[#47](https://github.com/KrocPDF/KrocPDF/issues/47)** | Copy-to-clipboard notification & share link widget | Frontend | `v1.3` |
+| **[#48](https://github.com/KrocPDF/KrocPDF/issues/48)** | Developer onboarding and local Docker troubleshooting guide | Docs | `v1.5` |
+
+### 🚀 High-Impact Scaling Issues (`help wanted`)
+| Issue | Title | Area | Milestone |
+|:---:|:---|:---:|:---:|
+| **[#49](https://github.com/KrocPDF/KrocPDF/issues/49)** | WebWorker offloading for client image decoding | WASM / Perf | `v1.2` |
+| **[#50](https://github.com/KrocPDF/KrocPDF/issues/50)** | Native HEIC/HEIF image decoding in browser before conversion | WASM / Feature | `v1.3` |
+| **[#51](https://github.com/KrocPDF/KrocPDF/issues/51)** | Client-side Tesseract.js WASM OCR pipeline for searchable PDFs | OCR / WASM | `v1.3` |
+| **[#54](https://github.com/KrocPDF/KrocPDF/issues/54)** | On-device WASM conversion pipeline in Flutter mobile app | Mobile | `v1.4` |
+| **[#52](https://github.com/KrocPDF/KrocPDF/issues/52)** | S3 multipart streaming upload for 100MB+ PDF assemblies | Go Worker | `v2.0` |
+| **[#53](https://github.com/KrocPDF/KrocPDF/issues/53)** | Redis Streams Dead-Letter Queue (DLQ) auto-recovery & metrics | Backend | `v2.0` |
+
+---
+
+## 🤖 Continuous 24-Hour Automated Bug Hunter Pipeline
+
+KrocPDF runs an automated daily health check via GitHub Actions (`.github/workflows/daily-audit.yml`):
+- **Schedule**: Every 24 hours at `00:00 UTC` + manual dispatch.
+- **Automated Verification**:
+  1. Frontend TypeScript (`tsc --noEmit`), ESLint, and Vitest test suites.
+  2. Backend NestJS TypeScript (`tsc --noEmit`), Oxlint, and Vitest test suites.
+  3. Worker Go verification (`go vet ./...`, `go test -v ./...`).
+  4. Dependency vulnerability security audits (`npm audit`).
+- **Autonomous Issue Creation**:
+  If any check fails, the pipeline autonomously creates a detailed GitHub issue labeled `automated-audit`, `type: bug`, `priority: high` containing failure logs, commit ref, and local reproduction steps (with built-in deduplication to avoid duplicate tickets).
 
 ---
 

@@ -62,3 +62,4 @@ For additional information on how KrocPDF is governed, your rights, and data pro
 - **[PRIVACY.md](./PRIVACY.md)**: Technical privacy charter (0-byte WASM local execution guarantee).
 - **[TERMS.md](./TERMS.md)**: Terms of service and acceptable use guidelines.
 - **[CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md)**: Standards for a welcoming, inclusive community.
+

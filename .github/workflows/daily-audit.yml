@@ -1,0 +1,153 @@
+name: Daily Monorepo Health & Bug Audit
+
+on:
+  schedule:
+    # Runs automatically every 24 hours at 00:00 UTC
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  daily-health-check:
+    name: Monorepo Health, Lint, Test & Security Audit
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          cache-dependency-path: |
+            frontend/package-lock.json
+            backend-api/package-lock.json
+
+      - name: Setup Go 1.23
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.23'
+          cache-dependency-path: worker-service/go.sum
+
+      # --- 1. Frontend Audit ---
+      - name: Install Frontend Dependencies
+        working-directory: frontend
+        run: npm ci
+
+      - name: Frontend TypeScript Typecheck
+        id: frontend_tsc
+        working-directory: frontend
+        run: npx tsc --noEmit
+
+      - name: Frontend Linting (ESLint / Oxlint)
+        id: frontend_lint
+        working-directory: frontend
+        run: npm run lint
+
+      - name: Frontend Unit Tests (Vitest)
+        id: frontend_test
+        working-directory: frontend
+        run: npm test
+
+      # --- 2. Backend API Audit ---
+      - name: Install Backend Dependencies
+        working-directory: backend-api
+        run: npm ci
+
+      - name: Backend TypeScript Typecheck
+        id: backend_tsc
+        working-directory: backend-api
+        run: npx tsc --noEmit
+
+      - name: Backend Linting (Oxlint)
+        id: backend_lint
+        working-directory: backend-api
+        run: npm run lint
+
+      - name: Backend Unit Tests (Vitest)
+        id: backend_test
+        working-directory: backend-api
+        run: npm test
+
+      # --- 3. Worker Service Audit ---
+      - name: Worker Go Vet
+        id: worker_vet
+        working-directory: worker-service
+        run: go vet ./...
+
+      - name: Worker Go Unit Tests
+        id: worker_test
+        working-directory: worker-service
+        run: go test -v ./...
+
+      # --- 4. Dependency Vulnerability Audit ---
+      - name: Security Vulnerability Scan (Frontend)
+        id: frontend_audit
+        working-directory: frontend
+        run: npm audit --audit-level=critical || true
+
+      - name: Security Vulnerability Scan (Backend)
+        id: backend_audit
+        working-directory: backend-api
+        run: npm audit --audit-level=critical || true
+
+      # --- 5. Automated Bug Hunter & Issue Creation ---
+      - name: Create or Update GitHub Issue on Audit Failure
+        if: failure()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          DATE_STR=$(date +'%Y-%m-%d')
+          ISSUE_TITLE="[Daily Audit] Automated Monorepo Integrity Failure Detected - ${DATE_STR}"
+          
+          # Check if an automated audit issue is already open to avoid duplicate spam
+          EXISTING_ISSUE=$(gh issue list --search "Daily Audit" --state open --json number --jq '.[0].number')
+          
+          ISSUE_BODY=$(cat <<EOF
+          ### Automated 24-Hour Monorepo Health Audit Failure
+          
+          The scheduled 24-hour continuous integration audit detected an error or regression in the monorepo test/typecheck suite.
+          
+          - **Trigger Time:** $(date -u +'%Y-%m-%dT%H:%M:%SZ')
+          - **Commit Ref:** \`${{ github.sha }}\`
+          - **Workflow Run:** [View Failure Details](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
+          
+          #### Audited Workspaces:
+          - \`frontend/\` (Next.js 16 + React 19 WASM client)
+          - \`backend-api/\` (NestJS 12 API Gateway)
+          - \`worker-service/\` (Go 1.25 compilation daemon)
+          
+          #### Reproduction Steps:
+          \`\`\`bash
+          # Test Frontend
+          cd frontend && npx tsc --noEmit && npm run lint && npm test
+          
+          # Test Backend
+          cd backend-api && npx tsc --noEmit && npm run lint && npm test
+          
+          # Test Worker
+          cd worker-service && go vet ./... && go test -v ./...
+          \`\`\`
+          
+          *This issue was generated automatically by \`.github/workflows/daily-audit.yml\`.*
+          EOF
+          )
+          
+          if [ -n "$EXISTING_ISSUE" ]; then
+            echo "An open audit issue already exists (#$EXISTING_ISSUE). Adding status comment."
+            gh issue comment "$EXISTING_ISSUE" --body "Re-Audit Alert: Daily health check failed again on commit \`${{ github.sha }}\` at $(date -u +'%Y-%m-%dT%H:%M:%SZ'). [View Run Details](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})"
+          else
+            echo "No open audit issue found. Creating new issue with automated-audit labels."
+            gh issue create \
+              --title "$ISSUE_TITLE" \
+              --label "automated-audit,type: bug,priority: high" \
+              --body "$ISSUE_BODY"
+          fi
