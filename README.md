@@ -572,7 +572,7 @@ KrocPDF operates under transparent, community-first open-source governance and s
 </p>
 <br/>
 
-## License & Intellectual Property
+## License
 
 This project is open-source software licensed under the **[MIT License](./LICENSE)**.
 
@@ -581,33 +581,26 @@ Copyright (c) 2026 Alok Prashar & Open-Source Contributors
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction...
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions...
 ```
-
-You are free to inspect, modify, fork, and self-host this software for personal, academic, or commercial projects. If you find this software useful, please consider giving the repository a star to help others discover it!
 
 <div align="center">
 
 <p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=1,2,3,4&height=3&section=header" width="100%" alt="divider" />
+  <a href="https://github.com/KrocPDF/KrocPDF/stargazers">
+    <img src="https://img.shields.io/github/stars/KrocPDF/KrocPDF?style=social" alt="Star on GitHub" />
+  </a>
+  &nbsp;
+  <a href="https://github.com/KrocPDF/KrocPDF/network/members">
+    <img src="https://img.shields.io/github/forks/KrocPDF/KrocPDF?style=social" alt="Fork on GitHub" />
+  </a>
 </p>
 
-### star Support Open-Source & Privacy-First Tooling
-
-If this platform saved you from paying for an overpriced PDF subscription or simplified your workflow, consider starring the repo:
-
-[![Star on GitHub](https://img.shields.io/github/stars/alokprashar864/jpg_to_pdf?style=social)](https://github.com/alokprashar864/jpg_to_pdf/stargazers)
-&nbsp;
-[![Fork on GitHub](https://img.shields.io/github/forks/alokprashar864/jpg_to_pdf?style=social)](https://github.com/alokprashar864/jpg_to_pdf/network/members)
-&nbsp;
-[![Watch on GitHub](https://img.shields.io/github/watchers/alokprashar864/jpg_to_pdf?style=social)](https://github.com/alokprashar864/jpg_to_pdf/watchers)
-
-<br/>
-
-```
- Dual-Engine WASM & Go Worker Architecture • Zero-Egress Cloudflare R2 • 100% Privacy by Design
-```
-
-<sub>Maintained by <b>Alok Prashar</b> & the Open-Source Community. Released under the MIT License.</sub>
+<p>
+  Built with care by <b>Alok Prashar</b> and the <b>KrocPDF</b> open-source community.
+</p>
 
 </div>
