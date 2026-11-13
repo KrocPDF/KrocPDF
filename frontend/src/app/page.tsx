@@ -97,8 +97,8 @@ export default function HomePage() {
           </h1>
           
           <p className="text-base sm:text-xl text-zinc-400 max-w-4xl mx-auto mb-10 leading-relaxed font-normal">
-            Fast, zero-compromise document processing. Convert images or merge PDFs directly in your browser via local WASM or with secure dedicated cloud workers.{' '}
-            <span className="text-zinc-200 font-medium">Free, open source, no watermarks.</span>
+            Convert, merge, and organize your documents in seconds — right on your device. Your files never leave your computer, with zero tracking and no watermarks.{' '}
+            <span className="text-zinc-200 font-medium">100% private, free, and secure.</span>
           </p>
 
           {/* Expansive Hero Drop Zone CTA (Edge-to-Edge) */}
@@ -167,7 +167,7 @@ export default function HomePage() {
       <section className="py-6 px-4 sm:px-8 lg:px-12 xl:px-16 border-b border-zinc-900/80 bg-zinc-950/80 backdrop-blur-md">
         <div className="w-full flex flex-wrap items-center justify-center gap-x-12 gap-y-4">
           <TrustBadge icon={Lock} text="100% Open Source" />
-          <TrustBadge icon={Shield} text="Files never leave your browser (Local WASM)" />
+          <TrustBadge icon={Shield} text="Files never leave your device" />
           <TrustBadge icon={Zap} text="Zero Sign-up Required" />
           <TrustBadge icon={FileCheck} text="No Watermarks & No File Limits" />
           <a
@@ -230,18 +230,18 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <FeatureCard
               icon={Shield}
-              title="Privacy Guaranteed (WASM)"
-              description="Your documents are assembled locally right inside your browser with WebAssembly. Zero data touches remote servers unless Cloud Batch mode is chosen."
+              title="100% Private & On-Device"
+              description="Your documents are converted directly on your phone or computer. Your sensitive files and images never touch external servers or get stored anywhere."
             />
             <FeatureCard
               icon={Zap}
-              title="Dual-Engine Scalability"
-              description="Instant in-browser rendering for daily conversions, backed by high-concurrency Go worker microservices for heavy batch payloads."
+              title="Blazing Fast & Unlimited"
+              description="No waiting in lines, no slow uploads, and no arbitrary file size limits. Convert individual documents or bulk batches with zero lag."
             />
             <FeatureCard
               icon={Wifi}
-              title="Full Offline Support"
-              description="Keep working even when your internet drops. Fully functional offline with zero telemetry, zero accounts, and zero watermarks."
+              title="Works Completely Offline"
+              description="Keep working even without an internet connection. Fully functional offline with zero telemetry, zero accounts, and zero watermarks."
             />
           </div>
         </div>

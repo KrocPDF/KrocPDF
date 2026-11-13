@@ -30,7 +30,7 @@ export function Footer() {
             </Link>
             <p className="text-xs text-zinc-500 leading-relaxed max-w-xs">
               Privacy-first document conversion.
-              Every file processed securely — locally in your browser or via encrypted cloud workers.
+              Every file converted safely on your own device — zero uploads, zero tracking.
             </p>
           </div>
 
@@ -55,10 +55,10 @@ export function Footer() {
           <div>
             <h3 className="text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-3">Features</h3>
             <ul className="space-y-2 text-xs text-zinc-500">
-              <li>Local In-Browser WASM</li>
-              <li>Encrypted Cloud Batch</li>
+              <li>100% Private On-Device</li>
+              <li>Secure Cloud Batch Option</li>
               <li>No File Watermarking</li>
-              <li>Auto-Delete Privacy</li>
+              <li>Zero Data Retention</li>
             </ul>
           </div>
 
@@ -105,7 +105,7 @@ export function Footer() {
         <div className="mt-10 pt-6 border-t border-zinc-900 flex flex-col sm:flex-row items-center justify-between text-xs text-zinc-500 space-y-2 sm:space-y-0">
           <p>© {currentYear} KrocPDF. Open source software.</p>
           <div className="flex items-center space-x-4">
-            <span>Client-side WASM &amp; Go Engine</span>
+            <span>Private On-Device Processing</span>
             <span>•</span>
             <a
               href="https://github.com/alokprashar864/jpg_to_pdf/blob/main/LICENSE"
