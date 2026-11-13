@@ -21,6 +21,7 @@ import { toolCards, type ToolCardConfig } from '@/lib/seoConfigs';
 import { InteractiveGridCanvas } from '@/components/InteractiveGridCanvas';
 import { CompanyMarquee } from '@/components/CompanyMarquee';
 import { FeatureTiles } from '@/components/FeatureTiles';
+import { KrocCrunchDemo } from '@/components/KrocCrunchDemo';
 
 const iconMap: Record<ToolCardConfig['iconId'], React.ElementType> = {
   'image': Image,
@@ -205,6 +206,24 @@ export default function HomePage() {
           </div>
 
           <FeatureTiles />
+        </div>
+      </section>
+
+      {/* ============================================
+          Animated Demo Showcase: Watch Kroc Crunch Any Document
+          ============================================ */}
+      <section className="py-24 sm:py-32 px-4 sm:px-8 lg:px-12 xl:px-16 border-t border-zinc-900/80 relative">
+        <div className="w-full">
+          <div className="text-center mb-14">
+            <h2 className="text-3xl sm:text-5xl font-extrabold text-zinc-100 tracking-tight mb-4">
+              Watch Kroc Crunch Any Document
+            </h2>
+            <p className="text-sm sm:text-base lg:text-lg text-zinc-400 max-w-2xl mx-auto">
+              Heavy, uncompressed files go in. Featherweight, production-ready PDFs come out — all processed locally on your device.
+            </p>
+          </div>
+
+          <KrocCrunchDemo />
         </div>
       </section>
     </div>

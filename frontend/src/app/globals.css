@@ -484,3 +484,36 @@ body {
   animation-play-state: paused;
 }
 
+/* ========================================
+   Kroc Crunch Animation Effects
+   ======================================== */
+
+@keyframes crunchShockwave {
+  0% {
+    transform: scale(0.6);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+
+.animate-crunch-shockwave {
+  animation: crunchShockwave 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes krocIdleBreathing {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-4px) rotate(-1deg);
+  }
+}
+
+.animate-kroc-idle {
+  animation: krocIdleBreathing 3.5s ease-in-out infinite;
+}
+
+
