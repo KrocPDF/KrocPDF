@@ -187,6 +187,7 @@ flowchart TD
 |:---|:---|:---|
 | **[`AGENTS.md`](./AGENTS.md)** | Root multi-agent swarm taxonomy, 5-Wave Execution Protocol, and universal guardrails. | **First entry point** for any AI agent or contributor. |
 | **[`CLAUDE.md`](./CLAUDE.md)** | Universal CLI command reference, local Docker boot commands, lint/test suites, and syntax standards. | Before running build, test, or migration commands. |
+| **[`docs/getting-started.md`](./docs/getting-started.md)** | 5-minute zero-friction fast path (WASM/Frontend) and complete cloud monorepo boot guide. | When onboarding new developers or testing local setups. |
 | **[`ARCHITECTURE.md`](./ARCHITECTURE.md)** | Comprehensive dual-engine architecture: client-side WASM vs. Go worker, Redis Streams event bus, and MinIO/S3 lifecycle. | Before proposing or implementing cross-service changes. |
 | **[`README.md`](./README.md)** | High-level product overview, visual interface showcase, performance metrics, and interactive system radar. | For platform overview, public features, and quick start. |
 
@@ -197,6 +198,7 @@ flowchart TD
 | **[`frontend/CLAUDE.md`](./frontend/CLAUDE.md)** | Frontend development cheatsheet, dev port conventions, Oxlint rules, and Vitest suite instructions. | Before running frontend unit tests or builds. |
 | **[`frontend/README.md`](./frontend/README.md)** | Frontend component architecture, Tailwind v4 tokens, and interactive canvas components. | When working on UI components or pages. |
 | **[`backend-api/README.md`](./backend-api/README.md)** | NestJS 12 architecture, Prisma 5 database schema, S3 presigned URL generation, and Redis queue producer. | Before editing `backend-api/` controllers or services. |
+| **[`docs/benchmarks.md`](./docs/benchmarks.md)** | Empirical benchmark methodology, hardware specs, memory traces, and sub-800ms compilation validation. | When tuning performance, profiling memory, or validating speed claims. |
 | **[`docs/features/merge-pdf.md`](./docs/features/merge-pdf.md)** | Specification for PDF merging, page orientation, memory limits, and Go `pdfcpu` pipelines. | When working on PDF assembly or worker features. |
 | **[`mobile_blueprint/`](./mobile_blueprint/README.md)** | Complete 7-part architecture & technical specification for the Flutter/Dart mobile application. | Before implementing or reviewing mobile features. |
 | &nbsp;&nbsp;↳ [`01_ARCHITECTURE_AND_DUAL_ENGINE.md`](./mobile_blueprint/01_ARCHITECTURE_AND_DUAL_ENGINE.md) | Mobile dual-engine model (on-device WASM/native vs. Go cloud worker parity). | Mobile architecture design. |

@@ -50,3 +50,4 @@ test.describe('Client-Side WASM Conversion Engine', () => {
     expect(externalPayloadUploaded).toBe(false);
   });
 });
+

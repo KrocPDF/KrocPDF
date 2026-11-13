@@ -44,3 +44,4 @@ export function getSyntheticWebp(name = 'sample-photo.webp'): SyntheticFile {
     buffer: Buffer.from(TINY_WEBP_BASE64, 'base64'),
   };
 }
+

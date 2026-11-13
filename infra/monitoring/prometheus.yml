@@ -22,3 +22,4 @@ scrape_configs:
   - job_name: "krocpdf-postgres"
     static_configs:
       - targets: ["postgres-exporter:9187"]
+

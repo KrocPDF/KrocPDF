@@ -47,3 +47,4 @@ done
 echo ""
 echo "=== 3. Done! Download your PDF ==="
 echo "Download Endpoint: $API_HOST/api/jobs/$JOB_ID/download"
+

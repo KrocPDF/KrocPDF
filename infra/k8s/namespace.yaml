@@ -5,3 +5,4 @@ metadata:
   labels:
     app.kubernetes.io/name: krocpdf
     app.kubernetes.io/part-of: krocpdf-platform
+

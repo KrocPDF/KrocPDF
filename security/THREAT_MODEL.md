@@ -49,3 +49,4 @@ KrocPDF operates under a **Privacy-by-Design** and **Zero-Trust Client Inversion
 1. **Browser vs. Edge CDN**: Untrusted boundary. All client inputs validated via `class-validator` DTOs and magic-byte sniffers.
 2. **API Gateway vs. Object Storage**: Authenticated boundary. Direct S3 access is gated behind ephemeral presigned URLs.
 3. **API Gateway vs. Go Worker**: Isolated messaging bus via Redis Streams within private Docker/Kubernetes networking. Workers never accept raw HTTP inbound traffic from the public Internet.
+

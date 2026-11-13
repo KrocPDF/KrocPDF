@@ -56,3 +56,4 @@ Every major or minor release (`x.y.0`) must pass all gates in this checklist bef
 - [ ] Non-root execution verified (`USER appuser` in worker Dockerfile).
 - [ ] Read-only root filesystem enabled on production worker Kubernetes deployments.
 - [ ] No exposed database or Redis ports to the public Internet (restricted to internal Kubernetes ClusterIP).
+

@@ -17,3 +17,4 @@ import { getSyntheticPng, getSyntheticJpeg } from '../e2e/fixtures/test-images';
 
 const receipt = getSyntheticJpeg('test-receipt.jpg');
 ```
+

@@ -4,12 +4,13 @@ echo "Running KrocPDF pre-commit verification..."
 
 # Check frontend typecheck & lint
 echo "Verifying frontend..."
-npm --prefix frontend exec tsc --noEmit || exit 1
+npm --prefix frontend run typecheck || exit 1
 npm --prefix frontend run lint || exit 1
 
 # Check backend typecheck & lint
 echo "Verifying backend-api..."
-npm --prefix backend-api exec tsc --noEmit || exit 1
+npm --prefix backend-api run typecheck || exit 1
 npm --prefix backend-api run lint || exit 1
 
 echo "Pre-commit checks passed successfully!"
+

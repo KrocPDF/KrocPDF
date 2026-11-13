@@ -10,7 +10,7 @@
     "dev:backend": "npm --prefix backend-api run start:dev",
     "build:frontend": "npm --prefix frontend run build",
     "build:backend": "npm --prefix backend-api run build",
-    "typecheck": "npm --prefix frontend exec tsc --noEmit && npm --prefix backend-api exec tsc --noEmit",
+    "typecheck": "npm --prefix frontend run typecheck && npm --prefix backend-api run typecheck",
     "lint": "npm --prefix frontend run lint && npm --prefix backend-api run lint",
     "test:unit": "npm --prefix frontend test && npm --prefix backend-api test",
     "test:e2e": "playwright test",

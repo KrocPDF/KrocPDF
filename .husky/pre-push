@@ -9,3 +9,4 @@ echo "Testing backend-api..."
 npm --prefix backend-api test || exit 1
 
 echo "Pre-push test suites passed successfully!"
+

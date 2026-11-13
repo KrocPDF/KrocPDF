@@ -27,3 +27,4 @@ groups:
         annotations:
           summary: "NestJS Backend API Gateway instance is unreachable"
           description: "API gateway pod failed healthchecks or crashed."
+
