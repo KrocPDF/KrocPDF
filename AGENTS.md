@@ -151,3 +151,76 @@ Every agent operating anywhere in this monorepo must uphold these rules:
    - Never commit `.env` files with production secrets. Use `.env.example` templates.
 4. **Zero-Regression Verification**:
    - Before completing any task, run verification commands for all modified workspaces.
+
+---
+
+## 6. 🗺️ Master Documentation Sequential Roadmap & Mandatory Reading Order
+
+> [!IMPORTANT]
+> **Mandatory Autonomous Agent Directive**:
+> Any autonomous AI agent (Antigravity, Cursor, Claude Code, Copilot, Roo/Cline, Gemini CLI) or engineer cloning/importing this repository **MUST** consult and follow the documentation files listed below before and during execution. Modifying code across services without reading the corresponding architecture, interface contracts, and workspace rules violates KrocPDF monorepo protocol.
+
+```mermaid
+flowchart TD
+    classDef l1 fill:#0F172A,stroke:#38BDF8,stroke-width:2px,color:#E0F2FE,font-weight:600;
+    classDef l2 fill:#0F172A,stroke:#34D399,stroke-width:2px,color:#ECFDF5,font-weight:600;
+    classDef l3 fill:#0F172A,stroke:#F59E0B,stroke-width:2px,color:#FEF3C7,font-weight:600;
+    classDef l4 fill:#0F172A,stroke:#C084FC,stroke-width:2px,color:#FAF5FF,font-weight:600;
+
+    L1["Level 1: System Architecture & Protocols<br/>AGENTS.md • CLAUDE.md • ARCHITECTURE.md • README.md"]:::l1
+    L2["Level 2: Service-Specific Directives<br/>frontend/AGENTS.md • backend-api/README.md • mobile_blueprint"]:::l2
+    L3["Level 3: Governance, Privacy & Security<br/>GOVERNANCE.md • PRIVACY.md • TERMS.md • SECURITY.md"]:::l3
+    L4["Level 4: Execution Waves, Roadmap & Planning<br/>CONTRIBUTING.md • .planning/ • CHANGELOG.md"]:::l4
+
+    L1 -->|Foundational Rules| L2
+    L2 -->|Compliance & Policy| L3
+    L3 -->|Execution Protocol| L4
+```
+
+### Complete Monorepo Markdown Index & Sequential Reading Order
+
+#### Level 1: Core System Architecture & Operating Directives (Mandatory First Read)
+| Document | Scope & Purpose | When to Read |
+|:---|:---|:---|
+| **[`AGENTS.md`](./AGENTS.md)** | Root multi-agent swarm taxonomy, 5-Wave Execution Protocol, and universal guardrails. | **First entry point** for any AI agent or contributor. |
+| **[`CLAUDE.md`](./CLAUDE.md)** | Universal CLI command reference, local Docker boot commands, lint/test suites, and syntax standards. | Before running build, test, or migration commands. |
+| **[`ARCHITECTURE.md`](./ARCHITECTURE.md)** | Comprehensive dual-engine architecture: client-side WASM vs. Go worker, Redis Streams event bus, and MinIO/S3 lifecycle. | Before proposing or implementing cross-service changes. |
+| **[`README.md`](./README.md)** | High-level product overview, visual interface showcase, performance metrics, and interactive system radar. | For platform overview, public features, and quick start. |
+
+#### Level 2: Subsystem & Domain Directives (Read Before Modifying Target Directory)
+| Document | Scope & Purpose | When to Read |
+|:---|:---|:---|
+| **[`frontend/AGENTS.md`](./frontend/AGENTS.md)** | Next.js 16 + React 19 rules, client-side WASM engine (`localConverter.ts`), memory lifecycle (`URL.revokeObjectURL`), and drag-and-drop invariants. | **Mandatory** before editing any file in `frontend/`. |
+| **[`frontend/CLAUDE.md`](./frontend/CLAUDE.md)** | Frontend development cheatsheet, dev port conventions, Oxlint rules, and Vitest suite instructions. | Before running frontend unit tests or builds. |
+| **[`frontend/README.md`](./frontend/README.md)** | Frontend component architecture, Tailwind v4 tokens, and interactive canvas components. | When working on UI components or pages. |
+| **[`backend-api/README.md`](./backend-api/README.md)** | NestJS 12 architecture, Prisma 5 database schema, S3 presigned URL generation, and Redis queue producer. | Before editing `backend-api/` controllers or services. |
+| **[`docs/features/merge-pdf.md`](./docs/features/merge-pdf.md)** | Specification for PDF merging, page orientation, memory limits, and Go `pdfcpu` pipelines. | When working on PDF assembly or worker features. |
+| **[`mobile_blueprint/`](./mobile_blueprint/README.md)** | Complete 7-part architecture & technical specification for the Flutter/Dart mobile application. | Before implementing or reviewing mobile features. |
+| &nbsp;&nbsp;↳ [`01_ARCHITECTURE_AND_DUAL_ENGINE.md`](./mobile_blueprint/01_ARCHITECTURE_AND_DUAL_ENGINE.md) | Mobile dual-engine model (on-device WASM/native vs. Go cloud worker parity). | Mobile architecture design. |
+| &nbsp;&nbsp;↳ [`02_BACKEND_API_SPECIFICATION.md`](./mobile_blueprint/02_BACKEND_API_SPECIFICATION.md) | Mobile REST endpoints, presigned S3 upload, and SSE streaming contracts. | Mobile networking implementation. |
+| &nbsp;&nbsp;↳ [`03_FLUTTER_TECH_STACK_AND_PUBSPEC.md`](./mobile_blueprint/03_FLUTTER_TECH_STACK_AND_PUBSPEC.md) | Mobile dependencies, packages, and platform requirements. | Mobile setup and dependencies. |
+| &nbsp;&nbsp;↳ [`04_UI_UX_AND_DESIGN_SYSTEM.md`](./mobile_blueprint/04_UI_UX_AND_DESIGN_SYSTEM.md) | Mobile design system, touch gestures, and file upload interactions. | Mobile UI engineering. |
+| &nbsp;&nbsp;↳ [`05_PLATFORM_PERMISSIONS_AND_SECURITY.md`](./mobile_blueprint/05_PLATFORM_PERMISSIONS_AND_SECURITY.md) | iOS/Android sandboxing, file permissions, and data protection. | Mobile security audit. |
+| &nbsp;&nbsp;↳ [`06_CI_CD_APP_STORE_DEPLOYMENT.md`](./mobile_blueprint/06_CI_CD_APP_STORE_DEPLOYMENT.md) | Automated Fastlane pipelines, TestFlight, and Google Play tracks. | Mobile release automation. |
+| &nbsp;&nbsp;↳ [`07_INTERN_ROADMAP_AND_SPRINT_GUIDE.md`](./mobile_blueprint/07_INTERN_ROADMAP_AND_SPRINT_GUIDE.md) | Step-by-step developer implementation sprints and milestones. | Onboarding mobile engineers. |
+
+#### Level 3: Governance, Privacy, Security & Legal Compliance
+| Document | Scope & Purpose | When to Read |
+|:---|:---|:---|
+| **[`GOVERNANCE.md`](./GOVERNANCE.md)** | Project charter, 4-tier participation taxonomy (Project Lead, Core Contributors, Triagers, Community), RFC protocol, and 5-wave release standards. | Before proposing breaking changes, schema changes, or PRs. |
+| **[`PRIVACY.md`](./PRIVACY.md)** | Formal privacy charter: 0-byte WASM local execution guarantee, 24h cloud auto-purge lifecycle, and cookie-free telemetry. | When handling telemetry, data flows, or storage logic. |
+| **[`TERMS.md`](./TERMS.md)** | Terms of Service, Acceptable Use Policy (malware and DDoS abuse prohibitions), warranty disclaimers, and trademark protection. | For legal compliance, licensing, and usage guidelines. |
+| **[`SECURITY.md`](./SECURITY.md)** | Vulnerability disclosure channels, private reporting instructions, and responsible remediation policies. | When reporting or fixing security vulnerabilities. |
+| **[`CONTRIBUTING.md`](./CONTRIBUTING.md)** | Contribution lifecycle, Conventional Commits formatting, local Docker boot guide, and PR requirements. | Before opening a Pull Request or creating a branch. |
+| **[`CODE_OF_CONDUCT.md`](./CODE_OF_CONDUCT.md)** | Contributor Covenant standards for an inclusive and harassment-free community. | When interacting in issues, discussions, or PR reviews. |
+| **[`OPEN_SOURCE.md`](./OPEN_SOURCE.md)** | Open-source philosophy, mission differentiation against predatory converters, and community vision. | For project context and open-source alignment. |
+
+#### Level 4: Project Tracking, Releases & Planning Memory
+| Document | Scope & Purpose | When to Read |
+|:---|:---|:---|
+| **[`CHANGELOG.md`](./CHANGELOG.md)** | Chronological history of releases, feature additions, fixes, and performance tuning. | Before tagging releases or tracking past changes. |
+| **[`RELEASE_v1.0.md`](./RELEASE_v1.0.md)** | Production v1.0 release notes, verified performance benchmarks, and feature manifest. | For v1.0 baseline reference. |
+| **[`MILESTONE.md`](./MILESTONE.md)** | High-level milestone roadmap and strategic deliverable tracker. | When planning new versions or features. |
+| **[`Deployment_Plan_Agy.md`](./Deployment_Plan_Agy.md)** | Infrastructure deployment plan, DNS routing, and hosting topology (Vercel, Cloudflare R2, Container registry). | Before configuring CI/CD or production infrastructure. |
+| **[`.planning/`](./.planning/)** | Autonomous planning directory containing GSD requirements, phase plans, and Nyquist audit files (`PROJECT.md`, `REQUIREMENTS.md`, `ROADMAP.md`, `phases/`). | When running autonomous planning or milestone audits. |
+
