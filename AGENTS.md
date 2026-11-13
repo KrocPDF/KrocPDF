@@ -68,16 +68,18 @@ graph TD
   - Manages goroutine lifecycles and memory limits during massive batch conversions.
 
 ### 5. DevOps & Infrastructure Agent
-- **Scope**: `docker-compose.yml`, Dockerfiles, MinIO bucket policies, and CI/CD workflows.
+- **Scope**: `docker-compose.yml`, Dockerfiles, MinIO bucket policies, production `infra/` (`infra/k8s/`, `infra/nginx/`, `infra/monitoring/`), and CI/CD workflows.
 - **Responsibilities**:
   - Maintains deterministic container configurations and automated healthchecks.
+  - Keeps local `docker-compose.yml` and production `infra/` manifests strictly synchronized whenever ports, environment variables, or networking change.
   - Configures 1-day retention lifecycles on MinIO conversion buckets for data privacy.
   - Ensures local development mirrors production environment variables.
 
 ### 6. Monorepo QA & Integrity Agent
-- **Scope**: Full-stack verification, linting, type checks, and regression audits.
+- **Scope**: Full-stack verification, linting, type checks, e2e test orchestration, and regression audits.
 - **Responsibilities**:
-  - Executes test suites across all 3 services (`npm run lint`, `npx tsc`, `vitest`, `go vet`).
+  - Executes unit test suites across all 3 services (`npm run lint`, `npx tsc`, `vitest`, `go vet`).
+  - Executes root-level integration tests (`npm run test:e2e` in `e2e/`) with Playwright to verify WASM 0-byte privacy, cloud SSE progress streaming, and keyboard accessibility.
   - Validates zero leakage of credentials, `any` types, or orphaned goroutines.
 
 ---
@@ -88,11 +90,11 @@ When executing features or refactors that span multiple layers, agents must exec
 
 ```
 Wave 1: Infra & DB  ──►  Wave 2: Worker Engine  ──►  Wave 3: API Gateway  ──►  Wave 4: Frontend Client  ──►  Wave 5: QA Gate
-(docker, prisma)         (worker-service/go)          (backend-api/nest)        (frontend/next)              (monorepo test)
+(docker, infra, db)      (worker-service/go)          (backend-api/nest)        (frontend/next)              (unit & e2e test)
 ```
 
 ### Wave 1: Infrastructure & Data Contracts
-1. Update `docker-compose.yml`, `.env.example`, or MinIO initialization scripts if storage/service configuration changes.
+1. Update `docker-compose.yml`, `.env.example`, MinIO initialization scripts, AND the new production `infra/` configurations (`infra/k8s/`, `infra/nginx/`, `infra/monitoring/`) together whenever service, networking, or storage configurations change.
 2. Update `backend-api/prisma/schema.prisma` and run `npx prisma db push` or create migrations.
 3. Lock down shared DTOs and data schemas.
 
@@ -115,7 +117,8 @@ Wave 1: Infra & DB  ──►  Wave 2: Worker Engine  ──►  Wave 3: API Gat
 
 ### Wave 5: Monorepo Verification & Audit Gate
 1. Perform an end-to-end trace from client request $\rightarrow$ S3 upload $\rightarrow$ Redis stream $\rightarrow$ Go assembly $\rightarrow$ SSE completion.
-2. Confirm zero regressions across all services.
+2. Execute root-level integration tests (`npm run test:e2e` via Playwright in `e2e/`) to validate zero regressions across WASM privacy, SSE streaming, and accessibility.
+3. Confirm zero regressions across all services and ensure all workspace test suites pass (`npm run test:unit`, `npm run lint`, `npm run typecheck`).
 
 ---
 
