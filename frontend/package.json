@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@hello-pangea/dnd": "^18.0.1",
+    "@vercel/analytics": "^2.0.1",
     "clsx": "^2.1.1",
     "fflate": "^0.8.3",
     "lucide-react": "^1.41.0",
