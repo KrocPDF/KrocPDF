@@ -459,3 +459,28 @@ body {
   max-height: 480px;
   opacity: 1;
 }
+
+/* ========================================
+   Company / Platform Rotating Marquee
+   ======================================== */
+
+@keyframes marqueeLeftToRight {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+.animate-marquee-ltr {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation: marqueeLeftToRight 38s linear infinite;
+}
+
+.animate-marquee-ltr:hover {
+  animation-play-state: paused;
+}
+

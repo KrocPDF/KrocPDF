@@ -14,17 +14,15 @@ import {
   Shield,
   Zap,
   Wifi,
-  Lock,
   ArrowRight,
   Bell,
   Mail,
   Sparkles,
-  FileCheck,
 } from 'lucide-react';
 import clsx from 'clsx';
-import { GithubIcon } from '@/components/icons/GithubIcon';
 import { toolCards, type ToolCardConfig } from '@/lib/seoConfigs';
 import { InteractiveGridCanvas } from '@/components/InteractiveGridCanvas';
+import { CompanyMarquee } from '@/components/CompanyMarquee';
 
 const iconMap: Record<ToolCardConfig['iconId'], React.ElementType> = {
   'image': Image,
@@ -159,25 +157,9 @@ export default function HomePage() {
       </section>
 
       {/* ============================================
-          Trust Badges
+          Company / Ecosystem Rotating Marquee (Left to Right, Transparent)
           ============================================ */}
-      <section className="py-6 px-4 sm:px-8 lg:px-12 xl:px-16 border-b border-zinc-900/80 bg-zinc-950/80 backdrop-blur-md">
-        <div className="w-full flex flex-wrap items-center justify-center gap-x-12 gap-y-4">
-          <TrustBadge icon={Lock} text="100% Open Source" />
-          <TrustBadge icon={Shield} text="Files never leave your device" />
-          <TrustBadge icon={Zap} text="Zero Sign-up Required" />
-          <TrustBadge icon={FileCheck} text="No Watermarks & No File Limits" />
-          <a
-            href="https://github.com/alokprashar864/jpg_to_pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center space-x-2 text-xs font-medium text-zinc-400 hover:text-white transition-colors"
-          >
-            <GithubIcon className="w-4 h-4" />
-            <span>Star on GitHub</span>
-          </a>
-        </div>
-      </section>
+      <CompanyMarquee />
 
       {/* ============================================
           Tool Cards Grid (Edge-to-Edge 6-Column Layout)
@@ -253,15 +235,6 @@ export default function HomePage() {
 /* ==========================================
    Sub-Components
    ========================================== */
-
-function TrustBadge({ icon: Icon, text }: { icon: React.ElementType; text: string }) {
-  return (
-    <div className="flex items-center space-x-2 text-xs text-zinc-400">
-      <Icon className="w-4 h-4 text-zinc-300" />
-      <span>{text}</span>
-    </div>
-  );
-}
 
 function ToolCard({
   tool,
