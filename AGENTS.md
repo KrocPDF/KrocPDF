@@ -211,6 +211,8 @@ flowchart TD
 | **[`PRIVACY.md`](./PRIVACY.md)** | Formal privacy charter: 0-byte WASM local execution guarantee, 24h cloud auto-purge lifecycle, and cookie-free telemetry. | When handling telemetry, data flows, or storage logic. |
 | **[`TERMS.md`](./TERMS.md)** | Terms of Service, Acceptable Use Policy (malware and DDoS abuse prohibitions), warranty disclaimers, and trademark protection. | For legal compliance, licensing, and usage guidelines. |
 | **[`SECURITY.md`](./SECURITY.md)** | Vulnerability disclosure channels, private reporting instructions, and responsible remediation policies. | When reporting or fixing security vulnerabilities. |
+| &nbsp;&nbsp;↳ [`THREAT_MODEL.md`](./security/THREAT_MODEL.md) | STRIDE threat model, sandboxing boundaries, and abuse vectors. | When modifying authentication, queue, or storage logic. |
+| &nbsp;&nbsp;↳ [`AUDIT_CHECKLIST.md`](./security/AUDIT_CHECKLIST.md) | Pre-release security verification checklist. | Before major releases or infrastructure updates. |
 | **[`CONTRIBUTING.md`](./CONTRIBUTING.md)** | Contribution lifecycle, Conventional Commits formatting, local Docker boot guide, and PR requirements. | Before opening a Pull Request or creating a branch. |
 | **[`CODE_OF_CONDUCT.md`](./CODE_OF_CONDUCT.md)** | Contributor Covenant standards for an inclusive and harassment-free community. | When interacting in issues, discussions, or PR reviews. |
 | **[`SUPPORT.md`](./SUPPORT.md)** | Support channels, in-app issue reporting, FAQ, and troubleshooting guide. | When seeking assistance, reporting bugs, or helping users. |

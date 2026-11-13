@@ -151,3 +151,4 @@ jobs:
               --label "automated-audit,type: bug,priority: high" \
               --body "$ISSUE_BODY"
           fi
+

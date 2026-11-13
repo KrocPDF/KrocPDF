@@ -1,0 +1,29 @@
+groups:
+  - name: krocpdf_production_alerts
+    rules:
+      - alert: RedisQueueBacklogHigh
+        expr: redis_stream_length{stream="stream:conversions"} > 100
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Conversion queue backlog is critically high (>100 jobs pending)"
+          description: "Go worker instances may be saturated or unresponsive. Consider scaling worker replicas."
+
+      - alert: HighConversionFailureRate
+        expr: rate(krocpdf_conversions_total{status="failed"}[5m]) / rate(krocpdf_conversions_total[5m]) > 0.05
+        for: 3m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Conversion failure rate exceeded 5% over a 5-minute window"
+          description: "Multiple conversion tasks are terminating with errors. Inspect worker logs for corrupted image parsing or OOM."
+
+      - alert: BackendServiceDown
+        expr: up{job="krocpdf-backend-api"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "NestJS Backend API Gateway instance is unreachable"
+          description: "API gateway pod failed healthchecks or crashed."

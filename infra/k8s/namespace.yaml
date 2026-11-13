@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: krocpdf
+  labels:
+    app.kubernetes.io/name: krocpdf
+    app.kubernetes.io/part-of: krocpdf-platform
