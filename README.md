@@ -19,16 +19,13 @@
 
 ---
 
-## Visual Showcase & Mascot Engine
-
-<div align="center">
-
-### Kroc Mascot Crunch Engine (Local WASM Mascot)
 <p align="center">
   <video src="docs/assets/kroc-crunch-animation.mp4" poster="docs/assets/kroc-crunch-poster.jpg" controls muted loop playsinline style="max-width: 100%; height: auto; border-radius: 12px;"></video>
 </p>
 
-<br/>
+## Visual Showcase & UI Interface
+
+<div align="center">
 
 ### Modular Landing Page & Tool Hub (`/`)
 <img src="docs/assets/krocpdf_homepage.png" alt="KrocPDF Landing Page" width="95%" />
