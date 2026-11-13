@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { GithubIcon } from '@/components/icons/GithubIcon';
+import { MessageSquare } from 'lucide-react';
 import { getActiveTools } from '@/lib/seoConfigs';
 
 export function Footer() {
@@ -68,28 +68,26 @@ export function Footer() {
             <ul className="space-y-2">
               <li>
                 <a
-                  href="https://github.com/alokprashar864/jpg_to_pdf"
+                  href="https://github.com/KrocPDF/KrocPDF/discussions"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-xs text-zinc-500 hover:text-zinc-200 transition-colors inline-flex items-center space-x-1.5"
                 >
-                  <GithubIcon className="w-3.5 h-3.5" />
-                  <span>GitHub Repository</span>
+                  <MessageSquare className="w-3.5 h-3.5" />
+                  <span>Discussions</span>
                 </a>
               </li>
               <li>
-                <a
-                  href="https://github.com/alokprashar864/jpg_to_pdf/issues"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <Link
+                  href="/report-issue"
                   className="text-xs text-zinc-500 hover:text-zinc-200 transition-colors"
                 >
                   Report an Issue
-                </a>
+                </Link>
               </li>
               <li>
                 <a
-                  href="https://github.com/alokprashar864/jpg_to_pdf/blob/main/CONTRIBUTING.md"
+                  href="https://github.com/KrocPDF/KrocPDF/blob/main/CONTRIBUTING.md"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-xs text-zinc-500 hover:text-zinc-200 transition-colors"
@@ -108,7 +106,7 @@ export function Footer() {
             <span>Private On-Device Processing</span>
             <span>•</span>
             <a
-              href="https://github.com/alokprashar864/jpg_to_pdf/blob/main/LICENSE"
+              href="https://github.com/KrocPDF/KrocPDF/blob/main/LICENSE"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-zinc-300 transition-colors"
