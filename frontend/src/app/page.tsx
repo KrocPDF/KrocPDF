@@ -80,10 +80,6 @@ export default function HomePage() {
 
   return (
     <div className="gradient-mesh min-h-screen relative overflow-hidden">
-      {/* Cool Ambient Light Beams */}
-      <div className="aurora-beam" aria-hidden="true" />
-      <div className="aurora-beam-secondary" aria-hidden="true" />
-
       {/* ============================================
           Hero Section (Expanded Full-Screen Width)
           ============================================ */}
@@ -95,14 +91,6 @@ export default function HomePage() {
         />
 
         <div className="max-w-7xl mx-auto text-center relative z-10 fade-in-up">
-          {/* Shimmer Badge */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 mb-6 rounded-full border border-white/10 bg-zinc-900/80 text-xs font-medium text-zinc-300 animate-shimmer shadow-lg">
-            <span className="w-2 h-2 rounded-full bg-zinc-100 animate-ping inline-block" />
-            <span className="text-zinc-200 font-semibold tracking-wide">Dual-Engine Document Conversion</span>
-            <span className="text-zinc-500">•</span>
-            <span className="text-zinc-400">100% Private Client WASM</span>
-          </div>
-          
           <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.06] mb-6 text-zinc-100 max-w-5xl mx-auto">
             Every Document Tool <br className="hidden sm:inline" />
             <span className="text-zinc-400 font-medium">You Need, Pure &amp; Private.</span>
