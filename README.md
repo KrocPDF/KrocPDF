@@ -41,80 +41,6 @@
 
 ---
 
-## Interactive System Radar & Directory
-
-```mermaid
-%%{init: {'theme': 'dark', 'themeVariables': { 'fontSize': '13px', 'fontFamily': 'Inter, system-ui, sans-serif' }}}%%
-flowchart TB
-    classDef core fill:#7928CA,stroke:#C084FC,stroke-width:3px,color:#FFFFFF,font-weight:bold;
-    classDef quadrant1 fill:#0F172A,stroke:#38BDF8,stroke-width:2px,color:#E0F2FE,font-weight:600;
-    classDef quadrant2 fill:#0F172A,stroke:#34D399,stroke-width:2px,color:#ECFDF5,font-weight:600;
-    classDef quadrant3 fill:#0F172A,stroke:#F59E0B,stroke-width:2px,color:#FEF3C7,font-weight:600;
-    classDef quadrant4 fill:#0F172A,stroke:#F43F5E,stroke-width:2px,color:#FFE4E6,font-weight:600;
-
-    classDef nodeBlue fill:#0369A1,stroke:#38BDF8,stroke-width:1px,color:#FFFFFF;
-    classDef nodeGreen fill:#047857,stroke:#34D399,stroke-width:1px,color:#FFFFFF;
-    classDef nodeAmber fill:#B45309,stroke:#F59E0B,stroke-width:1px,color:#FFFFFF;
-    classDef nodeRose fill:#BE123C,stroke:#F43F5E,stroke-width:1px,color:#FFFFFF;
-
-    subgraph NorthEast ["QUADRANT I: VALUE & DIFFERENTIATION"]
-        direction TB
-        Q1["Core Proposition"]:::quadrant1
-        N1_1["Why This Exists<br/>• Zero predatory paywalls<br/>• 100MB free files"]:::nodeBlue
-        N1_2["Key Capabilities<br/>• Lossless 300 DPI<br/>• Drag-and-drop sort"]:::nodeBlue
-        N1_3["The Differentiator<br/>• Us vs. iLovePDF / Smallpdf"]:::nodeBlue
-        Q1 --> N1_1
-        N1_1 --> N1_2
-        N1_2 --> N1_3
-    end
-
-    subgraph NorthWest ["QUADRANT II: ARCHITECTURE & ENGINE"]
-        direction TB
-        Q2["Distributed Engine"]:::quadrant2
-        N2_1["Dual-Engine Topology<br/>• WASM Client Engine<br/>• Go Worker Daemon"]:::nodeGreen
-        N2_2["Cloudflare R2 Storage<br/>• Zero-egress bandwidth<br/>• 24h ephemeral purge"]:::nodeGreen
-        N2_3["Environment Matrix<br/>• Full .env specifications"]:::nodeGreen
-        Q2 --> N2_1
-        N2_1 --> N2_2
-        N2_2 --> N2_3
-    end
-
-    %% Central Hub
-    CORE(("JPG to PDF<br/>PLATFORM<br/>CORE")):::core
-
-    subgraph SouthEast ["QUADRANT III: DEVELOPER ONBOARDING"]
-        direction TB
-        Q3["Developer Workspace"]:::quadrant3
-        N3_1["Prerequisites<br/>• Docker, Go 1.21, Node 20"]:::nodeAmber
-        N3_2["Local Quick Start<br/>• 5-min Docker Compose"]:::nodeAmber
-        N3_3["API Reference<br/>• REST endpoints & SSE streams"]:::nodeAmber
-        Q3 --> N3_1
-        N3_1 --> N3_2
-        N3_2 --> N3_3
-    end
-
-    subgraph SouthWest ["QUADRANT IV: QUALITY & GOVERNANCE"]
-        direction TB
-        Q4["Governance & Evolution"]:::quadrant4
-        N4_1["Automated Test Suite<br/>• Unit, Vitest, Go test"]:::nodeRose
-        N4_2["Strategic Roadmap<br/>• v1.1 WASM to v1.5 ADRs"]:::nodeRose
-        N4_3["Diagnostics & FAQ<br/>• CORS & memory tuning"]:::nodeRose
-        Q4 --> N4_1
-        N4_1 --> N4_2
-        N4_2 --> N4_3
-    end
-
-    %% Cross-Quadrant Hub Links
-    CORE ===>|Strategy| Q1
-    CORE ===>|Orchestration| Q2
-    CORE ===>|Execution| Q3
-    CORE ===>|Compliance| Q4
-
-    %% Inter-Quadrant Orbital Resonance Links
-    N1_3 -.- N3_1
-    N2_3 -.- N4_1
-```
-
 <p align="center">
   <b>Jump Directly:</b>
   <a href="#why-this-exists"><code>Why Us</code></a> •
@@ -129,12 +55,6 @@ flowchart TB
   <a href="#governance-legal--privacy"><code>Governance & Legal</code></a> •
   <a href="#contributing--community"><code>Contributing</code></a>
 </p>
-
-<br/>
-<p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=1,2,3,4&height=3&section=header" width="100%" alt="divider" />
-</p>
-<br/>
 
 ---
 
