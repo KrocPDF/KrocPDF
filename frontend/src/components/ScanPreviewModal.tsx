@@ -217,9 +217,9 @@ function ScanPreviewModalContent({
       <div className="relative w-full max-w-4xl bg-slate-950 border border-slate-800 rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[94vh]">
         
         {/* Header with Multi-Page Navigation */}
-        <div className="flex items-center justify-between px-6 py-3.5 border-b border-slate-800 bg-slate-900/80">
+        <div className="flex items-center justify-between px-6 py-3.5 border-b border-zinc-800 bg-zinc-900/80">
           <div className="flex items-center space-x-3">
-            <div className="p-2 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400">
+            <div className="p-2 rounded-xl bg-zinc-800 border border-zinc-700 text-zinc-100">
               <Sparkles className="w-5 h-5" />
             </div>
             <div>
@@ -227,12 +227,12 @@ function ScanPreviewModalContent({
                 <h3 className="font-semibold text-white text-base sm:text-lg">
                   Document Scanner Editor
                 </h3>
-                <span className="px-2 py-0.5 bg-slate-800 border border-slate-700 text-emerald-400 text-xs font-mono font-medium rounded-md">
+                <span className="px-2 py-0.5 bg-zinc-800 border border-zinc-700 text-zinc-300 text-xs font-mono font-medium rounded-md">
                   Page {activeIndex + 1} of {images.length}
                 </span>
-                {isProcessing && <Loader2 className="w-4 h-4 animate-spin text-emerald-400 ml-1" />}
+                {isProcessing && <Loader2 className="w-4 h-4 animate-spin text-zinc-300 ml-1" />}
               </div>
-              <p className="text-xs text-slate-400 truncate max-w-sm sm:max-w-md">
+              <p className="text-xs text-zinc-400 truncate max-w-sm sm:max-w-md">
                 {activeImage.file.name}
               </p>
             </div>
@@ -244,7 +244,7 @@ function ScanPreviewModalContent({
               type="button"
               onClick={() => selectPage(activeIndex - 1)}
               disabled={activeIndex === 0}
-              className="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 disabled:opacity-30 disabled:cursor-not-allowed text-white transition"
+              className="p-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 disabled:opacity-30 disabled:cursor-not-allowed text-white transition"
               title="Previous Page (Left Arrow)"
             >
               <ChevronLeft className="w-4 h-4" />
@@ -253,14 +253,14 @@ function ScanPreviewModalContent({
               type="button"
               onClick={() => selectPage(activeIndex + 1)}
               disabled={activeIndex === images.length - 1}
-              className="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 disabled:opacity-30 disabled:cursor-not-allowed text-white transition"
+              className="p-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 disabled:opacity-30 disabled:cursor-not-allowed text-white transition"
               title="Next Page (Right Arrow)"
             >
               <ChevronRight className="w-4 h-4" />
             </button>
             <button
               onClick={onClose}
-              className="p-2 text-slate-400 hover:text-white rounded-xl hover:bg-slate-800 transition ml-2"
+              className="p-2 text-zinc-400 hover:text-white rounded-xl hover:bg-zinc-800 transition ml-2"
             >
               <X className="w-5 h-5" />
             </button>
@@ -268,10 +268,10 @@ function ScanPreviewModalContent({
         </div>
 
         {/* Comparison Viewport */}
-        <div className="relative w-full p-4 sm:p-5 bg-slate-900/30 select-none flex items-center justify-center overflow-hidden">
+        <div className="relative w-full p-4 sm:p-5 bg-zinc-900/30 select-none flex items-center justify-center overflow-hidden">
           <div
             id="scan-slider-container"
-            className="relative w-full h-[320px] sm:h-[420px] flex items-center justify-center rounded-2xl overflow-hidden border border-slate-800 bg-slate-950 shadow-inner cursor-ew-resize"
+            className="relative w-full h-[320px] sm:h-[420px] flex items-center justify-center rounded-2xl overflow-hidden border border-zinc-800 bg-[#09090b] shadow-inner cursor-ew-resize"
             onMouseDown={handleMouseDown}
             onTouchStart={handleMouseDown}
           >
@@ -284,8 +284,8 @@ function ScanPreviewModalContent({
                 className="absolute inset-0 w-full h-full object-contain pointer-events-none p-2"
               />
             ) : (
-              <div className="flex items-center justify-center text-slate-400 text-sm">
-                <Loader2 className="w-6 h-6 animate-spin mr-2 text-emerald-400" /> Applying scanner filter...
+              <div className="flex items-center justify-center text-zinc-400 text-sm">
+                <Loader2 className="w-6 h-6 animate-spin mr-2 text-zinc-300" /> Applying scanner filter...
               </div>
             )}
 
@@ -304,10 +304,10 @@ function ScanPreviewModalContent({
 
             {/* Vertical Draggable Divider */}
             <div
-              className="absolute top-0 bottom-0 w-0.5 bg-emerald-400 shadow-[0_0_12px_rgba(52,211,153,0.9)] cursor-ew-resize z-20 flex items-center justify-center"
+              className="absolute top-0 bottom-0 w-0.5 bg-zinc-200 shadow-[0_0_12px_rgba(255,255,255,0.7)] cursor-ew-resize z-20 flex items-center justify-center"
               style={{ left: `${sliderPosition}%` }}
             >
-              <div className="w-8 h-8 rounded-full bg-slate-900 border-2 border-emerald-400 text-emerald-400 shadow-2xl flex items-center justify-center text-xs font-bold -translate-x-1/2 cursor-grab active:cursor-grabbing">
+              <div className="w-8 h-8 rounded-full bg-zinc-900 border-2 border-zinc-300 text-zinc-100 shadow-2xl flex items-center justify-center text-xs font-bold -translate-x-1/2 cursor-grab active:cursor-grabbing">
                 ⇄
               </div>
             </div>
@@ -316,7 +316,7 @@ function ScanPreviewModalContent({
             <div className="absolute top-3 left-3 z-10 px-3 py-1 bg-black/80 backdrop-blur-md rounded-lg text-xs font-medium text-amber-300 border border-amber-500/30 shadow-lg">
               Original Photo
             </div>
-            <div className="absolute top-3 right-3 z-10 px-3 py-1 bg-black/80 backdrop-blur-md rounded-lg text-xs font-medium text-emerald-300 border border-emerald-500/30 shadow-lg flex items-center gap-1.5">
+            <div className="absolute top-3 right-3 z-10 px-3 py-1 bg-black/80 backdrop-blur-md rounded-lg text-xs font-medium text-zinc-100 border border-zinc-700 shadow-lg flex items-center gap-1.5">
               <Sparkles className="w-3.5 h-3.5" /> Enhanced Scan
             </div>
           </div>
@@ -324,8 +324,8 @@ function ScanPreviewModalContent({
 
         {/* Thumbnail Carousel Strip for Multi-Page Switching */}
         {images.length > 1 && (
-          <div className="px-5 py-2.5 bg-slate-950/90 border-t border-slate-800 flex items-center gap-2 overflow-x-auto">
-            <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider whitespace-nowrap flex items-center gap-1 mr-1">
+          <div className="px-5 py-2.5 bg-zinc-950/90 border-t border-zinc-800 flex items-center gap-2 overflow-x-auto">
+            <span className="text-[11px] font-semibold text-zinc-500 uppercase tracking-wider whitespace-nowrap flex items-center gap-1 mr-1">
               <Layers className="w-3.5 h-3.5" /> Pages:
             </span>
             {images.map((img, idx) => (
@@ -336,8 +336,8 @@ function ScanPreviewModalContent({
                 className={clsx(
                   "relative w-12 h-14 rounded-lg overflow-hidden border-2 transition-all flex-shrink-0",
                   activeIndex === idx
-                    ? "border-emerald-400 ring-2 ring-emerald-500/30 scale-105"
-                    : "border-slate-800 opacity-60 hover:opacity-100"
+                    ? "border-zinc-200 ring-2 ring-zinc-400/30 scale-105"
+                    : "border-zinc-800 opacity-60 hover:opacity-100"
                 )}
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -351,13 +351,13 @@ function ScanPreviewModalContent({
         )}
 
         {/* Filter Controls & Dual Apply Buttons */}
-        <div className="p-5 border-t border-slate-800 bg-slate-900/90 space-y-4">
+        <div className="p-5 border-t border-zinc-800 bg-zinc-900/90 space-y-4">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             
             {/* Mode Selector */}
             <div className="sm:col-span-2 space-y-1.5">
-              <label className="block text-xs font-medium text-slate-400">Enhancement Mode</label>
-              <div className="grid grid-cols-3 gap-2 bg-slate-950 p-1 rounded-xl border border-slate-800">
+              <label className="block text-xs font-medium text-zinc-400">Enhancement Mode</label>
+              <div className="grid grid-cols-3 gap-2 bg-[#09090b] p-1 rounded-xl border border-zinc-800">
                 {(['color-enhance', 'monochrome', 'high-contrast'] as FilterMode[]).map((mode) => (
                   <button
                     key={mode}
@@ -366,8 +366,8 @@ function ScanPreviewModalContent({
                     className={clsx(
                       "py-2 px-3 text-xs font-semibold rounded-lg transition-all capitalize text-center",
                       options.mode === mode
-                        ? "bg-emerald-500 text-slate-950 shadow-md font-bold"
-                        : "text-slate-400 hover:text-white"
+                        ? "bg-zinc-100 text-zinc-950 shadow-md font-bold"
+                        : "text-zinc-400 hover:text-white"
                     )}
                   >
                     {mode === 'color-enhance' ? 'Color Scan' : mode === 'monochrome' ? 'B&W Mono' : 'High Contrast'}
@@ -378,9 +378,9 @@ function ScanPreviewModalContent({
 
             {/* Whitening Boost Slider */}
             <div className="space-y-1.5">
-              <div className="flex justify-between text-xs text-slate-400">
+              <div className="flex justify-between text-xs text-zinc-400">
                 <span className="flex items-center gap-1"><Sliders className="w-3.5 h-3.5" /> Whitening Boost</span>
-                <span className="text-emerald-400 font-mono font-medium">{options.gamma.toFixed(1)}x</span>
+                <span className="text-zinc-200 font-mono font-medium">{options.gamma.toFixed(1)}x</span>
               </div>
               <input
                 type="range"
@@ -389,17 +389,17 @@ function ScanPreviewModalContent({
                 step="0.1"
                 value={options.gamma}
                 onChange={(e) => setOptions(o => ({ ...o, gamma: parseFloat(e.target.value) }))}
-                className="w-full accent-emerald-400 cursor-pointer h-2 bg-slate-950 rounded-lg appearance-none"
+                className="w-full accent-zinc-100 cursor-pointer h-2 bg-zinc-950 rounded-lg appearance-none"
               />
             </div>
           </div>
 
           {/* Action Footer: Apply to Page vs Apply to All */}
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2 border-t border-slate-800/60">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2 border-t border-zinc-800/60">
             <button
               type="button"
               onClick={() => setOptions(DEFAULT_FILTER_OPTIONS)}
-              className="inline-flex items-center text-xs text-slate-400 hover:text-white transition gap-1 px-3 py-1.5 rounded-lg hover:bg-slate-800 self-start sm:self-auto"
+              className="inline-flex items-center text-xs text-zinc-400 hover:text-white transition gap-1 px-3 py-1.5 rounded-lg hover:bg-zinc-800 self-start sm:self-auto"
             >
               <RotateCcw className="w-3.5 h-3.5" /> Reset Defaults
             </button>
@@ -407,7 +407,7 @@ function ScanPreviewModalContent({
               <button
                 type="button"
                 onClick={onClose}
-                className="px-4 py-2 text-xs font-semibold text-slate-300 hover:text-white bg-slate-800 hover:bg-slate-700 rounded-xl transition"
+                className="px-4 py-2 text-xs font-semibold text-zinc-300 hover:text-white bg-zinc-800 hover:bg-zinc-700 rounded-xl transition"
               >
                 Close
               </button>
@@ -420,7 +420,7 @@ function ScanPreviewModalContent({
                     onApplyToPage(activeImage.id, options, currentEnhancedBlob);
                   }
                 }}
-                className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 hover:bg-emerald-500/20 rounded-xl transition"
+                className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-zinc-200 bg-zinc-900 border border-zinc-700 hover:bg-zinc-800 rounded-xl transition"
               >
                 <Check className="w-3.5 h-3.5" /> Apply to Page {activeIndex + 1}
               </button>
@@ -432,7 +432,7 @@ function ScanPreviewModalContent({
                   onApplyToAll(options);
                   onClose();
                 }}
-                className="inline-flex items-center gap-1.5 px-5 py-2 text-xs font-bold text-slate-950 bg-emerald-400 hover:bg-emerald-300 rounded-xl shadow-lg shadow-emerald-950/40 transition"
+                className="inline-flex items-center gap-1.5 px-5 py-2 text-xs font-bold text-zinc-950 bg-zinc-100 hover:bg-white rounded-xl shadow-md transition"
               >
                 <Check className="w-4 h-4" /> Apply to All Pages
               </button>

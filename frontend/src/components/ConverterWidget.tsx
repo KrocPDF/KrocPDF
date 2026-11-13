@@ -421,7 +421,7 @@ export function ConverterWidget({ tool = 'unified' }: { tool?: string }) {
   return (
     <div className="max-w-4xl w-full space-y-8 relative">
       {toastMsg && (
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-[calc(100%+1rem)] z-50 bg-emerald-600 text-white px-6 py-3 rounded-xl shadow-2xl shadow-emerald-950/50 whitespace-nowrap animate-in fade-in slide-in-from-bottom-2 flex items-center gap-2 text-sm font-semibold border border-emerald-400/30">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-[calc(100%+1rem)] z-50 bg-zinc-100 text-zinc-950 px-6 py-3 rounded-xl shadow-2xl shadow-black/40 whitespace-nowrap animate-in fade-in slide-in-from-bottom-2 flex items-center gap-2 text-sm font-semibold border border-zinc-200">
           {toastMsg}
         </div>
       )}
@@ -434,7 +434,7 @@ export function ConverterWidget({ tool = 'unified' }: { tool?: string }) {
             status === 'ERROR'
               ? 'bg-red-950/30 border-red-900/50 text-red-400'
               : status === 'READY'
-                ? 'bg-green-950/30 border-green-900/50 text-green-400'
+                ? 'bg-zinc-900/60 border-zinc-800 text-zinc-100'
                 : 'bg-blue-950/30 border-blue-900/50 text-blue-400',
           )}
         >
@@ -457,22 +457,22 @@ export function ConverterWidget({ tool = 'unified' }: { tool?: string }) {
           {status === 'READY' && (
             <div className="space-y-4 mt-2">
               {tool === 'compress-pdf' && images.length > 0 && (
-                <div className="p-4 rounded-xl bg-slate-900/80 border border-emerald-500/30 max-w-md mx-auto flex items-center justify-around gap-4 text-center">
+                <div className="p-4 rounded-xl bg-zinc-900/80 border border-zinc-800 max-w-md mx-auto flex items-center justify-around gap-4 text-center">
                   <div>
-                    <div className="text-[11px] text-slate-400 font-medium uppercase tracking-wider">Original</div>
-                    <div className="text-base font-bold text-slate-300">
+                    <div className="text-[11px] text-zinc-400 font-medium uppercase tracking-wider">Original</div>
+                    <div className="text-base font-bold text-zinc-300">
                       {formatBytes(images.reduce((sum, img) => sum + img.file.size, 0))}
                     </div>
                   </div>
-                  <div className="text-emerald-400 text-lg font-extrabold">→</div>
+                  <div className="text-zinc-400 text-lg font-extrabold">→</div>
                   <div>
-                    <div className="text-[11px] text-slate-400 font-medium uppercase tracking-wider">Compressed</div>
-                    <div className="text-base font-bold text-emerald-400">
+                    <div className="text-[11px] text-zinc-400 font-medium uppercase tracking-wider">Compressed</div>
+                    <div className="text-base font-bold text-zinc-100">
                       {compressedSizeBytes ? formatBytes(compressedSizeBytes) : 'Optimized'}
                     </div>
                   </div>
                   {compressedSizeBytes && images.reduce((sum, img) => sum + img.file.size, 0) > compressedSizeBytes && (
-                    <div className="px-2.5 py-1 rounded-lg bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 font-extrabold text-xs flex items-center gap-1">
+                    <div className="px-2.5 py-1 rounded-lg bg-zinc-800 border border-zinc-700 text-zinc-200 font-extrabold text-xs flex items-center gap-1">
                       <span>🎉</span>
                       <span>
                         -{Math.round(
@@ -493,7 +493,7 @@ export function ConverterWidget({ tool = 'unified' }: { tool?: string }) {
                     download={tool === 'pdf-to-jpg' ? 'converted-images.zip' : 'converted.pdf'}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center px-6 py-3 bg-green-600 text-white font-medium rounded-lg hover:bg-green-500 transition shadow-lg shadow-green-900/20"
+                    className="inline-flex items-center px-6 py-3 bg-zinc-100 text-zinc-950 font-semibold rounded-lg hover:bg-white transition shadow-lg shadow-black/20"
                   >
                     {tool === 'pdf-to-jpg' ? 'Download Images (ZIP)' : 'Download PDF'}
                   </a>
@@ -547,10 +547,10 @@ export function ConverterWidget({ tool = 'unified' }: { tool?: string }) {
           <div
             onDragOver={onDragOver}
             onDrop={onDrop}
-            className="md:col-span-2 border-2 border-dashed border-slate-800 hover:border-emerald-500/50 bg-slate-900/30 rounded-2xl p-8 flex flex-col items-center justify-center text-center transition-colors cursor-pointer min-h-[300px]"
+            className="md:col-span-2 border-2 border-dashed border-zinc-800 hover:border-zinc-500 bg-zinc-950/40 rounded-2xl p-8 flex flex-col items-center justify-center text-center transition-colors cursor-pointer min-h-[300px]"
           >
-            <UploadCloud className="w-12 h-12 text-slate-500 mb-4" />
-            <h3 className="text-xl font-medium mb-2 text-slate-100">
+            <UploadCloud className="w-12 h-12 text-zinc-500 mb-4" />
+            <h3 className="text-xl font-medium mb-2 text-zinc-100">
               {tool === 'merge-pdf'
                 ? 'Drag & Drop PDFs here'
                 : tool === 'compress-pdf'
@@ -559,13 +559,13 @@ export function ConverterWidget({ tool = 'unified' }: { tool?: string }) {
                     ? 'Drag & Drop PDF here'
                     : 'Drag & Drop images here'}
             </h3>
-            <p className="text-slate-400 mb-6">
+            <p className="text-zinc-400 mb-6">
               {tool === 'merge-pdf' || tool === 'compress-pdf' || tool === 'pdf-to-jpg'
                 ? 'Supports .PDF files'
                 : 'Supports .JPG, .JPEG, .PNG up to 50 Megapixels'}
             </p>
 
-            <label className="px-6 py-3 bg-slate-100 text-slate-950 font-semibold rounded-lg hover:bg-emerald-400 hover:text-slate-950 transition-all cursor-pointer shadow-xl shadow-black/30">
+            <label className="px-6 py-3 bg-zinc-100 text-zinc-950 font-semibold rounded-lg hover:bg-white transition-all cursor-pointer shadow-xl shadow-black/30">
               Browse Files
               <input
                 type="file"
@@ -637,19 +637,19 @@ export function ConverterWidget({ tool = 'unified' }: { tool?: string }) {
           </div>
 
           {/* Right: Settings */}
-          <div className="bg-slate-900/40 border border-slate-800/80 p-6 rounded-2xl flex flex-col justify-between">
+          <div className="bg-zinc-900/40 border border-zinc-800 p-6 rounded-2xl flex flex-col justify-between">
             <div>
-              <div className="flex items-center space-x-2 text-slate-200 mb-6">
-                <Settings className="w-5 h-5 text-emerald-400" />
+              <div className="flex items-center space-x-2 text-zinc-200 mb-6">
+                <Settings className="w-5 h-5 text-zinc-300" />
                 <h3 className="font-semibold">Document Settings</h3>
               </div>
 
               <div className="space-y-4">
                 <div className="space-y-1.5">
-                  <label className="block text-xs font-medium text-slate-400">
+                  <label className="block text-xs font-medium text-zinc-400">
                     Processing Engine
                   </label>
-                  <div className="flex bg-slate-950 border border-slate-800 rounded-lg p-1">
+                  <div className="flex bg-zinc-950 border border-zinc-800 rounded-lg p-1">
                     <button
                       type="button"
                       onClick={() =>
@@ -658,8 +658,8 @@ export function ConverterWidget({ tool = 'unified' }: { tool?: string }) {
                       className={clsx(
                         'flex-1 py-1.5 text-xs font-medium rounded-md transition-all',
                         settings.engine === 'cloud'
-                          ? 'bg-emerald-600 text-white shadow-sm'
-                          : 'text-slate-400 hover:text-white',
+                          ? 'bg-zinc-100 text-zinc-950 font-semibold shadow-sm'
+                          : 'text-zinc-400 hover:text-white',
                       )}
                     >
                       Force Cloud
@@ -677,8 +677,8 @@ export function ConverterWidget({ tool = 'unified' }: { tool?: string }) {
                       className={clsx(
                         'flex-1 py-1.5 text-xs font-medium rounded-md transition-all disabled:opacity-50 disabled:cursor-not-allowed',
                         settings.engine === 'local'
-                          ? 'bg-teal-600 text-white shadow-sm'
-                          : 'text-slate-400 hover:text-white',
+                          ? 'bg-zinc-100 text-zinc-950 font-semibold shadow-sm'
+                          : 'text-zinc-400 hover:text-white',
                       )}
                     >
                       Force Local
@@ -729,26 +729,26 @@ export function ConverterWidget({ tool = 'unified' }: { tool?: string }) {
                             className={clsx(
                               'p-3 rounded-xl border text-left transition-all relative flex flex-col justify-between cursor-pointer',
                               isSelected
-                                ? 'bg-emerald-500/10 border-emerald-500 text-emerald-300 shadow-md shadow-emerald-950/50'
-                                : 'bg-slate-950/60 border-slate-800 hover:border-slate-700 text-slate-400 hover:text-slate-200'
+                                ? 'bg-zinc-800 border-zinc-500 text-zinc-100 shadow-sm'
+                                : 'bg-zinc-950/60 border-zinc-800 hover:border-zinc-700 text-zinc-400 hover:text-zinc-200'
                             )}
                           >
                             <div className="flex items-center justify-between mb-1">
-                              <span className="font-semibold text-xs text-slate-100">
+                              <span className="font-semibold text-xs text-zinc-100">
                                 {preset.label}
                               </span>
                               <span
                                 className={clsx(
                                   'text-[9px] uppercase font-bold px-1.5 py-0.5 rounded border',
                                   isSelected
-                                    ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40'
-                                    : 'bg-slate-800 text-slate-400 border-slate-700'
+                                    ? 'bg-zinc-100 text-zinc-950 border-zinc-200'
+                                    : 'bg-zinc-800 text-zinc-400 border-zinc-700'
                                 )}
                               >
                                 {preset.badge}
                               </span>
                             </div>
-                            <p className="text-[10px] leading-tight text-slate-400">
+                            <p className="text-[10px] leading-tight text-zinc-400">
                               {preset.desc}
                             </p>
                           </button>
@@ -758,7 +758,7 @@ export function ConverterWidget({ tool = 'unified' }: { tool?: string }) {
                   </div>
                 ) : tool === 'pdf-to-jpg' ? (
                   <div className="space-y-4">
-                    <label className="block text-sm text-slate-400">
+                    <label className="block text-sm text-zinc-400">
                       Image Quality ({settings.imageQuality}%)
                       <input
                         type="range"
@@ -767,20 +767,20 @@ export function ConverterWidget({ tool = 'unified' }: { tool?: string }) {
                         step="5"
                         value={settings.imageQuality}
                         onChange={(e) => setSettings({ ...settings, imageQuality: Number(e.target.value) })}
-                        className="mt-2 block w-full accent-emerald-500"
+                        className="mt-2 block w-full accent-zinc-100"
                       />
                     </label>
                   </div>
                 ) : tool !== 'merge-pdf' ? (
                   <>
-                    <label className="block text-sm text-slate-400">
+                    <label className="block text-sm text-zinc-400">
                       Page Size
                       <select
                         value={settings.pageSize}
                         onChange={(e) =>
                           setSettings({ ...settings, pageSize: e.target.value })
                         }
-                        className="mt-1 block w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 outline-none transition"
+                        className="mt-1 block w-full bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-2 text-white focus:border-zinc-400 focus:ring-1 focus:ring-zinc-400 outline-none transition"
                       >
                         <option value="A4">A4</option>
                         <option value="LETTER">Letter</option>
@@ -788,14 +788,14 @@ export function ConverterWidget({ tool = 'unified' }: { tool?: string }) {
                       </select>
                     </label>
 
-                    <label className="block text-sm text-slate-400">
+                    <label className="block text-sm text-zinc-400">
                       Orientation
                       <select
                         value={settings.orientation}
                         onChange={(e) =>
                           setSettings({ ...settings, orientation: e.target.value })
                         }
-                        className="mt-1 block w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 outline-none transition"
+                        className="mt-1 block w-full bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-2 text-white focus:border-zinc-400 focus:ring-1 focus:ring-zinc-400 outline-none transition"
                       >
                         <option value="PORTRAIT">Portrait</option>
                         <option value="LANDSCAPE">Landscape</option>
@@ -803,14 +803,14 @@ export function ConverterWidget({ tool = 'unified' }: { tool?: string }) {
                       </select>
                     </label>
 
-                    <label className="block text-sm text-slate-400">
+                    <label className="block text-sm text-zinc-400">
                       Margins
                       <select
                         value={settings.margins}
                         onChange={(e) =>
                           setSettings({ ...settings, margins: e.target.value })
                         }
-                        className="mt-1 block w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 outline-none transition"
+                        className="mt-1 block w-full bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-2 text-white focus:border-zinc-400 focus:ring-1 focus:ring-zinc-400 outline-none transition"
                       >
                         <option value="NONE">None</option>
                         <option value="SMALL">Small</option>
@@ -820,8 +820,8 @@ export function ConverterWidget({ tool = 'unified' }: { tool?: string }) {
                     </label>
 
                     <div className="space-y-2">
-                      <p className="text-sm text-slate-400">Transparency Mode</p>
-                      <div className="flex bg-slate-950 border border-slate-800 rounded-lg p-1">
+                      <p className="text-sm text-zinc-400">Transparency Mode</p>
+                      <div className="flex bg-zinc-950 border border-zinc-800 rounded-lg p-1">
                         <button
                           onClick={() =>
                             setSettings({
@@ -832,8 +832,8 @@ export function ConverterWidget({ tool = 'unified' }: { tool?: string }) {
                           className={clsx(
                             'flex-1 py-1.5 text-xs font-medium rounded-md transition',
                             settings.transparencyMode === 'flatten_white'
-                              ? 'bg-slate-200 text-slate-950 shadow-md font-semibold'
-                              : 'text-slate-400 hover:text-white',
+                              ? 'bg-zinc-100 text-zinc-950 shadow-md font-semibold'
+                              : 'text-zinc-400 hover:text-white',
                           )}
                         >
                           White
@@ -848,8 +848,8 @@ export function ConverterWidget({ tool = 'unified' }: { tool?: string }) {
                           className={clsx(
                             'flex-1 py-1.5 text-xs font-medium rounded-md transition',
                             settings.transparencyMode === 'flatten_black'
-                              ? 'bg-slate-800 text-white shadow-md border border-slate-700 font-semibold'
-                              : 'text-slate-400 hover:text-white',
+                              ? 'bg-zinc-800 text-white shadow-md border border-zinc-700 font-semibold'
+                              : 'text-zinc-400 hover:text-white',
                           )}
                         >
                           Black
@@ -864,8 +864,8 @@ export function ConverterWidget({ tool = 'unified' }: { tool?: string }) {
                           className={clsx(
                             'flex-1 py-1.5 text-xs font-medium rounded-md transition',
                             settings.transparencyMode === 'keep_transparent'
-                              ? 'bg-emerald-600 text-white shadow-md font-semibold'
-                              : 'text-slate-400 hover:text-white',
+                              ? 'bg-zinc-100 text-zinc-950 shadow-md font-semibold'
+                              : 'text-zinc-400 hover:text-white',
                           )}
                         >
                           Preserve
@@ -874,11 +874,11 @@ export function ConverterWidget({ tool = 'unified' }: { tool?: string }) {
                     </div>
 
                     {/* Document Scanner Mode (Whitening & Shadow Removal) */}
-                    <div className="pt-3 border-t border-slate-800/80 space-y-2">
+                    <div className="pt-3 border-t border-zinc-800 space-y-2">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-1.5">
-                          <Sparkles className="w-4 h-4 text-emerald-400" />
-                          <span className="text-xs font-semibold text-slate-200">
+                          <Sparkles className="w-4 h-4 text-zinc-300" />
+                          <span className="text-xs font-semibold text-zinc-200">
                             Scanner Mode
                           </span>
                         </div>
@@ -893,28 +893,28 @@ export function ConverterWidget({ tool = 'unified' }: { tool?: string }) {
                           className={clsx(
                             'relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none',
                             settings.documentScannerMode
-                              ? 'bg-emerald-500'
-                              : 'bg-slate-800',
+                              ? 'bg-zinc-100'
+                              : 'bg-zinc-800',
                           )}
                         >
                           <span
                             className={clsx(
-                              'pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out',
+                              'pointer-events-none inline-block h-4 w-4 transform rounded-full shadow ring-0 transition duration-200 ease-in-out',
                               settings.documentScannerMode
-                                ? 'translate-x-4'
-                                : 'translate-x-0',
+                                ? 'translate-x-4 bg-zinc-950'
+                                : 'translate-x-0 bg-zinc-400',
                             )}
                           />
                         </button>
                       </div>
-                      <p className="text-[11px] text-slate-400 leading-tight">
+                      <p className="text-[11px] text-zinc-400 leading-tight">
                         Whitens yellow paper, flattens shadows & sharpens document
                         text.
                       </p>
 
                       {settings.documentScannerMode && (
                         <div className="space-y-2 pt-1 animate-in fade-in slide-in-from-top-1">
-                          <div className="grid grid-cols-3 gap-1 bg-slate-950 p-1 rounded-lg border border-slate-800">
+                          <div className="grid grid-cols-3 gap-1 bg-zinc-950 p-1 rounded-lg border border-zinc-800">
                             {(
                               [
                                 'color-enhance',
@@ -926,7 +926,7 @@ export function ConverterWidget({ tool = 'unified' }: { tool?: string }) {
                                 key={mode}
                                 type="button"
                                 onClick={() =>
-                                  setSettings((s) => ({
+                                   setSettings((s) => ({
                                     ...s,
                                     filterOptions: {
                                       ...(s.filterOptions ||
@@ -938,8 +938,8 @@ export function ConverterWidget({ tool = 'unified' }: { tool?: string }) {
                                 className={clsx(
                                   'py-1 text-[10px] font-medium rounded transition text-center',
                                   settings.filterOptions?.mode === mode
-                                    ? 'bg-emerald-500 text-slate-950 font-bold'
-                                    : 'text-slate-400 hover:text-white',
+                                    ? 'bg-zinc-100 text-zinc-950 font-bold'
+                                    : 'text-zinc-400 hover:text-white',
                                 )}
                               >
                                 {mode === 'color-enhance'
@@ -958,7 +958,7 @@ export function ConverterWidget({ tool = 'unified' }: { tool?: string }) {
                                 setActivePreviewIndex(0);
                                 setIsPreviewModalOpen(true);
                               }}
-                              className="w-full py-1.5 px-3 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 rounded-lg text-emerald-400 text-xs font-medium flex items-center justify-center gap-1.5 transition"
+                              className="w-full py-1.5 px-3 bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 rounded-lg text-zinc-200 text-xs font-medium flex items-center justify-center gap-1.5 transition"
                             >
                               <Sparkles className="w-3.5 h-3.5" /> Open Scanner Editor
                             </button>
@@ -974,7 +974,7 @@ export function ConverterWidget({ tool = 'unified' }: { tool?: string }) {
             <button
               onClick={startConversion}
               disabled={images.length === 0}
-              className="w-full mt-8 py-3 bg-gradient-to-r from-emerald-600 to-teal-600 disabled:from-slate-800 disabled:to-slate-800 disabled:text-slate-600 hover:from-emerald-500 hover:to-teal-500 text-white font-semibold rounded-lg transition-all shadow-lg shadow-emerald-950/40"
+              className="w-full mt-8 py-3 bg-zinc-100 text-zinc-950 hover:bg-white disabled:bg-zinc-900 disabled:text-zinc-600 font-semibold rounded-lg transition-all shadow-lg shadow-black/20"
             >
               {tool === 'merge-pdf'
                 ? 'Merge PDFs'
@@ -992,8 +992,8 @@ export function ConverterWidget({ tool = 'unified' }: { tool?: string }) {
       {(status === 'IDLE' || status === 'ERROR') && images.length > 0 && (
         <div className="pt-8">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-xl font-medium flex items-center text-slate-100">
-              <FileImage className="w-5 h-5 mr-2 text-emerald-400" />
+            <h3 className="text-xl font-medium flex items-center text-zinc-100">
+              <FileImage className="w-5 h-5 mr-2 text-zinc-300" />
               Reorder Pages ({images.length})
             </h3>
             <button
@@ -1002,7 +1002,7 @@ export function ConverterWidget({ tool = 'unified' }: { tool?: string }) {
                 setActivePreviewIndex(0);
                 setIsPreviewModalOpen(true);
               }}
-              className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-3 py-1.5 rounded-lg hover:bg-emerald-500/20 transition"
+              className="inline-flex items-center gap-1.5 text-xs font-semibold text-zinc-200 bg-zinc-900 border border-zinc-700 px-3 py-1.5 rounded-lg hover:bg-zinc-800 transition"
             >
               <Sparkles className="w-3.5 h-3.5" /> Multi-Page Scanner Editor
             </button>
@@ -1024,20 +1024,20 @@ export function ConverterWidget({ tool = 'unified' }: { tool?: string }) {
                           className={clsx(
                             'relative group w-32 h-44 rounded-xl overflow-hidden border-2 flex flex-col justify-between',
                             snapshot.isDragging
-                              ? 'border-blue-500 shadow-xl shadow-blue-500/20'
+                              ? 'border-zinc-100 shadow-xl shadow-black/50'
                               : img.isEnhanced
-                                ? 'border-emerald-500/70 shadow-lg shadow-emerald-950/40'
-                                : 'border-neutral-800',
+                                ? 'border-zinc-300 shadow-md'
+                                : 'border-zinc-800',
                           )}
                           style={{
                             backgroundImage: `url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h8v8H0zM8 8h8v8H8z' fill='%231a1a1a' fill-rule='evenodd'/%3E%3C/svg%3E")`,
                             backgroundSize: '16px 16px',
-                            backgroundColor: '#262626',
+                            backgroundColor: '#18181b',
                           }}
                         >
                           {/* Active Enhanced Badge */}
                           {img.isEnhanced && (
-                            <div className="absolute top-1.5 left-1.5 z-10 px-1.5 py-0.5 bg-emerald-500 text-[9px] font-black text-slate-950 rounded shadow-md flex items-center gap-0.5">
+                            <div className="absolute top-1.5 left-1.5 z-10 px-1.5 py-0.5 bg-zinc-100 text-[9px] font-black text-zinc-950 rounded shadow-md flex items-center gap-0.5">
                               <Sparkles className="w-2.5 h-2.5" />
                               {img.filterOptions?.mode === 'monochrome'
                                 ? 'B&W'
@@ -1060,9 +1060,9 @@ export function ConverterWidget({ tool = 'unified' }: { tool?: string }) {
 
                           {/* Thumbnail / PDF Fallback */}
                           {img.file.type === 'application/pdf' ? (
-                            <div className="w-full h-full flex flex-col items-center justify-center bg-slate-800 p-2">
-                              <FileText className="w-10 h-10 text-slate-400 mb-1" />
-                              <span className="text-[10px] text-slate-300 font-medium text-center truncate w-full">
+                            <div className="w-full h-full flex flex-col items-center justify-center bg-zinc-850 p-2">
+                              <FileText className="w-10 h-10 text-zinc-400 mb-1" />
+                              <span className="text-[10px] text-zinc-300 font-medium text-center truncate w-full">
                                 {img.file.name}
                               </span>
                             </div>
@@ -1086,7 +1086,7 @@ export function ConverterWidget({ tool = 'unified' }: { tool?: string }) {
                                   setIsPreviewModalOpen(true);
                                 }}
                                 title="Edit Scanner Filter for this page"
-                                className="bg-emerald-400 hover:bg-emerald-300 text-slate-950 font-bold p-1.5 rounded-lg text-[10px] flex items-center gap-1 shadow-lg transition scale-95 hover:scale-100"
+                                className="bg-zinc-100 hover:bg-white text-zinc-950 font-bold p-1.5 rounded-lg text-[10px] flex items-center gap-1 shadow-lg transition scale-95 hover:scale-100"
                               >
                                 <Sparkles className="w-3 h-3" /> Edit Scan
                               </button>

@@ -22,14 +22,14 @@ const seoConfigs: Record<string, SeoConfig> = {
     title: 'Convert JPG to PDF Online | Free & Secure | KrocPDF',
     description: 'Convert your JPG images to PDF documents instantly. 100% secure, local in-browser conversion or blazing fast cloud servers.',
     h1: 'JPG to PDF',
-    subtitle: 'Secure, client-side direct uploads. Blazing fast conversion.',
+    subtitle: 'Secure, client-side direct uploads. Instant document compilation.',
     toolSchemaName: 'JPG to PDF Converter'
   },
   'png-to-pdf': {
     title: 'Convert PNG to PDF Online | Free & Secure | KrocPDF',
     description: 'Convert your PNG transparent images to PDF documents instantly. 100% secure, local in-browser conversion.',
     h1: 'PNG to PDF',
-    subtitle: 'Preserve transparency and quality. Secure PNG conversion.',
+    subtitle: 'Preserve transparency and crisp quality. Secure PNG conversion.',
     toolSchemaName: 'PNG to PDF Converter'
   },
   'jpeg-to-pdf': {
@@ -68,8 +68,8 @@ export const toolCards: ToolCardConfig[] = [
     name: 'JPG to PDF',
     shortDescription: 'Convert JPG images to PDF documents instantly.',
     iconId: 'image',
-    accentFrom: '#10b981',
-    accentTo: '#059669',
+    accentFrom: '#e4e4e7',
+    accentTo: '#71717a',
     comingSoon: false,
   },
   {
@@ -77,8 +77,8 @@ export const toolCards: ToolCardConfig[] = [
     name: 'PNG to PDF',
     shortDescription: 'Preserve transparency. Convert PNG to PDF.',
     iconId: 'image-plus',
-    accentFrom: '#14b8a6',
-    accentTo: '#06b6d4',
+    accentFrom: '#f4f4f5',
+    accentTo: '#a1a1aa',
     comingSoon: false,
   },
   {
@@ -86,8 +86,8 @@ export const toolCards: ToolCardConfig[] = [
     name: 'JPEG to PDF',
     shortDescription: 'High quality JPEG to PDF. No watermarks.',
     iconId: 'camera',
-    accentFrom: '#34d399',
-    accentTo: '#10b981',
+    accentFrom: '#e4e4e7',
+    accentTo: '#71717a',
     comingSoon: false,
   },
   {
@@ -95,8 +95,8 @@ export const toolCards: ToolCardConfig[] = [
     name: 'Merge PDF',
     shortDescription: 'Combine multiple PDFs into a single document.',
     iconId: 'merge',
-    accentFrom: '#64748b',
-    accentTo: '#475569',
+    accentFrom: '#d4d4d8',
+    accentTo: '#52525b',
     comingSoon: false,
   },
   {
@@ -104,8 +104,8 @@ export const toolCards: ToolCardConfig[] = [
     name: 'Compress PDF',
     shortDescription: 'Reduce PDF file size without losing quality.',
     iconId: 'minimize',
-    accentFrom: '#0ea5e9',
-    accentTo: '#0284c7',
+    accentFrom: '#f4f4f5',
+    accentTo: '#a1a1aa',
     comingSoon: false,
   },
   {
@@ -113,8 +113,8 @@ export const toolCards: ToolCardConfig[] = [
     name: 'PDF to JPG',
     shortDescription: 'Extract pages from PDF as JPG images.',
     iconId: 'file-output',
-    accentFrom: '#2dd4bf',
-    accentTo: '#0f766e',
+    accentFrom: '#e4e4e7',
+    accentTo: '#71717a',
     comingSoon: false,
   },
 ];
