@@ -11,9 +11,6 @@ import {
   GitMerge,
   Minimize2,
   FileOutput,
-  Shield,
-  Zap,
-  Wifi,
   ArrowRight,
   Bell,
   Mail,
@@ -23,6 +20,7 @@ import clsx from 'clsx';
 import { toolCards, type ToolCardConfig } from '@/lib/seoConfigs';
 import { InteractiveGridCanvas } from '@/components/InteractiveGridCanvas';
 import { CompanyMarquee } from '@/components/CompanyMarquee';
+import { FeatureTiles } from '@/components/FeatureTiles';
 
 const iconMap: Record<ToolCardConfig['iconId'], React.ElementType> = {
   'image': Image,
@@ -202,30 +200,11 @@ export default function HomePage() {
               Why Choose KrocPDF?
             </h2>
             <p className="text-sm sm:text-base text-zinc-400 max-w-xl mx-auto">
-              Engineered for uncompromising speed, privacy, and architectural purity.
+              Built for complete privacy, instant speed, and effortless document conversion.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <FeatureCard
-              index="[ 01 ]"
-              icon={Shield}
-              title="100% Private & On-Device"
-              description="Your documents are converted directly on your phone or computer. Your sensitive files and images never touch external servers or get stored anywhere."
-            />
-            <FeatureCard
-              index="[ 02 ]"
-              icon={Zap}
-              title="Blazing Fast & Unlimited"
-              description="No waiting in lines, no slow uploads, and no arbitrary file size limits. Convert individual documents or bulk batches with zero lag."
-            />
-            <FeatureCard
-              index="[ 03 ]"
-              icon={Wifi}
-              title="Works Completely Offline"
-              description="Keep working even without an internet connection. Fully functional offline with zero telemetry, zero accounts, and zero watermarks."
-            />
-          </div>
+          <FeatureTiles />
         </div>
       </section>
     </div>
@@ -351,33 +330,5 @@ function ToolCard({
       <h3 className="font-semibold text-zinc-100 text-base mb-2 group-hover:text-white transition-colors">{tool.name}</h3>
       <p className="text-xs text-zinc-400 leading-relaxed">{tool.shortDescription}</p>
     </Link>
-  );
-}
-
-function FeatureCard({
-  icon: Icon,
-  title,
-  description,
-  index,
-}: {
-  icon: React.ElementType;
-  title: string;
-  description: string;
-  index: string;
-}) {
-  return (
-    <div className="card-glow glass-card rounded-2xl p-6 sm:p-8 hover:border-zinc-600 transition-all flex flex-col justify-between scale-crosshair scale-crosshair-tl scale-crosshair-tr relative">
-      <div>
-        <div className="flex items-center justify-between font-mono text-xs text-zinc-500 mb-6 border-b border-zinc-800/80 pb-3">
-          <span className="text-zinc-300 font-bold">{index}</span>
-          <span className="uppercase text-[10px] tracking-widest text-zinc-400">ARCHITECTURE</span>
-        </div>
-        <div className="w-11 h-11 rounded-xl flex items-center justify-center mb-5 border border-zinc-800 bg-zinc-900 text-zinc-200">
-          <Icon className="w-5 h-5 text-zinc-100" />
-        </div>
-        <h3 className="font-bold text-zinc-100 text-lg mb-2">{title}</h3>
-        <p className="text-sm text-zinc-400 leading-relaxed">{description}</p>
-      </div>
-    </div>
   );
 }
