@@ -24,6 +24,7 @@ import {
 import clsx from 'clsx';
 import { GithubIcon } from '@/components/icons/GithubIcon';
 import { toolCards, type ToolCardConfig } from '@/lib/seoConfigs';
+import { InteractiveGridCanvas } from '@/components/InteractiveGridCanvas';
 
 const iconMap: Record<ToolCardConfig['iconId'], React.ElementType> = {
   'image': Image,
@@ -80,6 +81,8 @@ export default function HomePage() {
 
   return (
     <div className="gradient-mesh min-h-screen relative overflow-hidden">
+      {/* Interactive Reactive Grid Mesh Canvas */}
+      <InteractiveGridCanvas />
       {/* ============================================
           Hero Section (Expanded Full-Screen Width)
           ============================================ */}
