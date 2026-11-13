@@ -14,7 +14,6 @@ import {
   ArrowRight,
   Bell,
   Mail,
-  Sparkles,
 } from 'lucide-react';
 import clsx from 'clsx';
 import { toolCards, type ToolCardConfig } from '@/lib/seoConfigs';

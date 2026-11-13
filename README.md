@@ -5,10 +5,6 @@
 # KrocPDF — Privacy-First Document Platform
 
 <p align="center">
-  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&pause=1000&color=A855F7&center=true&vCenter=true&random=false&width=750&lines=The+Anti-iLovePDF%3A+100%25+Privacy-First+Document+Engine;100MB+Free+Files+%E2%80%A2+Zero+Watermarks+%E2%80%A2+Zero+Ads;Dual+Engine%3A+Client-Side+WASM+%2B+High-Throughput+Go;Sub-800ms+Compilation+%E2%80%A2+Real-Time+SSE+Progress;Built+with+Next.js+16+%2B+NestJS+%2B+Redis+%2B+Cloudflare+R2" alt="Typing SVG" />
-</p>
-
-<p align="center">
   <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT" /></a>
   <a href="#"><img src="https://img.shields.io/badge/Status-Production%20Ready-brightgreen.svg" alt="Status" /></a>
   <a href="https://nextjs.org/"><img src="https://img.shields.io/badge/Next.js-16-black?logo=next.js" alt="Next.js" /></a>
@@ -38,9 +34,16 @@
 
 ---
 
-## Visual Showcase & UI Interface
+## Visual Showcase & Mascot Engine
 
 <div align="center">
+
+### Kroc Mascot Crunch Engine (Local WASM Mascot)
+<p align="center">
+  <video src="docs/assets/kroc-crunch-animation.mp4" poster="docs/assets/kroc-crunch-poster.jpg" controls muted loop playsinline style="max-width: 100%; height: auto; border-radius: 12px;"></video>
+</p>
+
+<br/>
 
 ### Modular Landing Page & Tool Hub (`/`)
 <img src="docs/assets/krocpdf_homepage.png" alt="KrocPDF Landing Page" width="95%" />
@@ -143,8 +146,7 @@ flowchart TB
   <a href="#usage-guide"><code>API Guide</code></a> •
   <a href="#production-deployment-cloudflare-r2"><code>Cloudflare R2</code></a> •
   <a href="#testing--quality-assurance"><code>Testing</code></a> •
-  <a href="#roadmap"><code>Roadmap</code></a> •
-  <a href="#troubleshooting--faq"><code>FAQ</code></a> •
+  <a href="#governance-legal--privacy"><code>Governance & Legal</code></a> •
   <a href="#contributing--community"><code>Contributing</code></a>
 </p>
 
@@ -153,6 +155,8 @@ flowchart TB
   <img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=1,2,3,4&height=3&section=header" width="100%" alt="divider" />
 </p>
 <br/>
+
+---
 
 ## Why This Exists
 
@@ -563,6 +567,22 @@ Every contributor who gets a PR merged is permanently immortalized in our projec
     <img src="https://contrib.rocks/image?repo=alokprashar864/jpg_to_pdf" alt="Contributors" />
   </a>
 </p>
+
+<br/>
+<p align="center">
+  <img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=1,2,3,4&height=3&section=header" width="100%" alt="divider" />
+</p>
+<br/>
+
+## Governance, Legal & Privacy
+
+KrocPDF operates under transparent, community-first open-source governance and strict privacy-by-design standards:
+
+- **[GOVERNANCE.md](./GOVERNANCE.md)**: Community stewardship model, 4-tier participation taxonomy (Project Lead, Core Contributors, Triagers, Community), RFC decision-making framework, and 5-wave release protocol.
+- **[PRIVACY.md](./PRIVACY.md)**: Formal privacy charter documenting 0-byte WASM local execution, ephemeral Cloud Worker S3 upload with 24-hour auto-purge lifecycle, and cookie-free `@vercel/analytics` telemetry disclosure.
+- **[TERMS.md](./TERMS.md)**: Terms of Service, Acceptable Use Policy (malware and DDoS abuse prohibitions), warranty disclaimers, and KrocPDF trademark protection.
+- **[CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md)**: Contributor Covenant standards for a welcoming, inclusive community.
+- **[SECURITY.md](./SECURITY.md)**: Vulnerability disclosure channels, private reporting instructions, and responsible remediation policies.
 
 <br/>
 <p align="center">
