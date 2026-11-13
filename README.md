@@ -15,21 +15,6 @@
   <a href="https://www.cloudflare.com/products/r2/"><img src="https://img.shields.io/badge/Cloudflare-R2_%240_Egress-F38020?logo=cloudflare" alt="Cloudflare R2" /></a>
 </p>
 
-> **The Anti-iLovePDF**: An enterprise-grade, privacy-first document conversion platform. Experience **100 MB free file limits**, **zero forced watermarks**, **zero intrusive ads**, and a dual-engine architecture offering **100% in-browser WebAssembly conversion** or **high-throughput distributed cloud processing**.
-
-<div align="center">
-  <a href="https://jpg-to-pdf-zeta.vercel.app">
-    <img src="https://img.shields.io/badge/Conversion_Latency-Sub--800ms-7928CA?style=for-the-badge&logo=fastapi&logoColor=white" alt="Latency" />
-    <img src="https://img.shields.io/badge/Local_Privacy-0_Bytes_Uploaded-0070F3?style=for-the-badge&logo=webassembly&logoColor=white" alt="Privacy" />
-    <img src="https://img.shields.io/badge/Cloudflare_R2-%240_Egress_Cost-F38020?style=for-the-badge&logo=cloudflare&logoColor=white" alt="Egress" />
-    <img src="https://img.shields.io/badge/Quality_Retention-100%25_Lossless-10B981?style=for-the-badge&logo=speedtest&logoColor=white" alt="Lossless" />
-  </a>
-</div>
-
-<p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=1,2,3,4&height=3&section=header" width="100%" alt="divider" />
-</p>
-
 </div>
 
 ---
