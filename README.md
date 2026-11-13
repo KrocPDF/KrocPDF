@@ -19,20 +19,20 @@
 
 ---
 
+## Visual Showcase
+
+<div align="center">
+
 <p align="center">
   <video src="docs/assets/kroc-crunch-animation.mp4" poster="docs/assets/kroc-crunch-poster.jpg" controls muted loop playsinline style="max-width: 100%; height: auto; border-radius: 12px;"></video>
 </p>
 
-## Visual Showcase & UI Interface
+<br/>
 
-<div align="center">
-
-### Modular Landing Page & Tool Hub (`/`)
 <img src="docs/assets/krocpdf_homepage.png" alt="KrocPDF Landing Page" width="95%" />
 
 <br/><br/>
 
-### Dedicated In-Browser Conversion Pages (`/png-to-pdf`, `/jpg-to-pdf`)
 <p align="center">
   <img src="docs/assets/krocpdf_png_to_pdf.png" alt="PNG to PDF Conversion Page" width="48%" />
   &nbsp;
