@@ -65,3 +65,4 @@ We reserve the right to revise or replace these Terms at any time by updating th
 ## 8. Inquiries
 
 Questions regarding these terms may be directed to maintainers via [GitHub Issues](https://github.com/KrocPDF/KrocPDF/issues).
+

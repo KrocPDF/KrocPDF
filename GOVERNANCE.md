@@ -86,3 +86,4 @@ If technical conflicts arise that cannot be resolved through consensus in PR rev
 ## 6. Amendments to this Charter
 
 Changes to `GOVERNANCE.md` require a pull request approved by the Project Lead and at least two active core contributors.
+

@@ -85,3 +85,4 @@ Privacy claims can be independently audited. KrocPDF's source code is publicly a
 ## 7. Contact & Privacy Inquiries
 
 For inquiries, vulnerability disclosures, or privacy audits, contact the project maintainers via [GitHub Discussions](https://github.com/KrocPDF/KrocPDF/discussions) or security email `security@krocpdf.app`.
+
