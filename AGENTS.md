@@ -213,6 +213,7 @@ flowchart TD
 | **[`SECURITY.md`](./SECURITY.md)** | Vulnerability disclosure channels, private reporting instructions, and responsible remediation policies. | When reporting or fixing security vulnerabilities. |
 | **[`CONTRIBUTING.md`](./CONTRIBUTING.md)** | Contribution lifecycle, Conventional Commits formatting, local Docker boot guide, and PR requirements. | Before opening a Pull Request or creating a branch. |
 | **[`CODE_OF_CONDUCT.md`](./CODE_OF_CONDUCT.md)** | Contributor Covenant standards for an inclusive and harassment-free community. | When interacting in issues, discussions, or PR reviews. |
+| **[`SUPPORT.md`](./SUPPORT.md)** | Support channels, in-app issue reporting, FAQ, and troubleshooting guide. | When seeking assistance, reporting bugs, or helping users. |
 | **[`OPEN_SOURCE.md`](./OPEN_SOURCE.md)** | Open-source philosophy, mission differentiation against predatory converters, and community vision. | For project context and open-source alignment. |
 
 #### Level 4: Project Tracking, Releases & Planning Memory

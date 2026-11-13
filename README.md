@@ -565,6 +565,7 @@ KrocPDF operates under transparent, community-first open-source governance and s
 - **[TERMS.md](./TERMS.md)**: Terms of Service, Acceptable Use Policy (malware and DDoS abuse prohibitions), warranty disclaimers, and KrocPDF trademark protection.
 - **[CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md)**: Contributor Covenant standards for a welcoming, inclusive community.
 - **[SECURITY.md](./SECURITY.md)**: Vulnerability disclosure channels, private reporting instructions, and responsible remediation policies.
+- **[SUPPORT.md](./SUPPORT.md)**: Support channels, in-app issue reporting, FAQ, and troubleshooting guide.
 
 <br/>
 <p align="center">
