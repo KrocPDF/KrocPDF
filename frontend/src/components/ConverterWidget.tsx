@@ -547,20 +547,8 @@ export function ConverterWidget({ tool = 'unified' }: { tool?: string }) {
           <div
             onDragOver={onDragOver}
             onDrop={onDrop}
-            className="lg:col-span-7 xl:col-span-8 border border-dashed border-zinc-800 hover:border-zinc-500 bg-zinc-950/80 hover:bg-zinc-900/40 rounded-3xl p-6 sm:p-12 flex flex-col items-center justify-center text-center transition-all duration-300 cursor-pointer min-h-[380px] lg:min-h-[460px] pulse-glow-box shadow-2xl glass-card scale-border-beam scale-crosshair scale-crosshair-tl scale-crosshair-tr scale-crosshair-bl scale-crosshair-br relative overflow-hidden group"
+            className="lg:col-span-7 xl:col-span-8 border border-dashed border-zinc-800 hover:border-zinc-500 bg-zinc-950/80 hover:bg-zinc-900/40 rounded-3xl p-8 sm:p-12 flex flex-col items-center justify-center text-center transition-all duration-300 cursor-pointer min-h-[380px] lg:min-h-[460px] pulse-glow-box shadow-2xl glass-card scale-border-beam scale-crosshair scale-crosshair-tl scale-crosshair-tr scale-crosshair-bl scale-crosshair-br relative overflow-hidden group"
           >
-            {/* Scale-style Header Status Bar */}
-            <div className="w-full flex items-center justify-between border-b border-zinc-800/80 pb-3 mb-6 font-mono text-[11px] text-zinc-500 uppercase tracking-wider">
-              <div className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-zinc-100 animate-pulse" />
-                <span className="text-zinc-300 font-semibold tracking-widest">WORKSPACE // READY</span>
-              </div>
-              <div className="flex items-center gap-3 text-[10px]">
-                <span className="px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-zinc-300">ON-DEVICE</span>
-                <span className="hidden sm:inline-block px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-zinc-400">ENCRYPTION: LOCAL</span>
-              </div>
-            </div>
-
             <div className="w-16 h-16 rounded-2xl flex items-center justify-center transition-all duration-300 border border-zinc-700/80 bg-zinc-900 text-zinc-300 group-hover:text-white group-hover:border-zinc-500 group-hover:scale-105 animate-float mb-5 shadow-inner">
               <UploadCloud className="w-8 h-8" />
             </div>
@@ -675,7 +663,7 @@ export function ConverterWidget({ tool = 'unified' }: { tool?: string }) {
 
               <div className="space-y-4">
                 <div className="space-y-1.5">
-                  <label className="block text-xs font-medium text-zinc-400">
+                  <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider">
                     Processing Engine
                   </label>
                   <div className="flex bg-zinc-950 border border-zinc-800 rounded-lg p-1">
@@ -716,35 +704,37 @@ export function ConverterWidget({ tool = 'unified' }: { tool?: string }) {
                 </div>
 
                 {tool === 'compress-pdf' ? (
-                  <div className="space-y-2">
-                    <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
-                      Compression Preset
-                    </label>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider">
+                        Compression Preset
+                      </label>
+                    </div>
+                    <div className="max-w-xs mx-auto grid grid-cols-1 sm:grid-cols-2 gap-3">
                       {[
                         {
                           id: 'LOW',
                           label: 'Low',
                           badge: 'Max Quality',
-                          desc: 'Light pass, preserves maximum fidelity',
+                          desc: 'Preserves max fidelity',
                         },
                         {
                           id: 'MEDIUM',
                           label: 'Medium',
                           badge: 'Recommended',
-                          desc: 'Balanced file size & crisp visual quality',
+                          desc: 'Balanced size & quality',
                         },
                         {
                           id: 'HIGH',
                           label: 'High',
                           badge: 'Small File',
-                          desc: 'Strong optimization for sharing & emails',
+                          desc: 'Optimized for sharing',
                         },
                         {
                           id: 'MAXIMUM',
                           label: 'Maximum',
                           badge: 'Smallest',
-                          desc: 'Extreme compression for strict size limits',
+                          desc: 'Strict size limits',
                         },
                       ].map((preset) => {
                         const isSelected = (settings.compressionLevel || 'MEDIUM') === preset.id;
@@ -756,13 +746,12 @@ export function ConverterWidget({ tool = 'unified' }: { tool?: string }) {
                               setSettings({ ...settings, compressionLevel: preset.id })
                             }
                             className={clsx(
-                              'p-3 rounded-xl border text-left transition-all relative flex flex-col justify-between cursor-pointer min-h-[140px]',
+                              'p-3 rounded-xl border text-left transition-all flex flex-col gap-2 cursor-pointer min-h-[140px]',
                               isSelected
                                 ? 'bg-zinc-800 border-zinc-500 text-zinc-100 shadow-sm'
                                 : 'bg-zinc-950/60 border-zinc-800 hover:border-zinc-700 text-zinc-400 hover:text-zinc-200'
                             )}
                           >
-                            {/* Label and badge stacked vertically on the left so they never overlap */}
                             <div className="flex flex-col gap-1.5">
                               <span className="font-semibold text-xs text-zinc-100">
                                 {preset.label}
@@ -788,7 +777,7 @@ export function ConverterWidget({ tool = 'unified' }: { tool?: string }) {
                   </div>
                 ) : tool === 'pdf-to-jpg' ? (
                   <div className="space-y-4">
-                    <label className="block text-sm text-zinc-400">
+                    <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider">
                       Image Quality ({settings.imageQuality}%)
                       <input
                         type="range"
@@ -803,7 +792,7 @@ export function ConverterWidget({ tool = 'unified' }: { tool?: string }) {
                   </div>
                 ) : tool !== 'merge-pdf' ? (
                   <>
-                    <label className="block text-sm text-zinc-400">
+                    <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider">
                       Page Size
                       <select
                         value={settings.pageSize}
@@ -818,7 +807,7 @@ export function ConverterWidget({ tool = 'unified' }: { tool?: string }) {
                       </select>
                     </label>
 
-                    <label className="block text-sm text-zinc-400">
+                    <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider">
                       Orientation
                       <select
                         value={settings.orientation}
@@ -833,7 +822,7 @@ export function ConverterWidget({ tool = 'unified' }: { tool?: string }) {
                       </select>
                     </label>
 
-                    <label className="block text-sm text-zinc-400">
+                    <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider">
                       Margins
                       <select
                         value={settings.margins}
@@ -850,7 +839,7 @@ export function ConverterWidget({ tool = 'unified' }: { tool?: string }) {
                     </label>
 
                     <div className="space-y-2">
-                      <p className="text-sm text-zinc-400">Transparency Mode</p>
+                      <p className="text-xs font-semibold text-slate-300 uppercase tracking-wider">Transparency Mode</p>
                       <div className="flex bg-zinc-950 border border-zinc-800 rounded-lg p-1">
                         <button
                           onClick={() =>

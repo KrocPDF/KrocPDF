@@ -116,18 +116,6 @@ export default function HomePage() {
             tabIndex={0}
             aria-label="Drop files here to start converting, or click to browse tools"
           >
-            {/* Scale-style Header Status Bar */}
-            <div className="w-full flex items-center justify-between border-b border-zinc-800/80 pb-3 mb-6 font-mono text-[11px] text-zinc-500 uppercase tracking-wider">
-              <div className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-zinc-100 animate-pulse" />
-                <span className="text-zinc-300 font-semibold tracking-widest">WORKSPACE // READY</span>
-              </div>
-              <div className="flex items-center gap-3 text-[10px]">
-                <span className="px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-zinc-300">LOCAL ENGINE</span>
-                <span className="hidden sm:inline-block px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-zinc-400">100% PRIVATE</span>
-              </div>
-            </div>
-
             <div className="flex flex-col items-center space-y-6">
               <div className={clsx(
                 "w-20 h-20 rounded-3xl flex items-center justify-center transition-all duration-300 border shadow-inner",
@@ -387,10 +375,6 @@ function ToolCard({
       role="link"
       aria-label={`Open ${tool.name} converter`}
     >
-      <div className="flex items-center justify-between text-[10px] font-mono text-zinc-500 mb-3 uppercase tracking-wider">
-        <span>TOOL</span>
-        <span className="text-zinc-400">● READY</span>
-      </div>
       <div className="w-12 h-12 mx-auto rounded-xl flex items-center justify-center mb-4 bg-zinc-900 border border-zinc-800 group-hover:border-zinc-700 group-hover:scale-105 transition-all">
         <Icon className="w-6 h-6 text-zinc-200 group-hover:text-white transition-colors" />
       </div>
