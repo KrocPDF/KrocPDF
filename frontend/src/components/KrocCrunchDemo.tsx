@@ -6,8 +6,8 @@ import Image from 'next/image';
 export function KrocCrunchDemo() {
   // Phases:
   // 0: Stalk & Float
-  // 1: Jaws Open & Lunge
-  // 2: Chomp & Shockwave
+  // 1: Jaws Open & Lunge (Kroc moves right, PDF drifts left)
+  // 2: Chomp & Shockwave (Jaws snap shut at contact point)
   // 3: Savor / Gulp
   // 4: Reset & Materialize
   const [phase, setPhase] = useState<number>(0);
@@ -52,9 +52,9 @@ export function KrocCrunchDemo() {
         {/* Subtle Ambient Radial Lighting */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.03),transparent_70%)] pointer-events-none" />
 
-        {/* Shockwave Rings on Chomp (Phase 2) */}
+        {/* Shockwave Rings on Chomp (Phase 2) at contact point */}
         {phase === 2 && (
-          <div className="absolute left-[38%] sm:left-[42%] top-1/2 -translate-y-1/2 pointer-events-none z-10">
+          <div className="absolute left-[54%] sm:left-[56%] top-1/2 -translate-y-1/2 pointer-events-none z-30">
             <div className="w-48 h-48 -ml-24 -mt-24 rounded-full border border-white/80 animate-crunch-shockwave" />
             <div className="w-80 h-80 -ml-40 -mt-40 rounded-full border border-white/30 animate-crunch-shockwave [animation-delay:100ms]" />
             {/* Impact Sparkle Bursts */}
@@ -65,57 +65,21 @@ export function KrocCrunchDemo() {
         )}
 
         {/* ========================================================
-            PDF / Document Icon (Target)
-            ======================================================== */}
-        <div
-          className={`absolute transition-all duration-500 ease-out z-10 flex items-center justify-center ${
-            phase === 0
-              ? 'left-[16%] sm:left-[24%] opacity-100 scale-100 translate-y-0 rotate-0'
-              : phase === 1
-              ? 'left-[24%] sm:left-[32%] opacity-100 scale-105 -translate-y-1 rotate-3'
-              : phase === 2
-              ? 'left-[36%] sm:left-[42%] opacity-0 scale-0 translate-y-2 rotate-45 transition-all duration-150'
-              : phase === 3
-              ? 'left-[36%] opacity-0 scale-0'
-              : 'left-[16%] sm:left-[24%] opacity-100 scale-100 translate-y-0 rotate-0 transition-opacity duration-700'
-          }`}
-        >
-          {/* Stylized PDF Document Graphic */}
-          <div className="relative w-24 h-32 sm:w-28 sm:h-36 rounded-2xl bg-zinc-900/90 border border-zinc-700/80 shadow-[0_16px_36px_rgba(0,0,0,0.8)] flex flex-col justify-between p-3 overflow-hidden backdrop-blur-sm group">
-            {/* Folded Top-Right Corner */}
-            <div className="absolute top-0 right-0 w-7 h-7 bg-zinc-800 border-b border-l border-zinc-700 rounded-bl-xl shadow-md" />
-            
-            {/* PDF Emblem Badge */}
-            <div className="w-9 h-9 rounded-xl bg-red-600/90 border border-red-500 flex items-center justify-center shadow-lg">
-              <svg className="w-5 h-5 text-white" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-9.5 8.5c0 .83-.67 1.5-1.5 1.5H7v2H5.5V9H8c.83 0 1.5.67 1.5 1.5v1zm5 2c0 .83-.67 1.5-1.5 1.5h-2.5V9H13c.83 0 1.5.67 1.5 1.5v3zm4-3.5H17v1.5h1.5v1.5H17V15h-1.5V9h3v1.5zM7 10.5h1v1H7v-1zm4.5 0h1v3h-1v-3z" />
-              </svg>
-            </div>
-
-            {/* Document Lines */}
-            <div className="space-y-1.5 pb-1">
-              <div className="w-full h-1.5 rounded-full bg-zinc-700/60" />
-              <div className="w-4/5 h-1.5 rounded-full bg-zinc-700/40" />
-              <div className="w-3/5 h-1.5 rounded-full bg-zinc-700/30" />
-            </div>
-          </div>
-        </div>
-
-        {/* ========================================================
-            The Kroc Mascot (Built Directly from Official Brand Logo)
+            The Kroc Mascot (Comes from LEFT, facing RIGHT towards PDF)
+            Built Directly from Official Brand Logo
             Upper Jaw + Lower Jaw Articulated Chomp
             ======================================================== */}
         <div
           className={`absolute transition-all duration-500 ease-out z-20 ${
             phase === 0
-              ? 'right-[12%] sm:right-[18%] translate-x-0 translate-y-0 scale-100'
+              ? 'left-[6%] sm:left-[12%] translate-x-0 translate-y-0 scale-100'
               : phase === 1
-              ? 'right-[18%] sm:right-[26%] -translate-x-6 -translate-y-2 scale-105'
+              ? 'left-[14%] sm:left-[22%] translate-x-6 -translate-y-2 scale-105'
               : phase === 2
-              ? 'right-[24%] sm:right-[32%] -translate-x-12 translate-y-1 scale-110'
+              ? 'left-[22%] sm:left-[30%] translate-x-12 translate-y-1 scale-110'
               : phase === 3
-              ? 'right-[18%] sm:right-[24%] -translate-x-4 translate-y-0 scale-100'
-              : 'right-[12%] sm:right-[18%] translate-x-0 translate-y-0 scale-100'
+              ? 'left-[14%] sm:left-[20%] translate-x-4 translate-y-0 scale-100'
+              : 'left-[6%] sm:left-[12%] translate-x-0 translate-y-0 scale-100'
           }`}
         >
           {/* Logo Container - Exact 1536x1024 Aspect Ratio */}
@@ -170,6 +134,44 @@ export function KrocCrunchDemo() {
             </div>
           </div>
         </div>
+
+        {/* ========================================================
+            PDF / Document Icon (Comes from RIGHT, drifts towards Kroc)
+            ======================================================== */}
+        <div
+          className={`absolute transition-all duration-500 ease-out z-10 flex items-center justify-center ${
+            phase === 0
+              ? 'right-[12%] sm:right-[18%] opacity-100 scale-100 translate-y-0 rotate-0'
+              : phase === 1
+              ? 'right-[20%] sm:right-[26%] opacity-100 scale-105 -translate-y-1 -rotate-3'
+              : phase === 2
+              ? 'right-[30%] sm:right-[36%] opacity-0 scale-0 translate-y-2 -rotate-45 transition-all duration-150'
+              : phase === 3
+              ? 'right-[30%] opacity-0 scale-0'
+              : 'right-[12%] sm:right-[18%] opacity-100 scale-100 translate-y-0 rotate-0 transition-opacity duration-700'
+          }`}
+        >
+          {/* Stylized PDF Document Graphic */}
+          <div className="relative w-24 h-32 sm:w-28 sm:h-36 rounded-2xl bg-zinc-900/90 border border-zinc-700/80 shadow-[0_16px_36px_rgba(0,0,0,0.8)] flex flex-col justify-between p-3 overflow-hidden backdrop-blur-sm group">
+            {/* Folded Top-Right Corner */}
+            <div className="absolute top-0 right-0 w-7 h-7 bg-zinc-800 border-b border-l border-zinc-700 rounded-bl-xl shadow-md" />
+            
+            {/* PDF Emblem Badge */}
+            <div className="w-9 h-9 rounded-xl bg-red-600/90 border border-red-500 flex items-center justify-center shadow-lg">
+              <svg className="w-5 h-5 text-white" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-9.5 8.5c0 .83-.67 1.5-1.5 1.5H7v2H5.5V9H8c.83 0 1.5.67 1.5 1.5v1zm5 2c0 .83-.67 1.5-1.5 1.5h-2.5V9H13c.83 0 1.5.67 1.5 1.5v3zm4-3.5H17v1.5h1.5v1.5H17V15h-1.5V9h3v1.5zM7 10.5h1v1H7v-1zm4.5 0h1v3h-1v-3z" />
+              </svg>
+            </div>
+
+            {/* Document Lines */}
+            <div className="space-y-1.5 pb-1">
+              <div className="w-full h-1.5 rounded-full bg-zinc-700/60" />
+              <div className="w-4/5 h-1.5 rounded-full bg-zinc-700/40" />
+              <div className="w-3/5 h-1.5 rounded-full bg-zinc-700/30" />
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   );
