@@ -83,7 +83,7 @@ export function Navbar() {
           {/* Desktop Right Actions */}
           <div className="hidden md:flex items-center space-x-3">
             <a
-              href="https://github.com/alokprashar864/jpg_to_pdf"
+              href="https://github.com/KrocPDF/KrocPDF"
               target="_blank"
               rel="noopener noreferrer"
               className="p-2 text-zinc-400 hover:text-zinc-100 transition-colors rounded-lg hover:bg-zinc-800/60"
@@ -166,7 +166,7 @@ export function Navbar() {
           <hr className="border-zinc-800 my-3" />
 
           <a
-            href="https://github.com/alokprashar864/jpg_to_pdf"
+            href="https://github.com/KrocPDF/KrocPDF"
             target="_blank"
             rel="noopener noreferrer"
             role="menuitem"
