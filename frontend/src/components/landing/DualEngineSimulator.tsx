@@ -30,7 +30,7 @@ export function DualEngineSimulator() {
       {/* Header */}
       <div className="text-center mb-10">
         <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-zinc-900 border border-zinc-800 text-xs font-mono text-zinc-300 mb-4">
-          <Zap className="w-3.5 h-3.5 text-emerald-400" />
+          <Zap className="w-3.5 h-3.5 text-zinc-300" />
           <span>Interactive Architecture Flow</span>
         </div>
         <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-zinc-100 tracking-tight mb-4">
@@ -44,13 +44,8 @@ export function DualEngineSimulator() {
 
       {/* Simulator Frame */}
       <div className="glass-card rounded-3xl p-6 sm:p-10 border border-zinc-800/80 shadow-2xl relative overflow-hidden scale-crosshair scale-crosshair-tl scale-crosshair-tr scale-crosshair-bl scale-crosshair-br">
-        {/* Subtle Ambient Radial Glow */}
-        <div 
-          className={clsx(
-            "absolute -top-32 left-1/2 -translate-x-1/2 w-96 h-96 rounded-full blur-3xl opacity-20 pointer-events-none transition-colors duration-700",
-            engineMode === 'wasm' ? "bg-emerald-500" : "bg-sky-500"
-          )} 
-        />
+        {/* Subtle Monochrome Ambient Radial Glow */}
+        <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-96 h-96 rounded-full blur-3xl opacity-10 bg-white pointer-events-none" />
 
         {/* Engine Toggle Bar */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-8 pb-6 border-b border-zinc-900">
@@ -64,9 +59,9 @@ export function DualEngineSimulator() {
                   : "text-zinc-400 hover:text-zinc-200"
               )}
             >
-              <ShieldCheck className={clsx("w-4 h-4", engineMode === 'wasm' ? "text-emerald-400" : "text-zinc-500")} />
+              <ShieldCheck className={clsx("w-4 h-4", engineMode === 'wasm' ? "text-zinc-100" : "text-zinc-500")} />
               <span>In-Browser WASM Mode</span>
-              <span className="text-[10px] px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800/60 font-mono">
+              <span className="text-[10px] px-2 py-0.5 rounded bg-zinc-900 text-zinc-300 border border-zinc-700 font-mono">
                 0 Bytes Wire
               </span>
             </button>
@@ -80,9 +75,9 @@ export function DualEngineSimulator() {
                   : "text-zinc-400 hover:text-zinc-200"
               )}
             >
-              <Cloud className={clsx("w-4 h-4", engineMode === 'cloud' ? "text-sky-400" : "text-zinc-500")} />
+              <Cloud className={clsx("w-4 h-4", engineMode === 'cloud' ? "text-zinc-100" : "text-zinc-500")} />
               <span>Cloud Cluster Mode</span>
-              <span className="text-[10px] px-2 py-0.5 rounded bg-sky-950 text-sky-400 border border-sky-800/60 font-mono">
+              <span className="text-[10px] px-2 py-0.5 rounded bg-zinc-900 text-zinc-300 border border-zinc-700 font-mono">
                 Go 1.25 + R2
               </span>
             </button>
@@ -113,18 +108,18 @@ export function DualEngineSimulator() {
               <div className={clsx(
                 "rounded-2xl p-5 border transition-all duration-300",
                 simStep === 1 
-                  ? "bg-emerald-950/30 border-emerald-500/80 shadow-[0_0_30px_rgba(16,185,129,0.2)] scale-105" 
+                  ? "bg-zinc-800/80 border-zinc-400 shadow-[0_0_24px_rgba(255,255,255,0.08)] scale-105" 
                   : "bg-zinc-900/60 border-zinc-800"
               )}>
-                <div className="w-10 h-10 rounded-xl bg-zinc-800/80 border border-zinc-700/60 flex items-center justify-center mb-3 text-zinc-200">
-                  <HardDrive className="w-5 h-5 text-emerald-400" />
+                <div className="w-10 h-10 rounded-xl bg-zinc-800 border border-zinc-700 flex items-center justify-center mb-3 text-zinc-200">
+                  <HardDrive className="w-5 h-5 text-zinc-200" />
                 </div>
                 <h4 className="text-sm font-semibold text-zinc-200 mb-1">1. Local Buffer Ingestion</h4>
                 <p className="text-xs text-zinc-400 leading-relaxed">
                   Files read via HTML5 FileReader directly into browser sandbox memory.
                 </p>
-                <div className="mt-3 flex items-center space-x-1.5 text-[11px] font-mono text-emerald-400/90">
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                <div className="mt-3 flex items-center space-x-1.5 text-[11px] font-mono text-zinc-300">
+                  <span className="w-2 h-2 rounded-full bg-zinc-300 animate-pulse" />
                   <span>Sandbox: Sealed</span>
                 </div>
               </div>
@@ -133,15 +128,15 @@ export function DualEngineSimulator() {
               <div className={clsx(
                 "rounded-2xl p-5 border transition-all duration-300",
                 simStep === 2 
-                  ? "bg-emerald-950/30 border-emerald-500/80 shadow-[0_0_30px_rgba(16,185,129,0.2)] scale-105" 
+                  ? "bg-zinc-800/80 border-zinc-400 shadow-[0_0_24px_rgba(255,255,255,0.08)] scale-105" 
                   : "bg-zinc-900/60 border-zinc-800"
               )}>
-                <div className="w-10 h-10 rounded-xl bg-zinc-800/80 border border-zinc-700/60 flex items-center justify-center mb-3 text-zinc-200">
-                  <Cpu className="w-5 h-5 text-emerald-400" />
+                <div className="w-10 h-10 rounded-xl bg-zinc-800 border border-zinc-700 flex items-center justify-center mb-3 text-zinc-200">
+                  <Cpu className="w-5 h-5 text-zinc-200" />
                 </div>
                 <h4 className="text-sm font-semibold text-zinc-200 mb-1">2. Client WASM Assembly</h4>
                 <p className="text-xs text-zinc-400 leading-relaxed">
-                  Lossless PDF bytecode assembled locally with <code className="text-zinc-300 font-mono">pdf-lib</code> in sub-800ms.
+                  Lossless PDF bytecode assembled locally with <code className="text-zinc-200 font-mono">pdf-lib</code> in sub-800ms.
                 </p>
                 <div className="mt-3 flex items-center space-x-1.5 text-[11px] font-mono text-zinc-400">
                   <span>RAM: ~62MB</span>
@@ -154,18 +149,18 @@ export function DualEngineSimulator() {
               <div className={clsx(
                 "rounded-2xl p-5 border transition-all duration-300",
                 simStep >= 3 
-                  ? "bg-emerald-950/30 border-emerald-500/80 shadow-[0_0_30px_rgba(16,185,129,0.2)] scale-105" 
+                  ? "bg-zinc-800/80 border-zinc-400 shadow-[0_0_24px_rgba(255,255,255,0.08)] scale-105" 
                   : "bg-zinc-900/60 border-zinc-800"
               )}>
-                <div className="w-10 h-10 rounded-xl bg-zinc-800/80 border border-zinc-700/60 flex items-center justify-center mb-3 text-zinc-200">
-                  <ShieldCheck className="w-5 h-5 text-emerald-400" />
+                <div className="w-10 h-10 rounded-xl bg-zinc-800 border border-zinc-700 flex items-center justify-center mb-3 text-zinc-200">
+                  <ShieldCheck className="w-5 h-5 text-zinc-200" />
                 </div>
                 <h4 className="text-sm font-semibold text-zinc-200 mb-1">3. Blob Revocation</h4>
                 <p className="text-xs text-zinc-400 leading-relaxed">
-                  Generated Blob URL delivered to disk; memory purged via <code className="text-zinc-300 font-mono">revokeObjectURL</code>.
+                  Generated Blob URL delivered to disk; memory purged via <code className="text-zinc-200 font-mono">revokeObjectURL</code>.
                 </p>
-                <div className="mt-3 flex items-center space-x-1.5 text-[11px] font-mono text-emerald-400">
-                  <CheckCircle2 className="w-3.5 h-3.5" />
+                <div className="mt-3 flex items-center space-x-1.5 text-[11px] font-mono text-zinc-300">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-zinc-200" />
                   <span>Wire Leak: 0 Bytes</span>
                 </div>
               </div>
@@ -177,11 +172,11 @@ export function DualEngineSimulator() {
               <div className={clsx(
                 "rounded-2xl p-4 border transition-all duration-300",
                 simStep === 1 
-                  ? "bg-sky-950/30 border-sky-500/80 shadow-[0_0_30px_rgba(56,189,248,0.2)] scale-105" 
+                  ? "bg-zinc-800/80 border-zinc-400 shadow-[0_0_24px_rgba(255,255,255,0.08)] scale-105" 
                   : "bg-zinc-900/60 border-zinc-800"
               )}>
-                <div className="w-9 h-9 rounded-xl bg-zinc-800/80 border border-zinc-700/60 flex items-center justify-center mb-2.5 text-zinc-200">
-                  <HardDrive className="w-4 h-4 text-sky-400" />
+                <div className="w-9 h-9 rounded-xl bg-zinc-800 border border-zinc-700 flex items-center justify-center mb-2.5 text-zinc-200">
+                  <HardDrive className="w-4 h-4 text-zinc-200" />
                 </div>
                 <h4 className="text-xs font-semibold text-zinc-200 mb-1">1. Presigned S3 PUT</h4>
                 <p className="text-[11px] text-zinc-400 leading-relaxed">
@@ -193,11 +188,11 @@ export function DualEngineSimulator() {
               <div className={clsx(
                 "rounded-2xl p-4 border transition-all duration-300",
                 simStep === 2 
-                  ? "bg-sky-950/30 border-sky-500/80 shadow-[0_0_30px_rgba(56,189,248,0.2)] scale-105" 
+                  ? "bg-zinc-800/80 border-zinc-400 shadow-[0_0_24px_rgba(255,255,255,0.08)] scale-105" 
                   : "bg-zinc-900/60 border-zinc-800"
               )}>
-                <div className="w-9 h-9 rounded-xl bg-zinc-800/80 border border-zinc-700/60 flex items-center justify-center mb-2.5 text-zinc-200">
-                  <Server className="w-4 h-4 text-sky-400" />
+                <div className="w-9 h-9 rounded-xl bg-zinc-800 border border-zinc-700 flex items-center justify-center mb-2.5 text-zinc-200">
+                  <Server className="w-4 h-4 text-zinc-200" />
                 </div>
                 <h4 className="text-xs font-semibold text-zinc-200 mb-1">2. Redis 7 Streams</h4>
                 <p className="text-[11px] text-zinc-400 leading-relaxed">
@@ -209,15 +204,15 @@ export function DualEngineSimulator() {
               <div className={clsx(
                 "rounded-2xl p-4 border transition-all duration-300",
                 simStep === 3 
-                  ? "bg-sky-950/30 border-sky-500/80 shadow-[0_0_30px_rgba(56,189,248,0.2)] scale-105" 
+                  ? "bg-zinc-800/80 border-zinc-400 shadow-[0_0_24px_rgba(255,255,255,0.08)] scale-105" 
                   : "bg-zinc-900/60 border-zinc-800"
               )}>
-                <div className="w-9 h-9 rounded-xl bg-zinc-800/80 border border-zinc-700/60 flex items-center justify-center mb-2.5 text-zinc-200">
-                  <Cpu className="w-4 h-4 text-sky-400" />
+                <div className="w-9 h-9 rounded-xl bg-zinc-800 border border-zinc-700 flex items-center justify-center mb-2.5 text-zinc-200">
+                  <Cpu className="w-4 h-4 text-zinc-200" />
                 </div>
                 <h4 className="text-xs font-semibold text-zinc-200 mb-1">3. Go 1.25 Assembly</h4>
                 <p className="text-[11px] text-zinc-400 leading-relaxed">
-                  Parallel <code className="text-zinc-300 font-mono">pdfcpu</code> goroutines compile 50+ pages in 2.1s.
+                  Parallel <code className="text-zinc-200 font-mono">pdfcpu</code> goroutines compile 50+ pages in 2.1s.
                 </p>
               </div>
 
@@ -225,11 +220,11 @@ export function DualEngineSimulator() {
               <div className={clsx(
                 "rounded-2xl p-4 border transition-all duration-300",
                 simStep >= 4 
-                  ? "bg-sky-950/30 border-sky-500/80 shadow-[0_0_30px_rgba(56,189,248,0.2)] scale-105" 
+                  ? "bg-zinc-800/80 border-zinc-400 shadow-[0_0_24px_rgba(255,255,255,0.08)] scale-105" 
                   : "bg-zinc-900/60 border-zinc-800"
               )}>
-                <div className="w-9 h-9 rounded-xl bg-zinc-800/80 border border-zinc-700/60 flex items-center justify-center mb-2.5 text-zinc-200">
-                  <ShieldCheck className="w-4 h-4 text-sky-400" />
+                <div className="w-9 h-9 rounded-xl bg-zinc-800 border border-zinc-700 flex items-center justify-center mb-2.5 text-zinc-200">
+                  <ShieldCheck className="w-4 h-4 text-zinc-200" />
                 </div>
                 <h4 className="text-xs font-semibold text-zinc-200 mb-1">4. 24h Hard Purge</h4>
                 <p className="text-[11px] text-zinc-400 leading-relaxed">
@@ -242,10 +237,7 @@ export function DualEngineSimulator() {
           {/* Privacy & Wire Status Banner */}
           <div className="mt-6 pt-4 border-t border-zinc-800/80 flex flex-wrap items-center justify-between gap-3 text-xs font-mono">
             <div className="flex items-center space-x-2">
-              <span className={clsx(
-                "w-2.5 h-2.5 rounded-full animate-ping",
-                engineMode === 'wasm' ? "bg-emerald-400" : "bg-sky-400"
-              )} />
+              <span className="w-2.5 h-2.5 rounded-full bg-zinc-200 animate-pulse" />
               <span className="text-zinc-300">
                 {engineMode === 'wasm' 
                   ? "Security Status: Zero-Knowledge Client Memory Isolation Active" 
@@ -254,7 +246,7 @@ export function DualEngineSimulator() {
             </div>
 
             <div className="flex items-center space-x-4 text-zinc-400">
-              <span>Network Egress: <strong className={engineMode === 'wasm' ? "text-emerald-400" : "text-zinc-200"}>
+              <span>Network Egress: <strong className="text-zinc-200">
                 {engineMode === 'wasm' ? "0.00 B" : "Direct PUT (R2)"}
               </strong></span>
               <span>•</span>
@@ -275,10 +267,7 @@ export function DualEngineSimulator() {
 
           <div className="rounded-2xl p-4 bg-zinc-950/70 border border-zinc-800/80">
             <p className="text-[11px] uppercase tracking-wider text-zinc-400 mb-1 font-mono">Server Storage</p>
-            <p className={clsx(
-              "text-xl sm:text-2xl font-bold font-mono",
-              engineMode === 'wasm' ? "text-emerald-400" : "text-sky-400"
-            )}>
+            <p className="text-xl sm:text-2xl font-bold font-mono text-zinc-100">
               {engineMode === 'wasm' ? '0 Bytes' : '24h Auto-Purge'}
             </p>
             <p className="text-[11px] text-zinc-500 mt-1">{engineMode === 'wasm' ? 'Never Touches Cloud' : 'Enforced R2 ILM Policy'}</p>
@@ -286,7 +275,7 @@ export function DualEngineSimulator() {
 
           <div className="rounded-2xl p-4 bg-zinc-950/70 border border-zinc-800/80">
             <p className="text-[11px] uppercase tracking-wider text-zinc-400 mb-1 font-mono">Watermarks</p>
-            <p className="text-xl sm:text-2xl font-bold font-mono text-emerald-400">Zero</p>
+            <p className="text-xl sm:text-2xl font-bold font-mono text-zinc-100">Zero</p>
             <p className="text-[11px] text-zinc-500 mt-1">100% Clean Output</p>
           </div>
 

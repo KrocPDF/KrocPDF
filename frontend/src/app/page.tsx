@@ -22,7 +22,6 @@ import { CompanyMarquee } from '@/components/CompanyMarquee';
 import { FeatureTiles } from '@/components/FeatureTiles';
 import { KrocCrunchDemo } from '@/components/KrocCrunchDemo';
 import { DualEngineSimulator } from '@/components/landing/DualEngineSimulator';
-import { ClarityComparisonSlider } from '@/components/landing/ClarityComparisonSlider';
 import { BenchmarkTelemetryConsole } from '@/components/landing/BenchmarkTelemetryConsole';
 import { PrivacyWireInspector } from '@/components/landing/PrivacyWireInspector';
 import { FaqAndLaunchpad } from '@/components/landing/FaqAndLaunchpad';
@@ -227,13 +226,6 @@ export default function HomePage() {
           ============================================ */}
       <section className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12 xl:px-16 border-t border-zinc-900/80 relative">
         <DualEngineSimulator />
-      </section>
-
-      {/* ============================================
-          Clarity Lens: 300 DPI vs 72 DPI Split Slider
-          ============================================ */}
-      <section className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12 xl:px-16 border-t border-zinc-900/80 relative">
-        <ClarityComparisonSlider />
       </section>
 
       {/* ============================================

@@ -70,7 +70,7 @@ export function PrivacyWireInspector() {
       {/* Header */}
       <div className="text-center mb-10">
         <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-zinc-900 border border-zinc-800 text-xs font-mono text-zinc-300 mb-4">
-          <WifiOff className="w-3.5 h-3.5 text-emerald-400" />
+          <WifiOff className="w-3.5 h-3.5 text-zinc-300" />
           <span>Independent Wire Audit</span>
         </div>
         <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-zinc-100 tracking-tight mb-4">
@@ -87,7 +87,7 @@ export function PrivacyWireInspector() {
         {/* Top Control Bar */}
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 pb-6 border-b border-zinc-900">
           <div className="flex items-center space-x-3">
-            <div className="w-9 h-9 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center text-emerald-400">
+            <div className="w-9 h-9 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-200">
               <Lock className="w-4 h-4" />
             </div>
             <div>
@@ -103,7 +103,7 @@ export function PrivacyWireInspector() {
               "flex items-center justify-center space-x-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all shadow-md active:scale-95",
               isAuditing
                 ? "bg-zinc-800 text-zinc-500 cursor-not-allowed"
-                : "bg-emerald-400 hover:bg-emerald-300 text-zinc-950 font-bold"
+                : "bg-zinc-100 hover:bg-white text-zinc-950 font-bold"
             )}
           >
             <ShieldCheck className={clsx("w-4 h-4", isAuditing && "animate-spin")} />
@@ -144,19 +144,16 @@ export function PrivacyWireInspector() {
                 className="grid grid-cols-12 px-4 py-3 items-center hover:bg-zinc-900/30 transition-colors"
               >
                 <div className="col-span-5 sm:col-span-4 flex items-center space-x-2 truncate">
-                  <span className="w-2 h-2 rounded-full bg-emerald-400 shrink-0" />
+                  <span className="w-2 h-2 rounded-full bg-zinc-300 shrink-0" />
                   <span className="text-zinc-200 truncate">{row.name}</span>
                 </div>
                 <div className="col-span-3 sm:col-span-2">
-                  <span className={clsx(
-                    "px-1.5 py-0.5 rounded text-[10px] font-bold",
-                    row.status.includes('OK') ? "bg-emerald-950 text-emerald-400 border border-emerald-800/40" : "bg-zinc-900 text-zinc-400"
-                  )}>
+                  <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-zinc-900 text-zinc-300 border border-zinc-700">
                     {row.status}
                   </span>
                 </div>
                 <div className="hidden sm:block sm:col-span-2 text-zinc-400">{row.type}</div>
-                <div className="col-span-4 sm:col-span-2 text-right font-bold text-emerald-400">
+                <div className="col-span-4 sm:col-span-2 text-right font-bold text-zinc-100">
                   {row.size}
                 </div>
                 <div className="hidden sm:block sm:col-span-2 text-right text-zinc-500">{row.time}</div>
@@ -167,7 +164,7 @@ export function PrivacyWireInspector() {
           {/* Summary Audit Footer Bar */}
           <div className="px-4 py-3 bg-zinc-950 border-t border-zinc-800 flex flex-wrap items-center justify-between gap-3 text-[11px]">
             <div className="flex items-center space-x-2 text-zinc-400">
-              <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+              <CheckCircle2 className="w-4 h-4 text-zinc-200" />
               <span>
                 {hasAudited
                   ? 'Audit Verified: Exactly 0 bytes uploaded to remote servers.'
@@ -176,7 +173,7 @@ export function PrivacyWireInspector() {
             </div>
 
             <div className="flex items-center space-x-3 text-zinc-400 font-mono">
-              <span>Total Transferred: <strong className="text-emerald-400">0.00 B</strong></span>
+              <span>Total Transferred: <strong className="text-white">0.00 B</strong></span>
               <span>•</span>
               <span>Privacy Seal: <strong className="text-white">100% Client-Side</strong></span>
             </div>
@@ -187,7 +184,7 @@ export function PrivacyWireInspector() {
         <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div className="p-4 rounded-2xl bg-zinc-950/60 border border-zinc-800/80">
             <h4 className="text-sm font-semibold text-zinc-200 mb-1 flex items-center space-x-2">
-              <FileCheck className="w-4 h-4 text-emerald-400" />
+              <FileCheck className="w-4 h-4 text-zinc-300" />
               <span>Zero Document Retention</span>
             </h4>
             <p className="text-xs text-zinc-400 leading-relaxed">
@@ -197,7 +194,7 @@ export function PrivacyWireInspector() {
 
           <div className="p-4 rounded-2xl bg-zinc-950/60 border border-zinc-800/80">
             <h4 className="text-sm font-semibold text-zinc-200 mb-1 flex items-center space-x-2">
-              <WifiOff className="w-4 h-4 text-emerald-400" />
+              <WifiOff className="w-4 h-4 text-zinc-300" />
               <span>Offline Ready</span>
             </h4>
             <p className="text-xs text-zinc-400 leading-relaxed">
@@ -207,7 +204,7 @@ export function PrivacyWireInspector() {
 
           <div className="p-4 rounded-2xl bg-zinc-950/60 border border-zinc-800/80">
             <h4 className="text-sm font-semibold text-zinc-200 mb-1 flex items-center space-x-2">
-              <ArrowDownCircle className="w-4 h-4 text-emerald-400" />
+              <ArrowDownCircle className="w-4 h-4 text-zinc-300" />
               <span>Instant Local Download</span>
             </h4>
             <p className="text-xs text-zinc-400 leading-relaxed">

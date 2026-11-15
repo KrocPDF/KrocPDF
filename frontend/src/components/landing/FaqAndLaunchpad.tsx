@@ -59,7 +59,7 @@ export function FaqAndLaunchpad() {
       <div>
         <div className="text-center mb-12">
           <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-zinc-900 border border-zinc-800 text-xs font-mono text-zinc-300 mb-4">
-            <HelpCircle className="w-3.5 h-3.5 text-emerald-400" />
+            <HelpCircle className="w-3.5 h-3.5 text-zinc-300" />
             <span>Clear Answers</span>
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-zinc-100 tracking-tight mb-4">
@@ -115,12 +115,12 @@ export function FaqAndLaunchpad() {
           Cinematic Launchpad / Community CTA Banner
           ============================================ */}
       <div className="relative rounded-3xl p-8 sm:p-14 lg:p-16 bg-gradient-to-b from-zinc-900/90 to-zinc-950 border border-zinc-800/90 shadow-2xl text-center overflow-hidden scale-border-beam scale-crosshair scale-crosshair-tl scale-crosshair-tr scale-crosshair-bl scale-crosshair-br">
-        {/* Glow orb */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-48 bg-gradient-to-r from-emerald-500/20 via-sky-500/20 to-amber-500/20 blur-3xl pointer-events-none" />
+        {/* Subtle Monochrome Glow Orb */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-48 bg-white/5 blur-3xl pointer-events-none" />
 
         <div className="relative z-10 max-w-3xl mx-auto space-y-6">
           <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-zinc-900/80 border border-zinc-700/60 text-xs font-mono text-zinc-300">
-            <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
+            <Sparkles className="w-3.5 h-3.5 text-zinc-300" />
             <span>Democratizing Document Processing</span>
           </div>
 
@@ -157,7 +157,7 @@ export function FaqAndLaunchpad() {
           <div className="pt-6 max-w-xl mx-auto">
             <div className="flex items-center justify-between p-3 rounded-xl bg-zinc-950 border border-zinc-800/80 font-mono text-xs text-zinc-300 shadow-inner">
               <div className="flex items-center space-x-2 overflow-hidden mr-2">
-                <Terminal className="w-4 h-4 text-emerald-400 shrink-0" />
+                <Terminal className="w-4 h-4 text-zinc-300 shrink-0" />
                 <span className="text-zinc-500 select-none">$</span>
                 <span className="truncate text-zinc-300">{dockerCommand}</span>
               </div>
@@ -166,7 +166,7 @@ export function FaqAndLaunchpad() {
                 className="shrink-0 p-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-700 transition"
                 title="Copy Command"
               >
-                {copiedDocker ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
+                {copiedDocker ? <Check className="w-4 h-4 text-white" /> : <Copy className="w-4 h-4" />}
               </button>
             </div>
             <p className="text-[11px] font-mono text-zinc-500 mt-2">

@@ -70,7 +70,7 @@ curl -X POST https://krocpdf.com/api/convert \\
       {/* Header */}
       <div className="text-center mb-10">
         <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-zinc-900 border border-zinc-800 text-xs font-mono text-zinc-300 mb-4">
-          <Terminal className="w-3.5 h-3.5 text-sky-400" />
+          <Terminal className="w-3.5 h-3.5 text-zinc-300" />
           <span>Developer Telemetry Sandbox</span>
         </div>
         <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-zinc-100 tracking-tight mb-4">
@@ -90,7 +90,7 @@ curl -X POST https://krocpdf.com/api/convert \\
           <div className="flex-1 max-w-md">
             <div className="flex items-center justify-between mb-2">
               <label htmlFor="batch-slider" className="text-xs font-mono uppercase tracking-wider text-zinc-400 flex items-center space-x-2">
-                <Layers className="w-3.5 h-3.5 text-sky-400" />
+                <Layers className="w-3.5 h-3.5 text-zinc-300" />
                 <span>Batch Image Volume:</span>
               </label>
               <span className="text-sm font-mono font-bold text-white px-2.5 py-0.5 rounded bg-zinc-900 border border-zinc-700">
@@ -116,19 +116,19 @@ curl -X POST https://krocpdf.com/api/convert \\
           {/* Real-time Telemetry Metrics Chips */}
           <div className="flex flex-wrap items-center gap-3">
             <div className="flex items-center space-x-2 px-3.5 py-2 rounded-xl bg-zinc-950 border border-zinc-800 font-mono text-xs">
-              <Clock className="w-4 h-4 text-emerald-400" />
+              <Clock className="w-4 h-4 text-zinc-300" />
               <span className="text-zinc-400">Est. Latency:</span>
               <strong className="text-zinc-100">{estimatedTimeMs} ms</strong>
             </div>
 
             <div className="flex items-center space-x-2 px-3.5 py-2 rounded-xl bg-zinc-950 border border-zinc-800 font-mono text-xs">
-              <Database className="w-4 h-4 text-sky-400" />
+              <Database className="w-4 h-4 text-zinc-300" />
               <span className="text-zinc-400">Peak Heap:</span>
               <strong className="text-zinc-100">{estimatedRamMb} MB</strong>
             </div>
 
             <div className="flex items-center space-x-2 px-3.5 py-2 rounded-xl bg-zinc-950 border border-zinc-800 font-mono text-xs">
-              <Activity className="w-4 h-4 text-amber-400" />
+              <Activity className="w-4 h-4 text-zinc-300" />
               <span className="text-zinc-400">Throughput:</span>
               <strong className="text-zinc-100">~120 MB/s</strong>
             </div>
@@ -181,7 +181,7 @@ curl -X POST https://krocpdf.com/api/convert \\
               onClick={handleCopy}
               className="flex items-center space-x-2 px-4 py-2 rounded-xl text-xs font-semibold bg-zinc-800 hover:bg-zinc-700 text-zinc-200 border border-zinc-700 transition-all"
             >
-              {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+              {copied ? <Check className="w-3.5 h-3.5 text-zinc-200" /> : <Copy className="w-3.5 h-3.5" />}
               <span>{copied ? 'Copied!' : 'Copy cURL'}</span>
             </button>
           )}
@@ -189,11 +189,11 @@ curl -X POST https://krocpdf.com/api/convert \\
 
         {/* Terminal Screen Stage */}
         <div className="relative rounded-2xl bg-[#08080a] border border-zinc-800/90 p-5 sm:p-6 font-mono text-xs overflow-hidden shadow-inner">
-          {/* Terminal Window Dots */}
+          {/* Terminal Window Dots (Clean Monochrome) */}
           <div className="flex items-center space-x-2 mb-4 pb-3 border-b border-zinc-900">
-            <span className="w-2.5 h-2.5 rounded-full bg-red-500/80" />
-            <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/80" />
-            <span className="w-2.5 h-2.5 rounded-full bg-green-500/80" />
+            <span className="w-2.5 h-2.5 rounded-full bg-zinc-700" />
+            <span className="w-2.5 h-2.5 rounded-full bg-zinc-800" />
+            <span className="w-2.5 h-2.5 rounded-full bg-zinc-800" />
             <span className="text-[11px] text-zinc-500 ml-2">bash — krocpdf-engine-telemetry v2.1.0</span>
           </div>
 
@@ -205,18 +205,18 @@ curl -X POST https://krocpdf.com/api/convert \\
                   <span className="text-zinc-600 select-none">&gt;</span>
                   <span className={clsx(
                     line.includes('[BENCH]') || line.includes('complete')
-                      ? "text-emerald-400 font-bold"
+                      ? "text-white font-bold"
                       : line.includes('[INIT]') || line.includes('[READY]')
-                        ? "text-zinc-400"
-                        : "text-zinc-200"
+                        ? "text-zinc-500"
+                        : "text-zinc-300"
                   )}>
                     {line}
                   </span>
                 </div>
               ))}
               {isCrunching && (
-                <div className="flex items-center space-x-2 text-sky-400 animate-pulse pt-2">
-                  <span className="inline-block w-2 h-4 bg-sky-400 animate-ping" />
+                <div className="flex items-center space-x-2 text-zinc-300 animate-pulse pt-2">
+                  <span className="inline-block w-2 h-4 bg-zinc-200 animate-pulse" />
                   <span>Assembly pipeline active...</span>
                 </div>
               )}
