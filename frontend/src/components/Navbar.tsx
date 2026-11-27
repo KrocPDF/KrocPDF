@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 import { Menu, X, LogIn, UserPlus } from 'lucide-react';
 import { GithubIcon } from '@/components/icons/GithubIcon';
+import { AndroidIcon } from '@/components/icons/AndroidIcon';
 import clsx from 'clsx';
 import { getActiveTools, toolCards } from '@/lib/seoConfigs';
 
@@ -91,6 +92,19 @@ export function Navbar() {
             >
               <GithubIcon className="w-5 h-5" />
             </a>
+            <a
+              href="/downloads/KROC_APK.apk"
+              download="KROC_APK.apk"
+              className="px-3 py-1.5 text-sm font-medium text-zinc-300 hover:text-white transition-all rounded-lg hover:bg-zinc-800/60 border border-zinc-800 hover:border-zinc-700 flex items-center space-x-2 group shadow-sm"
+              aria-label="Download Android App"
+              title="Download KrocPDF Android Beta (APK)"
+            >
+              <AndroidIcon className="w-4 h-4 text-emerald-400 group-hover:scale-110 transition-transform" />
+              <span>Download App</span>
+              <span className="text-[9px] uppercase tracking-wider px-1.5 py-0.5 rounded bg-zinc-800/80 border border-zinc-700/60 text-zinc-400 font-medium">
+                Beta
+              </span>
+            </a>
             <Link
               href="/login"
               className="px-3.5 py-1.5 text-sm font-medium text-zinc-300 hover:text-white transition-colors rounded-lg hover:bg-zinc-800/60 flex items-center"
@@ -174,6 +188,22 @@ export function Navbar() {
           >
             <GithubIcon className="w-4 h-4 mr-3" />
             GitHub
+          </a>
+
+          <a
+            href="/downloads/KROC_APK.apk"
+            download="KROC_APK.apk"
+            role="menuitem"
+            className="flex items-center justify-between px-4 py-2.5 rounded-lg text-sm text-zinc-300 hover:text-white hover:bg-zinc-900 transition-colors border border-zinc-800/80 mb-2"
+            aria-label="Download Android App"
+          >
+            <div className="flex items-center">
+              <AndroidIcon className="w-4 h-4 mr-3 text-emerald-400" />
+              <span>Download Android App</span>
+            </div>
+            <span className="text-[9px] uppercase tracking-wider px-1.5 py-0.5 rounded bg-zinc-800 border border-zinc-700 text-zinc-400 font-medium">
+              Beta APK
+            </span>
           </a>
 
           <div className="flex space-x-2 px-4 pt-2">
