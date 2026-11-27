@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
-import { Menu, X, LogIn, UserPlus } from 'lucide-react';
+import { Menu, X, LogIn, UserPlus, Download } from 'lucide-react';
 import { GithubIcon } from '@/components/icons/GithubIcon';
 import clsx from 'clsx';
 import { getActiveTools, toolCards } from '@/lib/seoConfigs';
@@ -20,6 +20,7 @@ export function Navbar() {
       className="fixed top-0 left-0 right-0 z-50 glass"
       role="navigation"
       aria-label="Main navigation"
+      suppressHydrationWarning
     >
       <div className="w-full px-4 sm:px-8 lg:px-12 xl:px-16">
         <div className="flex items-center justify-between h-16">
@@ -83,13 +84,23 @@ export function Navbar() {
           {/* Desktop Right Actions */}
           <div className="hidden md:flex items-center space-x-3">
             <a
-              href="https://github.com/alokprashar864/jpg_to_pdf"
+              href="https://github.com/KrocPDF/KrocPDF"
               target="_blank"
               rel="noopener noreferrer"
               className="p-2 text-zinc-400 hover:text-zinc-100 transition-colors rounded-lg hover:bg-zinc-800/60"
               aria-label="View on GitHub"
             >
               <GithubIcon className="w-5 h-5" />
+            </a>
+            <a
+              href="/api/download/android"
+              download="KROC_APK.apk"
+              className="px-3.5 py-1.5 text-sm font-medium text-zinc-300 hover:text-white transition-colors rounded-lg hover:bg-zinc-800/60 flex items-center"
+              aria-label="Download Android App"
+              title="Download Android App (APK)"
+            >
+              <Download className="w-4 h-4 inline mr-1.5" />
+              App
             </a>
             <Link
               href="/login"
@@ -166,7 +177,7 @@ export function Navbar() {
           <hr className="border-zinc-800 my-3" />
 
           <a
-            href="https://github.com/alokprashar864/jpg_to_pdf"
+            href="https://github.com/KrocPDF/KrocPDF"
             target="_blank"
             rel="noopener noreferrer"
             role="menuitem"
@@ -174,6 +185,17 @@ export function Navbar() {
           >
             <GithubIcon className="w-4 h-4 mr-3" />
             GitHub
+          </a>
+
+          <a
+            href="/api/download/android"
+            download="KROC_APK.apk"
+            role="menuitem"
+            onClick={() => setMobileOpen(false)}
+            className="flex items-center px-4 py-3 rounded-lg text-sm text-zinc-400 hover:text-white hover:bg-zinc-900 transition-colors"
+          >
+            <Download className="w-4 h-4 mr-3" />
+            Download Android App
           </a>
 
           <div className="flex space-x-2 px-4 pt-2">

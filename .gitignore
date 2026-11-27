@@ -37,6 +37,7 @@ bin/
 .DS_Store
 Thumbs.db
 *.swp
+/*.zip
 
 # IDEs and Editors
 .vscode/
