@@ -8,7 +8,6 @@ import { Menu, X, LogIn, UserPlus, Download } from 'lucide-react';
 import { GithubIcon } from '@/components/icons/GithubIcon';
 import clsx from 'clsx';
 import { getActiveTools, toolCards } from '@/lib/seoConfigs';
-import { ANDROID_APK_DOWNLOAD_URL } from '@/lib/api';
 
 export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -85,7 +84,7 @@ export function Navbar() {
           {/* Desktop Right Actions */}
           <div className="hidden md:flex items-center space-x-3">
             <a
-              href="https://github.com/alokprashar864/jpg_to_pdf"
+              href="https://github.com/KrocPDF/KrocPDF"
               target="_blank"
               rel="noopener noreferrer"
               className="p-2 text-zinc-400 hover:text-zinc-100 transition-colors rounded-lg hover:bg-zinc-800/60"
@@ -94,7 +93,7 @@ export function Navbar() {
               <GithubIcon className="w-5 h-5" />
             </a>
             <a
-              href={ANDROID_APK_DOWNLOAD_URL}
+              href="/api/download/android"
               download="KROC_APK.apk"
               className="px-3.5 py-1.5 text-sm font-medium text-zinc-300 hover:text-white transition-colors rounded-lg hover:bg-zinc-800/60 flex items-center"
               aria-label="Download Android App"
@@ -178,7 +177,7 @@ export function Navbar() {
           <hr className="border-zinc-800 my-3" />
 
           <a
-            href="https://github.com/alokprashar864/jpg_to_pdf"
+            href="https://github.com/KrocPDF/KrocPDF"
             target="_blank"
             rel="noopener noreferrer"
             role="menuitem"
@@ -189,7 +188,7 @@ export function Navbar() {
           </a>
 
           <a
-            href={ANDROID_APK_DOWNLOAD_URL}
+            href="/api/download/android"
             download="KROC_APK.apk"
             role="menuitem"
             onClick={() => setMobileOpen(false)}
