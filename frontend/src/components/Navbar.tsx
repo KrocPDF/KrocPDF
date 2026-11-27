@@ -8,6 +8,7 @@ import { Menu, X, LogIn, UserPlus, Download } from 'lucide-react';
 import { GithubIcon } from '@/components/icons/GithubIcon';
 import clsx from 'clsx';
 import { getActiveTools, toolCards } from '@/lib/seoConfigs';
+import { ANDROID_APK_DOWNLOAD_URL } from '@/lib/api';
 
 export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -92,7 +93,7 @@ export function Navbar() {
               <GithubIcon className="w-5 h-5" />
             </a>
             <a
-              href="/downloads/KROC_APK.apk"
+              href={ANDROID_APK_DOWNLOAD_URL}
               download="KROC_APK.apk"
               className="p-2 text-zinc-400 hover:text-zinc-100 transition-colors rounded-lg hover:bg-zinc-800/60"
               aria-label="Download Android App"
@@ -186,7 +187,7 @@ export function Navbar() {
           </a>
 
           <a
-            href="/downloads/KROC_APK.apk"
+            href={ANDROID_APK_DOWNLOAD_URL}
             download="KROC_APK.apk"
             role="menuitem"
             onClick={() => setMobileOpen(false)}
