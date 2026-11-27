@@ -27,7 +27,7 @@ export function Navbar() {
           {/* Logo */}
           <Link
             href="/"
-            className="flex items-center space-x-2.5 group shrink-0"
+            className="flex items-center space-x-2.5 group"
             aria-label="KrocPDF Home"
           >
             <div className="relative w-8 h-8 rounded-lg flex items-center justify-center">
@@ -49,14 +49,14 @@ export function Navbar() {
           </Link>
 
           {/* Desktop Tool Links */}
-          <div className="hidden lg:flex items-center space-x-1 shrink-0">
+          <div className="hidden lg:flex items-center space-x-1">
             {activeTools.map((tool) => (
               <Link
                 key={tool.slug}
                 href={`/${tool.slug}`}
                 aria-current={pathname === `/${tool.slug}` ? 'page' : undefined}
                 className={clsx(
-                  "px-3 py-1.5 text-sm font-medium rounded-lg border transition-all duration-150 whitespace-nowrap",
+                  "px-3 py-1.5 text-sm font-medium rounded-lg border transition-all duration-150",
                   pathname === `/${tool.slug}`
                     ? "bg-zinc-800 text-zinc-100 border-zinc-700 shadow-sm"
                     : "text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800/60 border-transparent"
@@ -71,7 +71,7 @@ export function Navbar() {
               <span
                 key={tool.slug}
                 title={`${tool.name} (Coming Soon)`}
-                className="px-2.5 py-1.5 text-xs font-medium text-zinc-500 hover:text-zinc-400 select-none flex items-center space-x-1.5 cursor-not-allowed transition-colors whitespace-nowrap"
+                className="px-2.5 py-1.5 text-xs font-medium text-zinc-500 hover:text-zinc-400 select-none flex items-center space-x-1.5 cursor-not-allowed transition-colors"
               >
                 <span>{tool.name}</span>
                 <span className="text-[9px] uppercase tracking-wider px-1.5 py-0.5 rounded bg-zinc-800/80 border border-zinc-700/60 text-zinc-400">
@@ -82,7 +82,7 @@ export function Navbar() {
           </div>
 
           {/* Desktop Right Actions */}
-          <div className="hidden md:flex items-center space-x-3 shrink-0">
+          <div className="hidden md:flex items-center space-x-3">
             <a
               href="https://github.com/alokprashar864/jpg_to_pdf"
               target="_blank"
@@ -95,15 +95,16 @@ export function Navbar() {
             <a
               href={ANDROID_APK_DOWNLOAD_URL}
               download="KROC_APK.apk"
-              className="p-2 text-zinc-400 hover:text-zinc-100 transition-colors rounded-lg hover:bg-zinc-800/60"
+              className="px-3.5 py-1.5 text-sm font-medium text-zinc-300 hover:text-white transition-colors rounded-lg hover:bg-zinc-800/60 flex items-center"
               aria-label="Download Android App"
               title="Download Android App (APK)"
             >
-              <Download className="w-5 h-5" />
+              <Download className="w-4 h-4 inline mr-1.5" />
+              App
             </a>
             <Link
               href="/login"
-              className="px-3.5 py-1.5 text-sm font-medium text-zinc-300 hover:text-white transition-colors rounded-lg hover:bg-zinc-800/60 flex items-center whitespace-nowrap"
+              className="px-3.5 py-1.5 text-sm font-medium text-zinc-300 hover:text-white transition-colors rounded-lg hover:bg-zinc-800/60 flex items-center"
               aria-label="Log in"
             >
               <LogIn className="w-4 h-4 inline mr-1.5" />
@@ -111,7 +112,7 @@ export function Navbar() {
             </Link>
             <Link
               href="/signup"
-              className="px-3.5 py-1.5 text-sm font-semibold bg-zinc-100 text-zinc-950 rounded-lg hover:bg-white hover:shadow-md transition-all flex items-center shadow-sm whitespace-nowrap"
+              className="px-3.5 py-1.5 text-sm font-semibold bg-zinc-100 text-zinc-950 rounded-lg hover:bg-white hover:shadow-md transition-all flex items-center shadow-sm"
               aria-label="Sign up"
             >
               <UserPlus className="w-4 h-4 inline mr-1.5" />
